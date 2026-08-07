@@ -1,75 +1,236 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "stylodyna_hero": {
+      "type": "stylodyna-hero",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "trust_1": {
+          "type": "trust_item",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "icon": "leaf",
+            "heading": "Sustainable choices",
+            "text": "Responsibly sourced materials."
           }
         },
-        "button": {
-          "type": "buttons",
+        "trust_2": {
+          "type": "trust_item",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "icon": "shield",
+            "heading": "Quality craftsmanship",
+            "text": "Built to last. Designed to be loved."
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "truck",
+            "heading": "Fast and reliable delivery",
+            "text": "Delivered with care, right to your home."
+          }
+        },
+        "trust_4": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "return",
+            "heading": "Easy returns",
+            "text": "Hassle-free return support."
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4"
       ],
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "hero_height": "medium",
+        "desktop_content_position": "left",
+        "desktop_content_alignment": "middle",
+        "text_alignment": "left",
+        "eyebrow_1": "MODERN LIVING. TIMELESS DESIGN.",
+        "heading_1": "The Art of Everyday Living",
+        "description_1": "<p>Thoughtfully designed furniture and décor that transform houses into homes and everyday moments into lasting memories.</p>",
+        "button_label": "Explore Collections",
+        "enable_overlay": true,
+        "overlay_color": "#000000",
+        "overlay_opacity": 35,
+        "overlay_direction": "left-to-right",
+        "show_trust_strip": true
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "stylodyna_featured_collections": {
+      "type": "stylodyna-featured-collections",
+      "blocks": {
+        "card_1": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Living Room",
+            "subtitle": "COLLECTION"
+          }
+        },
+        "card_2": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Bedroom",
+            "subtitle": "COLLECTION"
+          }
+        },
+        "card_3": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Dining",
+            "subtitle": "COLLECTION"
+          }
+        },
+        "card_4": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Home Office",
+            "subtitle": "COLLECTION"
+          }
+        },
+        "card_5": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Lighting",
+            "subtitle": "COLLECTION"
+          }
+        },
+        "card_6": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Wall Décor",
+            "subtitle": "COLLECTION"
+          }
+        },
+        "card_7": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Storage",
+            "subtitle": "COLLECTION"
+          }
+        },
+        "card_8": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Outdoor Living",
+            "subtitle": "COLLECTION"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4",
+        "card_5",
+        "card_6",
+        "card_7",
+        "card_8"
+      ],
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "eyebrow": "SHOP BY COLLECTION",
+        "heading": "Discover Every Space",
+        "description": "<p>Explore thoughtfully curated collections designed to bring timeless comfort and refined living into every corner of your home.</p>",
+        "columns_desktop": "4",
+        "columns_mobile": "1",
+        "card_gap": 24,
+        "image_radius": 6,
+        "enable_hover_animation": true,
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "stylodyna_brand_story": {
+      "type": "stylodyna-brand-story",
+      "settings": {
+        "eyebrow": "OUR STORY",
+        "heading": "Designed for Homes,\nCrafted for Living.",
+        "main_text": "<p>StyloDyna was created with a simple belief: every home should reflect the people who live in it. Inspired by timeless British design and contemporary Scandinavian simplicity, we curate furniture and décor that bring warmth, comfort, and refined character to everyday living.</p>",
+        "supporting_text": "<p>Every collection is selected with thoughtful design, quality craftsmanship, and real-life functionality at its core.</p>",
+        "button_label": "Discover Our Story",
+        "image_position": "left",
+        "image_focal_point": "center",
+        "image_radius": 4,
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "stylodyna_why_choose": {
+      "type": "stylodyna-why-choose",
+      "blocks": {
+        "card_1": {
+          "type": "trust_card",
+          "settings": {
+            "number": "01",
+            "icon": "leaf",
+            "title": "Timeless Design",
+            "description": "Modern British and Scandinavian-inspired furniture curated to remain elegant beyond changing trends."
+          }
+        },
+        "card_2": {
+          "type": "trust_card",
+          "settings": {
+            "number": "02",
+            "icon": "shield",
+            "title": "Premium Craftsmanship",
+            "description": "Quality materials, refined finishes, and products selected for everyday durability and lasting value."
+          }
+        },
+        "card_3": {
+          "type": "trust_card",
+          "settings": {
+            "number": "03",
+            "icon": "truck",
+            "title": "Reliable Delivery",
+            "description": "Carefully packaged and delivered across Pakistan with attention to safety and customer satisfaction."
+          }
+        },
+        "card_4": {
+          "type": "trust_card",
+          "settings": {
+            "number": "04",
+            "icon": "heart",
+            "title": "Dedicated Support",
+            "description": "Friendly assistance before and after your purchase to make your shopping experience simple and enjoyable."
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ],
+      "settings": {
+        "eyebrow": "WHY CHOOSE STYLODYNA",
+        "heading": "Thoughtfully Designed.\nProfessionally Delivered.",
+        "supporting_text": "<p>Every collection is carefully selected to combine timeless aesthetics, dependable quality, and an effortless shopping experience—helping you create a home you'll enjoy for years to come.</p>",
+        "enable_animation": true,
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "stylodyna_about": {
+      "type": "stylodyna-about",
+      "settings": {
+        "heading": "About Us",
+        "description": "<p>At StyloDyna, we believe every home should reflect comfort, style, and personality. We carefully curate modern furniture, home décor, and lifestyle essentials that combine quality, functionality, and timeless design.</p>",
+        "show_nav_controls": true,
+        "show_review_badge": true,
+        "review_rating": "5.0",
+        "review_text": "Clients Review",
+        "button_label": "Explore Collection",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "stylodyna_hero",
+    "stylodyna_featured_collections",
+    "stylodyna_brand_story",
+    "stylodyna_why_choose",
+    "stylodyna_about"
   ]
 }

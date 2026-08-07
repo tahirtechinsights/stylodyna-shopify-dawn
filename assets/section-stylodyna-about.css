@@ -1,0 +1,280 @@
+/* StyloDyna About Us Section Styles */
+.stylodyna-about__container {
+  max-width: var(--page-width, 1200px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stylodyna-about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+/* Left Column: Media Gallery */
+.stylodyna-about__media-col {
+  width: 100%;
+}
+
+.stylodyna-about__cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.stylodyna-about__card-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Image Card Height (500px-520px) & Coverage */
+.stylodyna-about__image-container {
+  border-radius: 2.4rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 500px;
+  max-height: 520px;
+  background-color: rgba(var(--color-foreground), 0.04);
+}
+
+.stylodyna-about__image {
+  border-radius: 2.4rem;
+  display: block;
+  height: 100% !important;
+  width: 100% !important;
+  object-fit: cover !important;
+  object-position: center;
+}
+
+/* Navigation Buttons */
+.stylodyna-about__nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.stylodyna-about__nav-btn {
+  align-items: center;
+  background-color: rgba(var(--color-foreground), 0.1);
+  border: 0;
+  border-radius: 50%;
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  display: inline-flex;
+  height: 4rem;
+  justify-content: center;
+  padding: 0;
+  transition: background-color var(--duration-short) ease, color var(--duration-short) ease, transform var(--duration-short) ease;
+  width: 4rem;
+}
+
+.stylodyna-about__nav-btn:hover {
+  background-color: rgb(var(--color-foreground));
+  color: rgb(var(--color-background));
+}
+
+.stylodyna-about__nav-btn .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(90deg);
+}
+
+.stylodyna-about__nav-btn--next .svg-wrapper {
+  transform: rotate(-90deg);
+}
+
+.stylodyna-about__nav-btn--next {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.stylodyna-about__nav-btn--next:hover {
+  background-color: #222222;
+}
+
+/* Review Badge Overlapping Image 2 */
+.stylodyna-about__review-badge-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: -2.4rem;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.stylodyna-about__review-badge {
+  align-items: center;
+  background-color: #ffffff;
+  border: 0.1rem solid rgba(var(--color-foreground), 0.15);
+  border-radius: 3rem;
+  box-shadow: 0 0.4rem 1.6rem rgba(0, 0, 0, 0.08);
+  color: #111111;
+  display: inline-flex;
+  gap: 0.6rem;
+  padding: 0.8rem 1.8rem;
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.stylodyna-about__review-rating {
+  font-weight: 700;
+}
+
+.stylodyna-about__review-star {
+  color: #f59e0b;
+  font-size: 1.5rem;
+}
+
+.stylodyna-about__review-label {
+  color: #444444;
+}
+
+/* Text Area */
+.stylodyna-about__content-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.stylodyna-about__heading {
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-heading-family);
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 2rem;
+}
+
+.stylodyna-about__description {
+  color: rgba(var(--color-foreground), 0.75);
+  font-family: var(--font-body-family);
+  font-size: 1.8rem;
+  line-height: 1.6;
+  margin-bottom: 2.8rem;
+  max-width: 58rem;
+}
+
+.stylodyna-about__description p {
+  margin: 0 0 1rem;
+}
+
+/* CTA Button Refinements */
+.stylodyna-about__button-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-top: 1.2rem;
+  outline: none !important;
+  padding: 0 !important;
+  width: auto;
+}
+
+.stylodyna-about__button.button {
+  align-items: center !important;
+  background-color: rgb(var(--color-button, 0, 0, 0)) !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  box-shadow: none !important;
+  color: rgb(var(--color-button-text, 255, 255, 255)) !important;
+  cursor: pointer;
+  display: inline-flex !important;
+  font-family: var(--font-heading-family);
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  gap: 1.2rem !important; /* 12px spacing from text */
+  height: 5.2rem !important; /* 52px height */
+  min-height: 5.2rem !important;
+  justify-content: center !important;
+  letter-spacing: 0.02rem !important; /* 0.2px letter spacing */
+  min-width: 24rem !important; /* 240px min width */
+  outline: none !important;
+  padding: 0 3.2rem !important; /* 32px horizontal padding */
+  position: relative;
+  text-decoration: none !important;
+  text-transform: none !important;
+  transition: background-color 200ms ease, transform 200ms ease, opacity 200ms ease !important;
+  width: auto;
+}
+
+.stylodyna-about__button.button::before,
+.stylodyna-about__button.button::after {
+  content: none !important;
+  display: none !important;
+}
+
+.stylodyna-about__button.button:hover {
+  background-color: rgb(var(--color-button, 34, 34, 34)) !important;
+  opacity: 0.92 !important;
+  transform: translateY(-0.2rem) !important; /* Lifts 2px */
+}
+
+.stylodyna-about__button.button:focus-visible {
+  outline: 0.2rem solid rgb(var(--color-foreground)) !important;
+  outline-offset: 0.3rem !important;
+}
+
+.stylodyna-about__btn-arrow {
+  align-items: center;
+  display: inline-flex;
+  height: 1.8rem;
+  justify-content: center;
+  transition: transform 200ms ease;
+  width: 1.8rem;
+}
+
+.stylodyna-about__button.button:hover .stylodyna-about__btn-arrow {
+  transform: translateX(0.4rem);
+}
+
+/* Responsive Queries */
+@media screen and (max-width: 989px) {
+  .stylodyna-about__grid {
+    grid-template-columns: 1fr;
+    gap: 4.8rem;
+  }
+
+  .stylodyna-about__image-container {
+    height: 440px;
+  }
+
+  .stylodyna-about__heading {
+    font-size: 3.2rem;
+  }
+
+  .stylodyna-about__description {
+    font-size: 1.6rem;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-about__cards-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .stylodyna-about__image-container {
+    height: 380px;
+  }
+
+  .stylodyna-about__button-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .stylodyna-about__button.button {
+    max-width: 32rem !important; /* 320px max width on mobile */
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}

@@ -1,500 +1,536 @@
 {% comment %}theme-check-disable UndefinedObject{% endcomment %}
+<!-- StyloDyna Custom Footer -->
 {{ 'section-footer.css' | asset_url | stylesheet_tag }}
+{{ 'component-footer.css' | asset_url | stylesheet_tag }}
 {{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-menu.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .footer {
+  .footer--{{ section.id }} {
+    --stylodyna-footer-bg: {% if section.settings.footer_background != blank %}{{ section.settings.footer_background }}{% else %}transparent{% endif %};
+    --stylodyna-footer-text: {% if section.settings.footer_text_color != blank %}{{ section.settings.footer_text_color }}{% else %}rgb(var(--color-foreground)){% endif %};
+    --stylodyna-footer-heading: {% if section.settings.heading_color != blank %}{{ section.settings.heading_color }}{% else %}rgb(var(--color-foreground)){% endif %};
+    --stylodyna-footer-width: {{ section.settings.container_width }}px;
     margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
   }
 
-  .section-{{ section.id }}-padding {
+  .footer--{{ section.id }} .stylodyna-footer__inner {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
   @media screen and (min-width: 750px) {
-    .footer {
+    .footer--{{ section.id }} {
       margin-top: {{ section.settings.margin_top }}px;
     }
-
-    .section-{{ section.id }}-padding {
+    .footer--{{ section.id }} .stylodyna-footer__inner {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
 {%- endstyle -%}
 
-<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-  {%- liquid
-    assign has_social_icons = true
-    if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
-      assign has_social_icons = false
-    endif
+{%- liquid
+  assign has_social_icons = true
+  if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
+    assign has_social_icons = false
+  endif
+-%}
 
-    if settings.brand_image == blank and settings.brand_headline == blank and settings.brand_description == blank
-      assign brand_empty = true
-    endif
-
-    if section.blocks.size == 1 and section.blocks[0].type == 'brand_information' and brand_empty and has_social_icons == false and section.settings.newsletter_enable == false and section.settings.enable_follow_on_shop == false
-      assign only_empty_brand = true
-    endif
-  -%}
-  {%- if section.blocks.size > 0
-    or section.settings.newsletter_enable
-    or section.settings.show_social
-    and has_social_icons == true
-    or section.settings.enable_follow_on_shop
-  -%}
-    {%- unless only_empty_brand -%}
-      <div class="footer__content-top page-width">
-        {%- if section.blocks.size > 0 -%}
-          {%- liquid
-            if section.blocks.size == 9
-              assign footer_grid_class = 'grid--3-col-tablet'
-            elsif section.blocks.size > 6
-              assign footer_grid_class = 'grid--4-col-desktop'
-            elsif section.blocks.size > 4
-              assign footer_grid_class = 'grid--3-col-tablet'
-            endif
-          -%}
-          <div
-            class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-            {% if settings.animations_reveal_on_scroll %}
-              data-cascade
-            {% endif %}
-          >
-            {%- for block in section.blocks -%}
-              <div
-                class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
-              >
-                {%- if block.settings.heading != blank -%}
-                  <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
-                {%- endif -%}
-
-                {%- case block.type -%}
-                  {%- when '@app' -%}
-                    {% render block %}
-                  {%- when 'text' -%}
-                    <div class="footer-block__details-content rte">
-                      {{ block.settings.subtext }}
-                    </div>
-                  {%- when 'link_list' -%}
-                    {%- if block.settings.menu != blank -%}
-                      <ul class="footer-block__details-content list-unstyled">
-                        {%- for link in block.settings.menu.links -%}
-                          <li>
-                            <a
-                              href="{{ link.url }}"
-                              class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
-                            >
-                              {{ link.title | escape }}
-                            </a>
-                          </li>
-                        {%- endfor -%}
-                      </ul>
-                    {%- endif -%}
-                  {%- when 'brand_information' -%}
-                    <div class="footer-block__brand-info">
-                      {%- if settings.brand_image != blank -%}
-                        {%- assign brand_image_height = settings.brand_image_width
-                          | divided_by: settings.brand_image.aspect_ratio
-                        -%}
-                        <div
-                          class="footer-block__image-wrapper"
-                          style="max-width: min(100%, {{ settings.brand_image_width }}px);"
-                        >
-                          {{
-                            settings.brand_image
-                            | image_url: width: 1100
-                            | image_tag:
-                              loading: 'lazy',
-                              widths: '50, 100, 150, 200, 300, 400, 550, 800, 1100',
-                              height: brand_image_height,
-                              width: settings.brand_image_width
-                          }}
-                        </div>
-                      {%- endif -%}
-                      {%- if settings.brand_headline != blank -%}
-                        <h2 class="footer-block__heading rte">{{ settings.brand_headline }}</h2>
-                      {%- endif -%}
-                      {%- if settings.brand_description != blank -%}
-                        <div class="rte">{{ settings.brand_description }}</div>
-                      {%- endif -%}
-                      {%- if block.settings.show_social and has_social_icons -%}
-                        {%- render 'social-icons', class: 'footer__list-social' -%}
-                      {%- endif -%}
-                    </div>
-                  {%- when 'image' -%}
-                    <div class="footer-block__details-content footer-block-image {{ block.settings.alignment }}">
-                      {%- if block.settings.image != blank -%}
-                        {%- assign image_size_2x = block.settings.image_width | times: 2 | at_most: 5760 -%}
-                        <div
-                          class="footer-block__image-wrapper"
-                          style="max-width: min(100%, {{ block.settings.image_width }}px);"
-                        >
-                          <img
-                            srcset="{{ block.settings.image | image_url: width: block.settings.image_width }}, {{ block.settings.image | image_url: width: image_size_2x }} 2x"
-                            src="{{ block.settings.image | image_url: width: 760 }}"
-                            alt="{{ block.settings.image.alt | escape }}"
-                            loading="lazy"
-                            width="{{ block.settings.image.width }}"
-                            height="{{ block.settings.image.height }}"
-                          >
-                        </div>
-                      {%- else -%}
-                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
-                      {%- endif -%}
-                    </div>
-                {%- endcase -%}
-              </div>
-            {%- endfor -%}
-          </div>
+<footer class="footer footer--{{ section.id }} color-{{ section.settings.color_scheme }} gradient" role="contentinfo">
+  <div class="page-width stylodyna-footer__inner">
+    <div class="stylodyna-footer__grid">
+      <!-- Column 1: Store Branding & Contact Details -->
+      <section class="stylodyna-footer__column stylodyna-footer__contact" aria-label="{{ section.settings.contact_heading | escape }}">
+        {%- if section.settings.logo != blank -%}
+          {%- assign logo_height = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio -%}
+          {{ section.settings.logo | image_url: width: 600 | image_tag:
+            class: 'stylodyna-footer__logo',
+            widths: '50, 100, 150, 200, 300, 400, 600',
+            width: section.settings.logo_width,
+            height: logo_height,
+            loading: 'lazy',
+            alt: shop.name
+          }}
+        {%- elsif settings.brand_image != blank -%}
+          {%- assign brand_image_height = settings.brand_image_width | divided_by: settings.brand_image.aspect_ratio -%}
+          {{ settings.brand_image | image_url: width: 600 | image_tag:
+            class: 'stylodyna-footer__logo',
+            widths: '50, 100, 150, 200, 300, 400, 600',
+            width: settings.brand_image_width,
+            height: brand_image_height,
+            loading: 'lazy',
+            alt: shop.name
+          }}
+        {%- elsif section.settings.store_name != blank -%}
+          <h2 class="stylodyna-footer__store-name">{{ section.settings.store_name | escape }}</h2>
         {%- endif -%}
 
-        <div
-          class="footer-block--newsletter{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if settings.animations_reveal_on_scroll %}
-            data-cascade
-          {% endif %}
-        >
-          {%- if section.settings.newsletter_enable -%}
-            <div class="footer-block__newsletter">
-              {%- if section.settings.newsletter_heading != blank -%}
-                <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
-              {%- endif -%}
-              {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
-                <input type="hidden" name="contact[tags]" value="newsletter">
-                <div class="newsletter-form__field-wrapper">
-                  <div class="field">
-                    <input
-                      id="NewsletterForm--{{ section.id }}"
-                      type="email"
-                      name="contact[email]"
-                      class="field__input"
-                      value="{{ form.email }}"
-                      aria-required="true"
-                      autocorrect="off"
-                      autocapitalize="off"
-                      autocomplete="email"
-                      {% if form.errors %}
-                        autofocus
-                        aria-invalid="true"
-                        aria-describedby="ContactFooter-error"
-                      {% elsif form.posted_successfully? %}
-                        aria-describedby="ContactFooter-success"
-                      {% endif %}
-                      placeholder="{{ 'newsletter.label' | t }}"
-                      required
-                    >
-                    <label class="field__label" for="NewsletterForm--{{ section.id }}">
-                      {{ 'newsletter.label' | t }}
-                    </label>
-                    <button
-                      type="submit"
-                      class="newsletter-form__button field__button"
-                      name="commit"
-                      id="Subscribe"
-                      aria-label="{{ 'newsletter.button_label' | t }}"
-                    >
-                      <span class="svg-wrapper">
-                        {{- 'icon-arrow.svg' | inline_asset_content -}}
-                      </span>
-                    </button>
-                  </div>
-                  {%- if form.errors -%}
-                    <small class="newsletter-form__message form__message" id="ContactFooter-error">
-                      <span class="svg-wrapper">
-                        {{- 'icon-error.svg' | inline_asset_content -}}
-                      </span>
-                      {{- form.errors.translated_fields.email | capitalize }}
-                      {{ form.errors.messages.email -}}
-                    </small>
-                  {%- endif -%}
-                </div>
-                {%- if form.posted_successfully? -%}
-                  <h3
-                    class="newsletter-form__message newsletter-form__message--success form__message"
-                    id="ContactFooter-success"
-                    tabindex="-1"
-                    autofocus
-                  >
-                    <span class="svg-wrapper">
-                      {{- 'icon-success.svg' | inline_asset_content -}}
-                    </span>
-                    {{- 'newsletter.success' | t }}
-                  </h3>
-                {%- endif -%}
-              {%- endform -%}
-            </div>
+        <div class="stylodyna-footer__contact-details rte">
+          {%- if section.settings.address != blank -%}
+            <p class="stylodyna-footer__address">{{ section.settings.address | newline_to_br }}</p>
           {%- endif -%}
-
-          {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
-            <div class="footer__follow-on-shop">
-              {{ shop | login_button: action: 'follow' }}
-            </div>
+          {%- if section.settings.phone != blank -%}
+            <p class="stylodyna-footer__phone">
+              <a href="tel:{{ section.settings.phone | remove: ' ' | escape }}">{{ section.settings.phone | escape }}</a>
+            </p>
           {%- endif -%}
-
-          {%- if section.settings.show_social and has_social_icons -%}
-            {%- render 'social-icons', class: 'footer__list-social' -%}
+          {%- if section.settings.email != blank -%}
+            <p class="stylodyna-footer__email">
+              <a href="mailto:{{ section.settings.email | escape }}">{{ section.settings.email | escape }}</a>
+            </p>
           {%- endif -%}
         </div>
-      </div>
-    {%- endunless -%}
-  {%- endif -%}
 
-  <div
-    class="footer__content-bottom{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-    {% if settings.animations_reveal_on_scroll %}
-      data-cascade
-    {% endif %}
-  >
-    <div class="footer__content-bottom-wrapper page-width">
-      <div class="footer__column footer__localization isolate">
-        {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
-          <localization-form>
-            {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
-              <div>
-                <h2 class="caption-large text-body" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
-                {%- render 'country-localization', localPosition: 'FooterCountry' -%}
+        {%- if section.settings.show_social -%}
+          {%- if has_social_icons -%}
+            {%- render 'social-icons', class: 'footer__list-social stylodyna-footer__social' -%}
+          {%- else -%}
+            <ul class="list-unstyled list-social footer__list-social stylodyna-footer__social" role="list">
+              <li class="list-social__item">
+                <a href="#" class="link list-social__link" aria-label="Instagram">
+                  <span class="svg-wrapper">{{- 'icon-instagram.svg' | inline_asset_content -}}</span>
+                </a>
+              </li>
+              <li class="list-social__item">
+                <a href="#" class="link list-social__link" aria-label="TikTok">
+                  <span class="svg-wrapper">{{- 'icon-tiktok.svg' | inline_asset_content -}}</span>
+                </a>
+              </li>
+              <li class="list-social__item">
+                <a href="#" class="link list-social__link" aria-label="YouTube">
+                  <span class="svg-wrapper">{{- 'icon-youtube.svg' | inline_asset_content -}}</span>
+                </a>
+              </li>
+              <li class="list-social__item">
+                <a href="#" class="link list-social__link" aria-label="Twitter / X">
+                  <span class="svg-wrapper">{{- 'icon-twitter.svg' | inline_asset_content -}}</span>
+                </a>
+              </li>
+              <li class="list-social__item">
+                <a href="#" class="link list-social__link" aria-label="Facebook">
+                  <span class="svg-wrapper">{{- 'icon-facebook.svg' | inline_asset_content -}}</span>
+                </a>
+              </li>
+            </ul>
+          {%- endif -%}
+        {%- endif -%}
+      </section>
+
+      <!-- Column 2: Company Navigation -->
+      <nav class="stylodyna-footer__column stylodyna-footer__nav" aria-label="{{ section.settings.company_heading | default: 'Company' | escape }}">
+        {%- if section.settings.company_heading != blank -%}
+          <h2 class="stylodyna-footer__heading">{{ section.settings.company_heading | escape }}</h2>
+        {%- endif -%}
+        <ul class="list-unstyled stylodyna-footer__menu" role="list">
+          {%- if section.settings.company_menu != blank and section.settings.company_menu.links.size > 0 -%}
+            {%- for link in section.settings.company_menu.links -%}
+              <li>
+                <a class="link stylodyna-footer__link" href="{{ link.url }}">{{ link.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a class="link stylodyna-footer__link" href="#">About Us</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Our Stores</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Contact Us</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Size Guide</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">My Account</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+
+      <!-- Column 3: Customer Service Navigation -->
+      <nav class="stylodyna-footer__column stylodyna-footer__nav" aria-label="{{ section.settings.service_heading | default: 'Customer Service' | escape }}">
+        {%- if section.settings.service_heading != blank -%}
+          <h2 class="stylodyna-footer__heading">{{ section.settings.service_heading | escape }}</h2>
+        {%- endif -%}
+        <ul class="list-unstyled stylodyna-footer__menu" role="list">
+          {%- if section.settings.service_menu != blank and section.settings.service_menu.links.size > 0 -%}
+            {%- for link in section.settings.service_menu.links -%}
+              <li>
+                <a class="link stylodyna-footer__link" href="{{ link.url }}">{{ link.title | escape }}</a>
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            <li><a class="link stylodyna-footer__link" href="#">Privacy Policy</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Refund Policy</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Shipping &amp; Return</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Term &amp; Conditions</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Advanced Search</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Theme FAQs</a></li>
+            <li><a class="link stylodyna-footer__link" href="#">Store Locations</a></li>
+          {%- endif -%}
+        </ul>
+      </nav>
+
+      <!-- Column 4: Newsletter Subscription Form -->
+      <section class="stylodyna-footer__column stylodyna-footer__newsletter" aria-label="{{ section.settings.newsletter_heading | escape }}">
+        {%- if section.settings.newsletter_heading != blank -%}
+          <h2 class="stylodyna-footer__heading">{{ section.settings.newsletter_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.newsletter_description != blank -%}
+          <div class="stylodyna-footer__newsletter-description rte">
+            {{ section.settings.newsletter_description }}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.newsletter_enable -%}
+          {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form stylodyna-footer__form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="newsletter-form__field-wrapper stylodyna-footer__newsletter-fields">
+              <div class="field stylodyna-footer__field">
+                <input
+                  id="NewsletterForm--{{ section.id }}"
+                  type="email"
+                  name="contact[email]"
+                  class="field__input stylodyna-footer__input"
+                  value="{{ form.email }}"
+                  aria-required="true"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  autocomplete="email"
+                  {% if form.errors %}
+                    autofocus
+                    aria-invalid="true"
+                    aria-describedby="ContactFooter-error"
+                  {% elsif form.posted_successfully? %}
+                    aria-describedby="ContactFooter-success"
+                  {% endif %}
+                  placeholder="Enter your email..."
+                  required
+                >
+                <label class="field__label stylodyna-footer__label visually-hidden" for="NewsletterForm--{{ section.id }}">Enter your email...</label>
+                <button
+                  type="submit"
+                  class="newsletter-form__button field__button stylodyna-footer__button"
+                  name="commit"
+                  id="Subscribe"
+                  aria-label="{{ 'newsletter.button_label' | t }}"
+                >
+                  SUBSCRIBE
+                </button>
               </div>
-            {%- endform -%}
-          </localization-form>
+              {%- if form.errors -%}
+                <small class="newsletter-form__message form__message" id="ContactFooter-error">
+                  <span class="svg-wrapper">{{- 'icon-error.svg' | inline_asset_content -}}</span>
+                  {{- form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email -}}
+                </small>
+              {%- endif -%}
+            </div>
+            {%- if form.posted_successfully? -%}
+              <h3
+                class="newsletter-form__message newsletter-form__message--success form__message"
+                id="ContactFooter-success"
+                tabindex="-1"
+                autofocus
+              >
+                <span class="svg-wrapper">{{- 'icon-success.svg' | inline_asset_content -}}</span>
+                {{- 'newsletter.success' | t -}}
+              </h3>
+            {%- endif -%}
+          {%- endform -%}
+        {%- endif -%}
+      </section>
+    </div>
+  </div>
+
+  <!-- Bottom Bar: Selectors, Copyright, Payment Icons -->
+  <div class="stylodyna-footer__bottom">
+    <div class="page-width stylodyna-footer__bottom-inner">
+      <div class="stylodyna-footer__localization isolate">
+        {%- if section.settings.enable_language_selector -%}
+          {%- if localization.available_languages.size > 1 -%}
+            <localization-form>
+              {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
+                <div>
+                  <h2 class="caption-large text-body visually-hidden" id="FooterLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+                  {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
+                </div>
+              {%- endform -%}
+            </localization-form>
+          {%- else -%}
+            <div class="stylodyna-footer__locale-dummy">
+              <span class="stylodyna-footer__locale-text">{{ localization.language.endonym_name | default: 'English' }}</span>
+              <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+            </div>
+          {%- endif -%}
         {%- endif -%}
 
-        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-          <localization-form>
-            {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
-              <div>
-                <h2 class="caption-large text-body" id="FooterLanguageLabel">
-                  {{ 'localization.language_label' | t }}
-                </h2>
-                {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
-              </div>
-            {%- endform -%}
-          </localization-form>
+        {%- if section.settings.enable_country_selector -%}
+          {%- if localization.available_countries.size > 1 -%}
+            <localization-form>
+              {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
+                <div>
+                  <h2 class="caption-large text-body visually-hidden" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
+                  {%- render 'country-localization', localPosition: 'FooterCountry' -%}
+                </div>
+              {%- endform -%}
+            </localization-form>
+          {%- else -%}
+            <div class="stylodyna-footer__locale-dummy">
+              <span class="stylodyna-footer__locale-text">{{ localization.country.name | default: 'United States' }} ({{ localization.country.currency.iso_code | default: 'USD' }} {{ localization.country.currency.symbol | default: '$' }})</span>
+              <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+            </div>
+          {%- endif -%}
         {%- endif -%}
       </div>
-      <div class="footer__column footer__column--info">
-        {%- if section.settings.payment_enable -%}
-          <div class="footer__payment">
-            <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
-            <ul class="list list-payment" role="list">
+
+      <p class="stylodyna-footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ section.settings.copyright_name | default: shop.name | escape }}. {{ section.settings.copyright_suffix | escape }}
+      </p>
+
+      {%- if section.settings.payment_enable -%}
+        <div class="footer__payment stylodyna-footer__payment">
+          <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
+          <ul class="list list-payment" role="list">
+            {%- if shop.enabled_payment_types.size > 0 -%}
               {%- for type in shop.enabled_payment_types -%}
                 <li class="list-payment__item">
                   {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
                 </li>
               {%- endfor -%}
-            </ul>
-          </div>
-        {%- endif -%}
-      </div>
-    </div>
-    <div class="footer__content-bottom-wrapper page-width{% if section.settings.enable_country_selector == false and section.settings.enable_language_selector == false %} footer__content-bottom-wrapper--center{% endif %}">
-      <div class="footer__copyright caption">
-        <small class="copyright__content"
-          >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}}
-        </small>
-        <small class="copyright__content">{{ powered_by_link }}</small>
-        {%- if section.settings.show_policy -%}
-          <ul class="policies list-unstyled">
-            {%- for policy in shop.policies -%}
-              {%- if policy != blank -%}
-                <li>
-                  <small class="copyright__content"
-                    ><a href="{{ policy.url }}">{{ policy.title | escape }}</a></small
-                  >
+            {%- else -%}
+              {%- assign sample_payment_types = 'visa,master,discover,american_express,cirrus,paypal' | split: ',' -%}
+              {%- for type in sample_payment_types -%}
+                <li class="list-payment__item">
+                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
                 </li>
-              {%- endif -%}
-            {%- endfor -%}
+              {%- endfor -%}
+            {%- endif -%}
           </ul>
-        {%- endif -%}
-      </div>
+        </div>
+      {%- endif -%}
     </div>
   </div>
+
+  <!-- Back To Top Button -->
+  {%- if section.settings.enable_back_to_top -%}
+    <button
+      type="button"
+      class="stylodyna-back-to-top"
+      data-stylodyna-back-to-top
+      aria-label="{{ section.settings.back_to_top_label | escape }}"
+      hidden
+    >
+      <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+    </button>
+
+    <script>
+      (() => {
+        const button = document.querySelector('[data-stylodyna-back-to-top]');
+        if (!button || button.dataset.stylodynaBound) return;
+        button.dataset.stylodynaBound = 'true';
+        const toggle = () => {
+          if (window.scrollY > 300) {
+            button.removeAttribute('hidden');
+            button.classList.add('is-visible');
+          } else {
+            button.setAttribute('hidden', '');
+            button.classList.remove('is-visible');
+          }
+        };
+        window.addEventListener('scroll', toggle, { passive: true });
+        toggle();
+        button.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      })();
+    </script>
+  {%- endif -%}
 </footer>
 
 {% schema %}
 {
-  "name": "t:sections.footer.name",
-  "blocks": [
-    {
-      "type": "@app"
-    },
-    {
-      "type": "link_list",
-      "name": "t:sections.footer.blocks.link_list.name",
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.footer.blocks.link_list.settings.heading.default",
-          "label": "t:sections.footer.blocks.link_list.settings.heading.label"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "default": "footer",
-          "label": "t:sections.footer.blocks.link_list.settings.menu.label"
-        }
-      ]
-    },
-    {
-      "type": "brand_information",
-      "name": "t:sections.footer.blocks.brand_information.name",
-      "settings": [
-        {
-          "type": "paragraph",
-          "content": "t:sections.footer.blocks.brand_information.settings.paragraph.content"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_social",
-          "default": true,
-          "label": "t:sections.footer.blocks.brand_information.settings.show_social.label",
-          "info": "t:sections.footer.blocks.brand_information.settings.show_social.info"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": "t:sections.footer.blocks.text.name",
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.footer.blocks.text.settings.heading.default",
-          "label": "t:sections.footer.blocks.text.settings.heading.label"
-        },
-        {
-          "type": "richtext",
-          "id": "subtext",
-          "default": "t:sections.footer.blocks.text.settings.subtext.default",
-          "label": "t:sections.footer.blocks.text.settings.subtext.label"
-        }
-      ]
-    },
-    {
-      "type": "image",
-      "name": "Image",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "range",
-          "id": "image_width",
-          "min": 50,
-          "max": 550,
-          "step": 5,
-          "unit": "px",
-          "label": "Width",
-          "default": 100
-        },
-        {
-          "type": "select",
-          "id": "alignment",
-          "label": "Alignment",
-          "options": [
-            {
-              "value": "",
-              "label": "Left"
-            },
-            {
-              "value": "center",
-              "label": "Center"
-            },
-            {
-              "value": "right",
-              "label": "Right"
-            }
-          ],
-          "default": "center"
-        }
-      ]
-    }
-  ],
+  "name": "StyloDyna footer",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
+      "label": "Color scheme",
       "default": "scheme-1"
     },
     {
       "type": "header",
-      "content": "t:sections.footer.settings.header__1.content",
-      "info": "t:sections.footer.settings.header__1.info"
+      "content": "Column 1: Store & Contact"
     },
     {
-      "type": "checkbox",
-      "id": "newsletter_enable",
-      "default": true,
-      "label": "t:sections.footer.settings.newsletter_enable.label"
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Store Logo"
     },
     {
-      "type": "inline_richtext",
-      "id": "newsletter_heading",
-      "default": "t:sections.footer.settings.newsletter_heading.default",
-      "label": "t:sections.footer.settings.newsletter_heading.label"
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 120
     },
     {
-      "type": "header",
-      "content": "t:sections.footer.settings.header__9.content"
+      "type": "text",
+      "id": "store_name",
+      "label": "Store Name Fallback",
+      "default": "StyloDyna"
     },
     {
-      "type": "checkbox",
-      "id": "enable_follow_on_shop",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_follow_on_shop.label",
-      "info": "t:sections.footer.settings.enable_follow_on_shop.info"
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact Column ARIA Label",
+      "default": "Contact information"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "392-A Jubilee Town, Canal Road,Lahore"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+222-1800-2628"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email Address",
+      "default": "contact@stylodyna.com"
     },
     {
       "type": "checkbox",
       "id": "show_social",
-      "default": true,
-      "label": "t:sections.footer.settings.show_social.label",
-      "info": "t:sections.footer.settings.show_social.info"
+      "label": "Show Social Icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Column 2: Company Menu"
+    },
+    {
+      "type": "text",
+      "id": "company_heading",
+      "label": "Company Heading",
+      "default": "Company"
+    },
+    {
+      "type": "link_list",
+      "id": "company_menu",
+      "label": "Company Menu"
+    },
+    {
+      "type": "header",
+      "content": "Column 3: Customer Service Menu"
+    },
+    {
+      "type": "text",
+      "id": "service_heading",
+      "label": "Customer Service Heading",
+      "default": "Customer Service"
+    },
+    {
+      "type": "link_list",
+      "id": "service_menu",
+      "label": "Customer Service Menu"
+    },
+    {
+      "type": "header",
+      "content": "Column 4: Newsletter"
     },
     {
       "type": "checkbox",
-      "id": "enable_country_selector",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_country_selector.label",
-      "info": "t:sections.footer.settings.enable_country_selector.info"
+      "id": "newsletter_enable",
+      "label": "Enable Newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter Heading",
+      "default": "Sign Up to Newsletter"
+    },
+    {
+      "type": "richtext",
+      "id": "newsletter_description",
+      "label": "Newsletter Description",
+      "default": "<p>Enter your email address to get $10 off your first order and free shipping.Updates information on Sales and Offers.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Bar"
     },
     {
       "type": "checkbox",
       "id": "enable_language_selector",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_language_selector.label",
-      "info": "t:sections.footer.settings.enable_language_selector.info"
+      "label": "Enable Language Selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_country_selector",
+      "label": "Enable Country / Currency Selector",
+      "default": true
     },
     {
       "type": "checkbox",
       "id": "payment_enable",
-      "default": true,
-      "label": "t:sections.footer.settings.payment_enable.label"
+      "label": "Show Payment Icons",
+      "default": true
     },
     {
-      "type": "checkbox",
-      "id": "show_policy",
-      "default": true,
-      "label": "t:sections.footer.settings.show_policy.label",
-      "info": "t:sections.footer.settings.show_policy.info"
+      "type": "text",
+      "id": "copyright_name",
+      "label": "Copyright Store Name",
+      "default": "StyloDyna"
+    },
+    {
+      "type": "text",
+      "id": "copyright_suffix",
+      "label": "Copyright Text Suffix",
+      "default": "All Rights Reserved"
     },
     {
       "type": "header",
-      "content": "t:sections.all.spacing"
+      "content": "Style & Layout Settings"
+    },
+    {
+      "type": "color",
+      "id": "footer_background",
+      "label": "Footer Background Color"
+    },
+    {
+      "type": "color",
+      "id": "footer_text_color",
+      "label": "Footer Text Color"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "min": 960,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Container Width",
+      "default": 1200
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_back_to_top",
+      "label": "Enable Back To Top Button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "back_to_top_label",
+      "label": "Back To Top Button Label",
+      "default": "Back to top"
     },
     {
       "type": "range",
@@ -503,43 +539,34 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.footer.settings.margin_top.label",
+      "label": "Top Margin",
       "default": 0
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "min": 0,
-      "max": 100,
+      "min": 20,
+      "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "label": "Top Padding",
+      "default": 64
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 0,
+      "min": 20,
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "label": "Bottom Padding",
+      "default": 48
     }
   ],
-  "default": {
-    "blocks": [
-      {
-        "type": "link_list"
-      },
-      {
-        "type": "text"
-      }
-    ]
-  }
+  "presets": [
+    {
+      "name": "StyloDyna footer"
+    }
+  ]
 }
 {% endschema %}

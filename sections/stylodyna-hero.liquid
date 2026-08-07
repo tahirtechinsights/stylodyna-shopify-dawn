@@ -1,0 +1,512 @@
+{% comment %}theme-check-disable UndefinedObject{% endcomment %}
+<!-- StyloDyna Hero Section (3-Slide Carousel) -->
+{{ 'section-stylodyna-hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'section-stylodyna-hero.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .hero-{{ section.id }} {
+    {%- if section.settings.enable_overlay -%}
+      --overlay-color: {{ section.settings.overlay_color }};
+      --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    {%- endif -%}
+  }
+{%- endstyle -%}
+
+<section
+  class="stylodyna-hero stylodyna-hero--{{ section.settings.hero_height }} hero-{{ section.id }}"
+  aria-label="{{ section.settings.heading_1 | default: 'StyloDyna Hero Slider' | escape }}"
+  data-autoplay="true"
+  data-speed="6000"
+>
+  <!-- Carousel Slides Wrapper -->
+  <div class="stylodyna-hero__slides-wrapper">
+    
+    <!-- Slide 1 -->
+    <div class="stylodyna-hero__slide is-active" data-slide-index="0">
+      <div class="stylodyna-hero__media-wrapper">
+        <picture class="stylodyna-hero__picture">
+          <source media="(max-width: 749px)" srcset="{{ 'sd-hero-001-bg-mobile.webp' | asset_url }}">
+          <img
+            class="stylodyna-hero__image"
+            src="{{ 'sd-hero-001-bg-desktop.webp' | asset_url }}"
+            alt="{{ section.settings.heading_1 | default: 'The Art of Everyday Living' | escape }}"
+            width="2400"
+            height="1350"
+            loading="eager"
+            fetchpriority="high"
+          >
+        </picture>
+      </div>
+      {%- if section.settings.enable_overlay -%}
+        <div class="stylodyna-hero__overlay"></div>
+      {%- endif -%}
+      <div class="page-width stylodyna-hero__content-container stylodyna-hero__content-container--h-{{ section.settings.desktop_content_position }} stylodyna-hero__content-container--v-{{ section.settings.desktop_content_alignment }}">
+        <div class="stylodyna-hero__content-box text-{{ section.settings.text_alignment }}">
+          {%- if section.settings.eyebrow_1 != blank -%}
+            <p class="stylodyna-hero__eyebrow">{{ section.settings.eyebrow_1 | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading_1 != blank -%}
+            <h1 class="stylodyna-hero__heading">{{ section.settings.heading_1 | escape }}</h1>
+          {%- endif -%}
+          {%- if section.settings.description_1 != blank -%}
+            <div class="stylodyna-hero__description rte">
+              {{ section.settings.description_1 }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank or section.settings.secondary_button_label != blank -%}
+            <div class="stylodyna-hero__buttons">
+              {%- if section.settings.button_label != blank -%}
+                <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="stylodyna-hero__button--primary">
+                  <span>{{ section.settings.button_label | escape }}</span>
+                  <span class="svg-wrapper">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </a>
+              {%- endif -%}
+              {%- if section.settings.secondary_button_label != blank -%}
+                <a href="{{ section.settings.secondary_button_link | default: '/pages/about-us' }}" class="stylodyna-hero__button--secondary">
+                  <span>{{ section.settings.secondary_button_label | escape }}</span>
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="stylodyna-hero__slide" data-slide-index="1">
+      <div class="stylodyna-hero__media-wrapper">
+        <picture class="stylodyna-hero__picture">
+          <source media="(max-width: 749px)" srcset="{{ 'sd-hero-002-bg-mobile.webp' | asset_url }}">
+          <img
+            class="stylodyna-hero__image"
+            src="{{ 'sd-hero-002-bg-desktop.webp' | asset_url }}"
+            alt="{{ section.settings.heading_2 | default: 'Spaces That Tell Your Story' | escape }}"
+            width="2400"
+            height="1350"
+            loading="lazy"
+          >
+        </picture>
+      </div>
+      {%- if section.settings.enable_overlay -%}
+        <div class="stylodyna-hero__overlay"></div>
+      {%- endif -%}
+      <div class="page-width stylodyna-hero__content-container stylodyna-hero__content-container--h-{{ section.settings.desktop_content_position }} stylodyna-hero__content-container--v-{{ section.settings.desktop_content_alignment }}">
+        <div class="stylodyna-hero__content-box text-{{ section.settings.text_alignment }}">
+          {%- if section.settings.eyebrow_2 != blank -%}
+            <p class="stylodyna-hero__eyebrow">{{ section.settings.eyebrow_2 | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading_2 != blank -%}
+            <h2 class="stylodyna-hero__heading">{{ section.settings.heading_2 | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description_2 != blank -%}
+            <div class="stylodyna-hero__description rte">
+              {{ section.settings.description_2 }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <div class="stylodyna-hero__buttons">
+              <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="stylodyna-hero__button--primary">
+                <span>{{ section.settings.button_label | escape }}</span>
+                <span class="svg-wrapper">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="stylodyna-hero__slide" data-slide-index="2">
+      <div class="stylodyna-hero__media-wrapper">
+        <picture class="stylodyna-hero__picture">
+          <source media="(max-width: 749px)" srcset="{{ 'sd-hero-003-bg-mobile.webp' | asset_url }}">
+          <img
+            class="stylodyna-hero__image"
+            src="{{ 'sd-hero-003-bg-desktop.webp' | asset_url }}"
+            alt="{{ section.settings.heading_3 | default: 'Designed for Everyday Comfort' | escape }}"
+            width="2400"
+            height="1350"
+            loading="lazy"
+          >
+        </picture>
+      </div>
+      {%- if section.settings.enable_overlay -%}
+        <div class="stylodyna-hero__overlay"></div>
+      {%- endif -%}
+      <div class="page-width stylodyna-hero__content-container stylodyna-hero__content-container--h-{{ section.settings.desktop_content_position }} stylodyna-hero__content-container--v-{{ section.settings.desktop_content_alignment }}">
+        <div class="stylodyna-hero__content-box text-{{ section.settings.text_alignment }}">
+          {%- if section.settings.eyebrow_3 != blank -%}
+            <p class="stylodyna-hero__eyebrow">{{ section.settings.eyebrow_3 | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading_3 != blank -%}
+            <h2 class="stylodyna-hero__heading">{{ section.settings.heading_3 | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description_3 != blank -%}
+            <div class="stylodyna-hero__description rte">
+              {{ section.settings.description_3 }}
+            </div>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <div class="stylodyna-hero__buttons">
+              <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="stylodyna-hero__button--primary">
+                <span>{{ section.settings.button_label | escape }}</span>
+                <span class="svg-wrapper">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Desktop Slider Controls & Pagination Dots -->
+  <div class="stylodyna-hero__controls page-width">
+    <button type="button" class="stylodyna-hero__arrow-btn stylodyna-hero__arrow-btn--prev" aria-label="Previous slide">
+      <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+    </button>
+    <div class="stylodyna-hero__pagination" role="tablist">
+      <button type="button" class="stylodyna-hero__dot is-active" role="tab" aria-label="Slide 1" data-slide-target="0"></button>
+      <button type="button" class="stylodyna-hero__dot" role="tab" aria-label="Slide 2" data-slide-target="1"></button>
+      <button type="button" class="stylodyna-hero__dot" role="tab" aria-label="Slide 3" data-slide-target="2"></button>
+    </div>
+    <button type="button" class="stylodyna-hero__arrow-btn stylodyna-hero__arrow-btn--next" aria-label="Next slide">
+      <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+    </button>
+  </div>
+
+  <!-- Trust Strip at Bottom of Hero -->
+  {%- if section.settings.show_trust_strip and section.blocks.size > 0 -%}
+    <div class="stylodyna-hero__trust-strip">
+      <div class="page-width">
+        <div class="stylodyna-hero__trust-grid">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'trust_item' -%}
+              <div class="stylodyna-hero__trust-item" {{ block.shopify_attributes }}>
+                <div class="stylodyna-hero__trust-icon">
+                  {%- case block.settings.icon -%}
+                    {%- when 'leaf' -%}
+                      <span class="svg-wrapper">{{ 'icon-leaf.svg' | inline_asset_content }}</span>
+                    {%- when 'shield' -%}
+                      <span class="svg-wrapper">{{ 'icon-padlock.svg' | inline_asset_content }}</span>
+                    {%- when 'truck' -%}
+                      <span class="svg-wrapper">{{ 'icon-truck.svg' | inline_asset_content }}</span>
+                    {%- when 'return' -%}
+                      <span class="svg-wrapper">{{ 'icon-reset.svg' | inline_asset_content }}</span>
+                    {%- when 'chair' -%}
+                      <span class="svg-wrapper">{{ 'icon-shirt.svg' | inline_asset_content }}</span>
+                    {%- else -%}
+                      <span class="svg-wrapper">{{ 'icon-leaf.svg' | inline_asset_content }}</span>
+                  {%- endcase -%}
+                </div>
+                <div class="stylodyna-hero__trust-text-content">
+                  {%- if block.settings.heading != blank -%}
+                    <h3 class="stylodyna-hero__trust-heading">
+                      {{ block.settings.heading | escape }}
+                    </h3>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <p class="stylodyna-hero__trust-subtext">
+                      {{ block.settings.text | escape }}
+                    </p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "StyloDyna hero",
+  "tag": "section",
+  "class": "section-stylodyna-hero-wrapper",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "hero_height",
+      "label": "Hero Height",
+      "options": [
+        { "value": "small", "label": "Small (600px)" },
+        { "value": "medium", "label": "Medium (760px)" },
+        { "value": "large", "label": "Large (860px)" },
+        { "value": "fullscreen", "label": "Full Screen" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "header",
+      "content": "Slide 1 Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_1",
+      "label": "Eyebrow 1",
+      "default": "MODERN LIVING. TIMELESS DESIGN."
+    },
+    {
+      "type": "text",
+      "id": "heading_1",
+      "label": "Heading 1",
+      "default": "The Art of Everyday Living"
+    },
+    {
+      "type": "richtext",
+      "id": "description_1",
+      "label": "Description 1",
+      "default": "<p>Thoughtfully designed furniture and décor that transform houses into homes and everyday moments into lasting memories.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Slide 2 Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_2",
+      "label": "Eyebrow 2",
+      "default": "CURATED COLLECTIONS"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Heading 2",
+      "default": "Spaces That Tell Your Story"
+    },
+    {
+      "type": "richtext",
+      "id": "description_2",
+      "label": "Description 2",
+      "default": "<p>Discover statement dining and living pieces crafted with sustainable materials and timeless Scandinavian precision.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Slide 3 Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_3",
+      "label": "Eyebrow 3",
+      "default": "SANCTUARY FURNITURE"
+    },
+    {
+      "type": "text",
+      "id": "heading_3",
+      "label": "Heading 3",
+      "default": "Designed for Everyday Comfort"
+    },
+    {
+      "type": "richtext",
+      "id": "description_3",
+      "label": "Description 3",
+      "default": "<p>Create cozy, restful spaces with our modern lounge collection built to elevate everyday living.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Content Positioning"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "label": "Desktop Content Horizontal Position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_alignment",
+      "label": "Desktop Content Vertical Alignment",
+      "options": [
+        { "value": "top", "label": "Top" },
+        { "value": "middle", "label": "Middle" },
+        { "value": "bottom", "label": "Bottom" }
+      ],
+      "default": "middle"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Primary Button Label",
+      "default": "Explore Collections"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary Button Label"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Overlay System"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_overlay",
+      "label": "Enable Image Overlay",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 35
+    },
+    {
+      "type": "select",
+      "id": "overlay_direction",
+      "label": "Overlay Gradient Direction",
+      "options": [
+        { "value": "left-to-right", "label": "Left to Right" },
+        { "value": "right-to-left", "label": "Right to Left" },
+        { "value": "top-to-bottom", "label": "Top to Bottom" },
+        { "value": "full", "label": "Full Solid Overlay" }
+      ],
+      "default": "left-to-right"
+    },
+    {
+      "type": "header",
+      "content": "Trust Strip"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_strip",
+      "label": "Show Trust Strip",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "leaf",
+          "options": [
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "truck", "label": "Delivery truck" },
+            { "value": "return", "label": "Returns" },
+            { "value": "chair", "label": "Furniture" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Quality craftsmanship"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Supporting text",
+          "default": "Built to last. Designed to be loved."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Optional link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "StyloDyna hero",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "leaf",
+            "heading": "Sustainable choices",
+            "text": "Responsibly sourced materials."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "shield",
+            "heading": "Quality craftsmanship",
+            "text": "Built to last. Designed to be loved."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "truck",
+            "heading": "Fast and reliable delivery",
+            "text": "Delivered with care, right to your home."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "return",
+            "heading": "Easy returns",
+            "text": "Hassle-free return support."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

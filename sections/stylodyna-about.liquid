@@ -1,0 +1,272 @@
+{% comment %}theme-check-disable UndefinedObject{% endcomment %}
+<!-- StyloDyna About Us Section -->
+{{ 'section-stylodyna-about.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width section-{{ section.id }}-padding stylodyna-about__container">
+    <div class="stylodyna-about__grid">
+      
+      <!-- Left Column: Image Cards & Overlays -->
+      <div class="stylodyna-about__media-col">
+        <div class="stylodyna-about__cards-grid">
+          
+          <!-- Card 1 -->
+          <div class="stylodyna-about__card-wrapper">
+            <div class="stylodyna-about__image-container media">
+              {%- if section.settings.image_1 != blank -%}
+                {%- assign image_1_height = section.settings.image_1.width | divided_by: section.settings.image_1.aspect_ratio -%}
+                {{ section.settings.image_1 | image_url: width: 800 | image_tag:
+                  loading: 'lazy',
+                  width: section.settings.image_1.width,
+                  height: image_1_height,
+                  class: 'stylodyna-about__image',
+                  widths: '300, 400, 600, 800',
+                  alt: section.settings.image_1.alt | default: 'StyloDyna About Image 1' | escape
+                }}
+              {%- else -%}
+                <img
+                  src="{{ 'about-1.jpg' | asset_url }}"
+                  alt="StyloDyna Lifestyle Furniture 1"
+                  loading="lazy"
+                  width="400"
+                  height="500"
+                  class="stylodyna-about__image"
+                >
+              {%- endif -%}
+            </div>
+            
+            {%- if section.settings.show_nav_controls -%}
+              <div class="stylodyna-about__nav-controls">
+                <button type="button" class="stylodyna-about__nav-btn" aria-label="Previous image">
+                  <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+                </button>
+                <button type="button" class="stylodyna-about__nav-btn stylodyna-about__nav-btn--next" aria-label="Next image">
+                  <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+                </button>
+              </div>
+            {%- endif -%}
+          </div>
+
+          <!-- Card 2 -->
+          <div class="stylodyna-about__card-wrapper">
+            <div class="stylodyna-about__image-container media">
+              {%- if section.settings.image_2 != blank -%}
+                {%- assign image_2_height = section.settings.image_2.width | divided_by: section.settings.image_2.aspect_ratio -%}
+                {{ section.settings.image_2 | image_url: width: 800 | image_tag:
+                  loading: 'lazy',
+                  width: section.settings.image_2.width,
+                  height: image_2_height,
+                  class: 'stylodyna-about__image',
+                  widths: '300, 400, 600, 800',
+                  alt: section.settings.image_2.alt | default: 'StyloDyna About Image 2' | escape
+                }}
+              {%- else -%}
+                <img
+                  src="{{ 'about-2.jpg' | asset_url }}"
+                  alt="StyloDyna Lifestyle Furniture 2"
+                  loading="lazy"
+                  width="400"
+                  height="500"
+                  class="stylodyna-about__image"
+                >
+              {%- endif -%}
+            </div>
+
+            {%- if section.settings.show_review_badge -%}
+              <div class="stylodyna-about__review-badge-wrapper">
+                <div class="stylodyna-about__review-badge">
+                  {%- if section.settings.review_rating != blank -%}
+                    <span class="stylodyna-about__review-rating">{{ section.settings.review_rating | escape }}</span>
+                  {%- endif -%}
+                  <span class="stylodyna-about__review-star">★</span>
+                  {%- if section.settings.review_text != blank -%}
+                    <span class="stylodyna-about__review-label">{{ section.settings.review_text | escape }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Text Content Area -->
+      <div class="stylodyna-about__content-col">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="stylodyna-about__heading {{ section.settings.heading_size }}">
+            {{ section.settings.heading | escape }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <div class="stylodyna-about__description rte">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.button_label != blank -%}
+          <div class="stylodyna-about__button-wrapper">
+            <a
+              {% if section.settings.button_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link }}"
+              {% endif %}
+              class="button button--primary stylodyna-about__button"
+            >
+              <span>{{ section.settings.button_label | escape }}</span>
+              <span class="svg-wrapper stylodyna-about__btn-arrow">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 9H16M16 9L9.5 2.5M16 9L9.5 15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "StyloDyna About",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "First Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Second Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav_controls",
+      "label": "Show navigation arrows below image 1",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Review Badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_review_badge",
+      "label": "Show review badge overlapping image 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "review_rating",
+      "label": "Review rating",
+      "default": "5.0"
+    },
+    {
+      "type": "text",
+      "id": "review_text",
+      "label": "Review text",
+      "default": "Clients Review"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "About Us"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        { "value": "h2", "label": "Small" },
+        { "value": "h1", "label": "Medium" },
+        { "value": "h0", "label": "Large" }
+      ],
+      "default": "h1",
+      "label": "Heading size"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>At StyloDyna, we craft timeless furniture that blends nature with modern design.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "StyloDyna About"
+    }
+  ]
+}
+{% endschema %}
