@@ -80,6 +80,17 @@
               alt: section.settings.image_alt | default: section.settings.image.alt | default: section.settings.heading | escape
             }}
           </div>
+        {%- else -%}
+          <div class="stylodyna-why-choose__visual-wrapper">
+            <img
+              src="{{ 'sd-collection-living-room.webp' | asset_url }}"
+              alt="{{ section.settings.image_alt | default: section.settings.heading | escape }}"
+              loading="lazy"
+              width="1200"
+              height="900"
+              class="stylodyna-why-choose__image"
+            >
+          </div>
         {%- endif -%}
       </div>
 

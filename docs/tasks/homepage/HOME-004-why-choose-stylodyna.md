@@ -106,6 +106,36 @@ WEB-001 documentation baseline & design reference [`docs/design-references/homep
 
 ---
 
+## HOME-004A — Lifestyle Visual Integration Refinement
+
+### Root Cause Analysis
+- **Observed Issue**: The approved lifestyle image was absent from the left editorial column in the storefront preview.
+- **Root Cause**:
+  1. `sections/stylodyna-why-choose.liquid` contained `{%- if section.settings.image != blank -%}` without a secondary theme asset fallback handler.
+  2. `templates/index.json` defined section instance `stylodyna_why_choose` without an initial `"image"` value assigned in settings.
+  3. Consequently, `section.settings.image` evaluated to `blank`, causing the visual wrapper to collapse on initial render.
+- **Classification**: `CONFIGURATION_GAP` & `LIQUID_DEFECT`
+- **Affected Viewports**: Desktop, Tablet, Mobile
+- **Affected Files**:
+  - [`sections/stylodyna-why-choose.liquid`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/sections/stylodyna-why-choose.liquid)
+  - [`templates/index.json`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/templates/index.json)
+  - [`docs/tasks/homepage/HOME-004-why-choose-stylodyna.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/tasks/homepage/HOME-004-why-choose-stylodyna.md)
+  - [`docs/CHANGELOG.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/CHANGELOG.md)
+
+### Chosen Remediation
+- Implemented a 2-tier Liquid image priority pipeline in [`sections/stylodyna-why-choose.liquid`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/sections/stylodyna-why-choose.liquid):
+  1. **Priority 1**: Theme Editor uploaded custom image (`section.settings.image` via `image_url` and `image_tag`, `loading: 'lazy'`).
+  2. **Priority 2 (Theme Asset Fallback)**: Existing approved theme asset `sd-collection-living-room.webp` via `asset_url`.
+- Configured graceful container collapse if both custom and asset fallbacks are absent.
+- Ensured Theme Editor full merchant control to pick, swap, or clear images.
+
+### Rejected Alternatives
+- Hardcoding the development documentation image (`why-choose-layout-reference-01.png`) into production `assets/` (Violates governance rule: reference images are development documentation only).
+- Generating new AI images (Violates task rule: do not generate new imagery).
+- Hardcoding static CDN URLs inside Liquid (Violates Shopify OS 2.0 standards).
+
+---
+
 ## 9. Rollback Plan
 Revert commit on `feature/home-004-why-choose` branch.
 

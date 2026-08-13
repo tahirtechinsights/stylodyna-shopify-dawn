@@ -7,10 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ## [Unreleased]
-### Added (HOME-004 Design-Reference Integration)
+### Added (HOME-004 Design-Reference Integration & HOME-004A Visual Remediation)
 - Implemented **Why Choose StyloDyna** homepage section (`sections/stylodyna-why-choose.liquid` and `assets/section-stylodyna-why-choose.css`) using the approved asymmetrical design reference (`docs/design-references/homepage/HOME-004/why-choose-layout-reference-01.png`).
-- Left Editorial Column: Eyebrow (`WHY CHOOSE STYLODYNA`), Heading (`Why Choose StyloDyna?`), Supporting copy, optional CTA, and merchant-configurable lifestyle visual (`image_picker`).
+- Left Editorial Column: Eyebrow (`WHY CHOOSE STYLODYNA`), Heading (`Why Choose StyloDyna?`), Supporting copy, optional CTA, and merchant-configurable lifestyle visual (`image_picker` with `sd-collection-living-room.webp` fallback).
 - Right Column: 2 × 2 Trust-Card Grid (`Timeless Design`, `Premium Craftsmanship`, `Reliable Delivery`, `Dedicated Support`) with soft ivory card containers (`#F7F5F0`), 2px stroke monochrome SVG line icons (`aria-hidden="true"`), and hover lift interaction.
+- Fixed HOME-004A lifestyle image visibility issue by establishing 2-tier fallback pipeline.
 - Established Design References Governance Framework under `docs/design-references/`.
 
 ---
