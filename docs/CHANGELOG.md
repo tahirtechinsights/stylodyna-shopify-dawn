@@ -7,8 +7,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ## [Unreleased]
-### Planned
-- `HOME-004`: Why Choose StyloDyna trust section implementation
+### Added (HOME-004 Design-Reference Integration)
+- Implemented **Why Choose StyloDyna** homepage section (`sections/stylodyna-why-choose.liquid` and `assets/section-stylodyna-why-choose.css`) using the approved asymmetrical design reference (`docs/design-references/homepage/HOME-004/why-choose-layout-reference-01.png`).
+- Left Editorial Column: Eyebrow (`WHY CHOOSE STYLODYNA`), Heading (`Why Choose StyloDyna?`), Supporting copy, optional CTA, and merchant-configurable lifestyle visual (`image_picker`).
+- Right Column: 2 × 2 Trust-Card Grid (`Timeless Design`, `Premium Craftsmanship`, `Reliable Delivery`, `Dedicated Support`) with soft ivory card containers (`#F7F5F0`), 2px stroke monochrome SVG line icons (`aria-hidden="true"`), and hover lift interaction.
+- Established Design References Governance Framework under `docs/design-references/`.
 
 ---
 

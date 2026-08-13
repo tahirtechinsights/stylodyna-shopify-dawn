@@ -39,7 +39,12 @@ Customer Experience (Editorial Commerce Interface)
 - **Section Scoping**: Each section is self-contained with its dedicated Liquid template in `sections/` and a corresponding modular CSS file in `assets/`.
 - **Merchant Editor Configuration**: Every visual component exposes structured settings, blocks, presets, and sensible defaults within the section `{% schema %}`.
 
-### 3. Modular Styling & Performance Pipeline
+### 4. Design References Framework
+- Frontend design tasks may incorporate visual inspiration assets stored in `docs/design-references/<domain>/<TASK-ID>/`.
+- Each reference directory contains visual image artifacts, a `README.md` adaptation matrix documenting elements to adopt, elements not to copy, and StyloDyna-specific design system mappings.
+- Reference images are strictly development documentation and must **NEVER** be committed to Shopify production `/assets`.
+
+### 5. Modular Styling & Performance Pipeline
 - Design tokens (`--stylo-warm-ivory`, `--stylo-charcoal`, `--stylo-brass`, etc.) are centralized in root stylesheets and section tokens.
 - Native Liquid filters (`image_tag`, `image_url`, `asset_url`) are leveraged to output optimized, responsive WebP image markup with `srcset` and lazy loading below the fold.
 - JavaScript is strictly minimized to essential interactive features (e.g. hero carousel rotation, mobile menu toggles, drawer state management) without external dependencies.

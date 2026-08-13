@@ -1,11 +1,12 @@
 {% comment %}theme-check-disable UndefinedObject{% endcomment %}
-<!-- StyloDyna Why Choose Section -->
+<!-- StyloDyna Why Choose Section — Editorial 2x2 Grid + Left Visual Architecture -->
 {{ 'section-stylodyna-why-choose.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+    --why-choose-radius: {{ section.settings.image_radius }}px;
   }
 
   @media screen and (min-width: 750px) {
@@ -23,85 +24,126 @@
   }
 {%- endstyle -%}
 
-<div class="stylodyna-why-choose section-{{ section.id }}-padding{% if section.settings.enable_animation %} stylodyna-why-choose--animated{% endif %}">
+<div class="stylodyna-why-choose section-{{ section.id }}-padding">
   <div class="stylodyna-why-choose__inner">
     
-    <!-- Section Header -->
-    <div class="stylodyna-why-choose__header">
-      {%- if section.settings.eyebrow != blank -%}
-        <p class="stylodyna-why-choose__eyebrow">{{ section.settings.eyebrow | escape }}</p>
-      {%- endif -%}
+    <div class="stylodyna-why-choose__split-container">
+      
+      <!-- Left Editorial Column -->
+      <div class="stylodyna-why-choose__left-col">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="stylodyna-why-choose__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
 
-      {%- if section.settings.heading != blank -%}
-        <h2 class="stylodyna-why-choose__heading">
-          {{ section.settings.heading | escape | newline_to_br }}
-        </h2>
-      {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="stylodyna-why-choose__heading">
+            {{ section.settings.heading | escape | newline_to_br }}
+          </h2>
+        {%- endif -%}
 
-      {%- if section.settings.supporting_text != blank -%}
-        <div class="stylodyna-why-choose__description rte">
-          {{ section.settings.supporting_text }}
-        </div>
-      {%- endif -%}
-    </div>
-
-    <!-- Trust Cards Grid -->
-    <div class="stylodyna-why-choose__grid">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'trust_card' -%}
-          <div class="stylodyna-why-choose__card" {{ block.shopify_attributes }}>
-            
-            <!-- Number Badge -->
-            {%- if block.settings.number != blank -%}
-              <span class="stylodyna-why-choose__number">{{ block.settings.number | escape }}</span>
-            {%- else -%}
-              <span class="stylodyna-why-choose__number">0{{ forloop.index }}</span>
-            {%- endif -%}
-
-            <!-- Soft Ivory Circular Icon Container (88px) -->
-            <div class="stylodyna-why-choose__icon-container">
-              <span class="stylodyna-why-choose__icon">
-                {%- case block.settings.icon -%}
-                  {%- when 'shield' -%}
-                    <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                  {%- when 'truck' -%}
-                    <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                      <rect x="1" y="3" width="15" height="13" rx="1"/>
-                      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
-                      <circle cx="5.5" cy="18.5" r="2.5"/>
-                      <circle cx="18.5" cy="18.5" r="2.5"/>
-                    </svg>
-                  {%- when 'heart' -%}
-                    <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                    </svg>
-                  {%- else -%}
-                    <!-- Leaf / Chair Line Icon -->
-                    <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M11 20A9 9 0 0 1 2 11 9 9 0 0 1 11 2c5 0 9 4 9 9"/>
-                      <path d="M11 2a9 9 0 0 1 9 9c0 5-4 9-9 9"/>
-                      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-                    </svg>
-                {%- endcase -%}
-              </span>
-            </div>
-
-            <!-- Card Content -->
-            {%- if block.settings.title != blank -%}
-              <h3 class="stylodyna-why-choose__card-title">{{ block.settings.title | escape }}</h3>
-            {%- endif -%}
-
-            {%- if block.settings.description != blank -%}
-              <p class="stylodyna-why-choose__card-body">{{ block.settings.description | escape }}</p>
-            {%- endif -%}
-
+        {%- if section.settings.supporting_text != blank -%}
+          <div class="stylodyna-why-choose__description rte">
+            {{ section.settings.supporting_text }}
           </div>
         {%- endif -%}
-      {%- endfor -%}
-    </div>
 
+        {%- if section.settings.show_button and section.settings.button_label != blank -%}
+          <div class="stylodyna-why-choose__button-wrapper">
+            <a
+              {% if section.settings.button_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link }}"
+              {% endif %}
+              class="button button--primary stylodyna-why-choose__button"
+            >
+              <span>{{ section.settings.button_label | escape }}</span>
+              <span class="svg-wrapper stylodyna-why-choose__btn-arrow">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        {%- endif -%}
+
+        <!-- Merchant-Configurable Lifestyle Visual -->
+        {%- if section.settings.image != blank -%}
+          <div class="stylodyna-why-choose__visual-wrapper">
+            {%- assign img_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio -%}
+            {{ section.settings.image | image_url: width: 1200 | image_tag:
+              loading: 'lazy',
+              width: section.settings.image.width,
+              height: img_height,
+              class: 'stylodyna-why-choose__image',
+              widths: '375, 550, 750, 990, 1200',
+              alt: section.settings.image_alt | default: section.settings.image.alt | default: section.settings.heading | escape
+            }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column: 2x2 Trust Grid -->
+      <div class="stylodyna-why-choose__right-col">
+        <div class="stylodyna-why-choose__grid">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'trust_card' -%}
+              <div class="stylodyna-why-choose__card" {{ block.shopify_attributes }}>
+                
+                <!-- Card Header (Number Badge + Icon Container) -->
+                <div class="stylodyna-why-choose__card-header">
+                  {%- if block.settings.number != blank -%}
+                    <span class="stylodyna-why-choose__number">{{ block.settings.number | escape }}</span>
+                  {%- else -%}
+                    <span class="stylodyna-why-choose__number">0{{ forloop.index }}</span>
+                  {%- endif -%}
+
+                  <div class="stylodyna-why-choose__icon-container">
+                    <span class="stylodyna-why-choose__icon">
+                      {%- case block.settings.icon -%}
+                        {%- when 'shield' -%}
+                          <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                          </svg>
+                        {%- when 'truck' -%}
+                          <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="3" width="15" height="13" rx="1"/>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+                            <circle cx="5.5" cy="18.5" r="2.5"/>
+                            <circle cx="18.5" cy="18.5" r="2.5"/>
+                          </svg>
+                        {%- when 'heart' -%}
+                          <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                          </svg>
+                        {%- else -%}
+                          <!-- Leaf / Design Line Icon -->
+                          <svg viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 20A9 9 0 0 1 2 11 9 9 0 0 1 11 2c5 0 9 4 9 9"/>
+                            <path d="M11 2a9 9 0 0 1 9 9c0 5-4 9-9 9"/>
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                          </svg>
+                      {%- endcase -%}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Card Content -->
+                {%- if block.settings.title != blank -%}
+                  <h3 class="stylodyna-why-choose__card-title">{{ block.settings.title | escape }}</h3>
+                {%- endif -%}
+
+                {%- if block.settings.description != blank -%}
+                  <p class="stylodyna-why-choose__card-body">{{ block.settings.description | escape }}</p>
+                {%- endif -%}
+
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -116,7 +158,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Section Header"
+      "content": "Section Header Settings"
     },
     {
       "type": "text",
@@ -128,19 +170,58 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Thoughtfully Designed.\nProfessionally Delivered."
+      "default": "Why Choose StyloDyna?"
     },
     {
       "type": "richtext",
       "id": "supporting_text",
       "label": "Supporting Text",
-      "default": "<p>Every collection is carefully selected to combine timeless aesthetics, dependable quality, and an effortless shopping experience—helping you create a home you'll enjoy for years to come.</p>"
+      "default": "<p>Thoughtfully selected pieces for considered spaces — combining timeless design, dependable quality and a more refined way to furnish your home.</p>"
+    },
+    {
+      "type": "header",
+      "content": "CTA Button"
     },
     {
       "type": "checkbox",
-      "id": "enable_animation",
-      "label": "Enable Entrance Animation",
-      "default": true
+      "id": "show_button",
+      "label": "Show CTA Button",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Explore Collections"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Left Lifestyle Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lifestyle Visual Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 16,
+      "step": 2,
+      "unit": "px",
+      "label": "Image Corner Radius",
+      "default": 6
     },
     {
       "type": "header",
@@ -184,10 +265,10 @@
           "id": "icon",
           "label": "SVG Line Icon",
           "options": [
-            { "value": "leaf", "label": "Leaf / Design" },
+            { "value": "leaf", "label": "Leaf / Timeless Design" },
             { "value": "shield", "label": "Shield / Craftsmanship" },
-            { "value": "truck", "label": "Truck / Delivery" },
-            { "value": "heart", "label": "Heart / Support" }
+            { "value": "truck", "label": "Truck / Reliable Delivery" },
+            { "value": "heart", "label": "Heart / Dedicated Support" }
           ],
           "default": "leaf"
         },
@@ -216,7 +297,7 @@
             "number": "01",
             "icon": "leaf",
             "title": "Timeless Design",
-            "description": "Modern British and Scandinavian-inspired furniture curated to remain elegant beyond changing trends."
+            "description": "Considered forms and versatile finishes created to complement modern interiors."
           }
         },
         {
@@ -225,7 +306,7 @@
             "number": "02",
             "icon": "shield",
             "title": "Premium Craftsmanship",
-            "description": "Quality materials, refined finishes, and products selected for everyday durability and lasting value."
+            "description": "A refined focus on materials, detailing and finishes that elevate everyday living."
           }
         },
         {
@@ -234,7 +315,7 @@
             "number": "03",
             "icon": "truck",
             "title": "Reliable Delivery",
-            "description": "Carefully packaged and delivered across Pakistan with attention to safety and customer satisfaction."
+            "description": "Clear, dependable delivery designed to make furnishing your space feel effortless."
           }
         },
         {
@@ -243,7 +324,7 @@
             "number": "04",
             "icon": "heart",
             "title": "Dedicated Support",
-            "description": "Friendly assistance before and after your purchase to make your shopping experience simple and enjoyable."
+            "description": "Helpful support before and after your order whenever you need guidance."
           }
         }
       ]
