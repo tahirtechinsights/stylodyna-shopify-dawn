@@ -11,11 +11,14 @@ This master index provides the central sitemap and reference index for all techn
 - **Active Governance Standard**: [ADR-001](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/decisions/ADR-001-independent-theme-evolution.md) (Accepted)
 - **Current Development Status**:
   - **WEB-001**: Storefront Development Documentation & Git Governance Baseline — **COMPLETE**
-  - **NEXT TASK**: `HOME-004 — Why Choose StyloDyna` (Pending Implementation)
+  - **HOME-004**: Why Choose StyloDyna (Design-Reference Integration & Redesign) — **IN PROGRESS**
 
 ---
 
 ## 2. Documentation Sitemap
+
+### Design References (`docs/design-references/`)
+- [`homepage/HOME-004/README.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/homepage/HOME-004/README.md) — Visual Reference Architecture & Adaptation Matrix for HOME-004
 
 ### Architecture (`docs/architecture/`)
 - [`STOREFRONT-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/STOREFRONT-ARCHITECTURE.md) — High-Level Data Flow, PIM Authority vs Storefront Layer

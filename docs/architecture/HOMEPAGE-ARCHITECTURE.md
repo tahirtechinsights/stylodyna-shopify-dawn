@@ -21,8 +21,8 @@ Homepage Main Sequence (`templates/index.json` order):
    ├── 56% / 44% split editorial layout (Storefront artwork asset `sd-brand-story-storefront.webp`)
    └── Editorial typography, #8A6A43 eyebrow, #1F1F1F CTA button
 4. `stylodyna_why_choose` (`sections/stylodyna-why-choose.liquid`)
-   ├── 4-Column Desktop Trust Grid with rgba(0,0,0,0.08) vertical column dividers
-   └── 88px soft ivory circular containers (#F7F5F0) rendering 2px stroke monochrome SVG line icons
+   ├── Asymmetrical Editorial Split Layout (Left: Eyebrow, Heading, Copy, CTA, Lifestyle visual; Right: 2x2 Trust Grid)
+   └── 4 Trust Cards (Timeless Design, Premium Craftsmanship, Reliable Delivery, Dedicated Support) with 2px stroke SVG line icons
 5. `stylodyna_about` (`sections/stylodyna-about.liquid`)
    ├── 2-Column editorial about layout with card gallery & review rating badge
    └── Exploration CTA button

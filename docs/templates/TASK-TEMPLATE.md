@@ -4,6 +4,7 @@
 - **Task ID**: `[DOMAIN]-[NUMBER]` (e.g. `WEB-001`, `HOME-004`)
 - **Title**: [Task Title]
 - **Domain**: [governance / homepage / header / footer / product / collection / cart / qa]
+- **Design References**: `docs/design-references/[domain]/[TASK-ID]/`
 - **Status**: [DRAFT / IN PROGRESS / QA REVIEW / COMPLETE]
 - **Git Branch**: `[branch-name]`
 - **Git Commit**: `[commit message]`
