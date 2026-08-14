@@ -35,7 +35,14 @@ Customer Experience (Editorial Commerce Interface)
 - **Theme Standard**: The StyloDyna Liquid theme is strictly a **presentation and customer interaction layer**. The theme must **NOT** become the product information system of record. Hardcoded product details, manual spec sheets inside section settings, or non-canonical product data structures within section schemas are prohibited.
 
 ### 2. Shopify Online Store 2.0 Standards
-- **JSON Templates**: All page templates (`templates/*.json`) utilize Online Store 2.0 JSON structures enabling merchants to dynamically reorder, add, and configure sections without code modifications.
+- **JSON Templates**: All page templates (`templates/*.json`) utilize Online Store 2.0 JSON structures enabling merchants to dynamically reorder, add, and configure sections
+
+### 3. Storefront Component Architecture
+- **Section Group Header**: Controlled by `sections/header-group.json`.
+- **Two-Tier Header Communication System**:
+  - **Tier 1 (Utility Bar)**: Dark Charcoal (`#1F1F1F`) contact bar rendering persistent support details (`tel:`, `mailto:`, WhatsApp URL).
+  - **Tier 2 (Dynamic Announcement Bar)**: Soft Ivory (`#F7F5F0`) carousel rendering customer-facing trust and delivery announcements with controlled 6-second rotation.
+- **Main Header & Transparent Navigation**: Sticky header engine calculates position without offset jump.
 - **Section Scoping**: Each section is self-contained with its dedicated Liquid template in `sections/` and a corresponding modular CSS file in `assets/`.
 - **Merchant Editor Configuration**: Every visual component exposes structured settings, blocks, presets, and sensible defaults within the section `{% schema %}`.
 

@@ -124,3 +124,189 @@
     color: var(--stylo-charcoal, #2E2E2E) !important;
   }
 }
+
+/* ==========================================================================
+   HEADER-001 — TWO-TIER GLOBAL COMMUNICATION SYSTEM STYLING
+   ========================================================================== */
+
+:root {
+  --stylodyna-utility-height: 34px;
+  --stylodyna-announcement-height: 38px;
+}
+
+@media screen and (max-width: 749px) {
+  :root {
+    --stylodyna-utility-height: 32px;
+    --stylodyna-announcement-height: 36px;
+  }
+}
+
+/* Tier 1: Utility / Contact Bar */
+.stylodyna-utility-bar {
+  background-color: #1F1F1F;
+  color: #F7F5F0;
+  min-height: var(--stylodyna-utility-height, 34px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  font-family: var(--font-body-family);
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  position: relative;
+  z-index: 50;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stylodyna-utility-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  width: 100%;
+  max-width: 1520px;
+  margin: 0 auto;
+}
+
+.stylodyna-utility-bar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #F7F5F0;
+  text-decoration: none;
+  transition: color 200ms ease, opacity 200ms ease;
+}
+
+.stylodyna-utility-bar__item:hover {
+  color: #FFFFFF;
+  opacity: 0.9;
+}
+
+.stylodyna-utility-bar__item:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+.stylodyna-utility-bar__divider {
+  color: rgba(247, 245, 240, 0.35);
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+.stylodyna-utility-bar__desktop {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.stylodyna-utility-bar__mobile {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-utility-bar__desktop {
+    display: none;
+  }
+  .stylodyna-utility-bar__mobile {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+}
+
+/* Tier 2: Dynamic Announcement Bar */
+.stylodyna-announcement-bar {
+  background-color: #F7F5F0;
+  color: #2E2E2E;
+  min-height: var(--stylodyna-announcement-height, 38px);
+  position: relative;
+  z-index: 49;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.stylodyna-announcement-bar__inner {
+  width: 100%;
+  max-width: 1520px;
+  margin: 0 auto;
+  padding: 0 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stylodyna-announcement-bar .slideshow-component {
+  width: 100%;
+}
+
+.stylodyna-announcement-bar__slider-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.stylodyna-announcement-bar__content {
+  text-align: center;
+  padding: 0.6rem 2.8rem;
+  width: 100%;
+}
+
+.stylodyna-announcement-bar__message {
+  color: #2E2E2E;
+  font-family: var(--font-body-family);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+  margin: 0;
+  text-align: center;
+}
+
+.stylodyna-announcement-bar__link {
+  color: #2E2E2E;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.stylodyna-announcement-bar__link:hover {
+  color: #8A6A43;
+}
+
+.stylodyna-announcement-bar__nav-btn {
+  background: transparent;
+  border: none;
+  color: #2E2E2E;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding: 0;
+  border-radius: 50%;
+  transition: background-color 200ms ease, color 200ms ease;
+  flex-shrink: 0;
+}
+
+.stylodyna-announcement-bar__nav-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #8A6A43;
+}
+
+.stylodyna-announcement-bar__nav-btn:focus-visible {
+  outline: 2px solid #2E2E2E;
+  outline-offset: 2px;
+}
+
+/* Motion & Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .stylodyna-announcement-bar .slider__slide {
+    transition: none !important;
+  }
+}
+

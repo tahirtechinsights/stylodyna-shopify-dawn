@@ -11,7 +11,8 @@ This master index provides the central sitemap and reference index for all techn
 - **Active Governance Standard**: [ADR-001](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/decisions/ADR-001-independent-theme-evolution.md) (Accepted)
 - **Current Development Status**:
   - **WEB-001**: Storefront Development Documentation & Git Governance Baseline — **COMPLETE**
-  - **HOME-004**: Why Choose StyloDyna (Design-Reference Integration & Redesign) — **IN PROGRESS**
+  - **HOME-004**: Why Choose StyloDyna (Design-Reference Integration & Redesign) — **COMPLETE**
+  - **HEADER-001**: Utility Bar & Dynamic Announcement System — **IN PROGRESS**
 
 ---
 
@@ -19,6 +20,7 @@ This master index provides the central sitemap and reference index for all techn
 
 ### Design References (`docs/design-references/`)
 - [`homepage/HOME-004/README.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/homepage/HOME-004/README.md) — Visual Reference Architecture & Adaptation Matrix for HOME-004
+- [`header/HEADER-001/README.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/header/HEADER-001/README.md) — Conceptual Design Architecture for Two-Tier Header Communication System
 
 ### Architecture (`docs/architecture/`)
 - [`STOREFRONT-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/STOREFRONT-ARCHITECTURE.md) — High-Level Data Flow, PIM Authority vs Storefront Layer

@@ -5,27 +5,54 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "settings": {
-        "color_scheme": "scheme-1",
-        "show_line_separator": true,
-        "show_social": false,
-        "auto_rotate": false,
-        "change_slides_speed": 5,
-        "enable_country_selector": false,
-        "enable_language_selector": false
+        "enable_utility_bar": true,
+        "show_phone": true,
+        "phone_label": "Customer Care",
+        "phone_number": "0327 1777879",
+        "show_whatsapp": true,
+        "whatsapp_label": "WhatsApp Support",
+        "whatsapp_url": "https://wa.me/923271777879",
+        "show_email": true,
+        "email_address": "sales@stylodyna.com",
+        "auto_rotate": true,
+        "change_slides_speed": 6,
+        "show_nav_buttons": true
       },
       "blocks": {
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
-            "text_alignment": "center",
-            "color_scheme": "scheme-1",
+            "text": "Fast & Reliable Delivery Across Pakistan",
+            "link": ""
+          }
+        },
+        "announcement-bar-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free Delivery on Selected Products",
+            "link": ""
+          }
+        },
+        "announcement-bar-2": {
+          "type": "announcement",
+          "settings": {
+            "text": "Confident in Our Quality · Easy Returns If You’re Not Satisfied",
+            "link": ""
+          }
+        },
+        "announcement-bar-3": {
+          "type": "announcement",
+          "settings": {
+            "text": "WhatsApp Support Available 24/7 · 0327 1777879",
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement-bar-1",
+        "announcement-bar-2",
+        "announcement-bar-3"
       ]
     },
     "header": {
