@@ -16,7 +16,7 @@
         "email_address": "sales@stylodyna.com",
         "auto_rotate": true,
         "change_slides_speed": 6,
-        "show_nav_buttons": true
+        "show_nav_buttons": false
       },
       "blocks": {
         "announcement-bar-0": {

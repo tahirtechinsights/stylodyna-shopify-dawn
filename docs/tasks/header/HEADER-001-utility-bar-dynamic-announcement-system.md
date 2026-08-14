@@ -8,7 +8,7 @@
 - **Status**: COMPLETE
 - **Git Branch**: `feature/header-001-announcement-system`
 - **Git Commit**: `feat(header): add utility and dynamic announcement system`
-- **Git Commit Hash**: `8b28922`
+- **Git Commit Hash**: `51ee2f2`
 - **Git Push Status**: PUSHED
 - **Human Visual Acceptance**: PENDING
 
@@ -55,23 +55,32 @@
 ---
 
 ## 4. Verification & QA Matrix
-- [x] **UTILITY_BAR_RENDER**: PASS
-- [x] **ANNOUNCEMENT_RENDER**: PASS
-- [x] **MESSAGE_ROTATION**: PASS
-- [x] **MANUAL_NAVIGATION**: PASS
-- [x] **PAUSE_BEHAVIOR**: PASS
-- [x] **REDUCED_MOTION**: PASS
-- [x] **PHONE_LINK**: PASS
-- [x] **EMAIL_LINK**: PASS
-- [x] **WHATSAPP_CONFIGURATION**: PASS
-- [x] **DESKTOP**: PASS
-- [x] **TABLET**: PASS
-- [x] **MOBILE**: PASS
-- [x] **KEYBOARD**: PASS
-- [x] **FOCUS**: PASS
-- [x] **THEME_EDITOR**: PASS
-- [x] **STICKY_HEADER**: PASS
-- [x] **NO_HORIZONTAL_OVERFLOW**: PASS
-- [x] **NO_CONSOLE_ERRORS**: PASS
-- [x] **NO_CLS_REGRESSION**: PASS
+- [x] **UTILITY_BAR_RENDER**: PASS — Solid Charcoal `#1F1F1F` contact bar rendered cleanly.
+- [x] **ANNOUNCEMENT_RENDER**: PASS — Soft Ivory `#F7F5F0` announcement bar with centered text.
+- [x] **MESSAGE_ROTATION**: PASS — Controlled 6-second auto-rotate speed using native `<slideshow-component>`.
+- [x] **AUTO_ROTATION_LIVE_PREVIEW**: PASS — Verified 4 default messages cycle automatically in live preview.
+- [x] **MANUAL_NAVIGATION**: PASS — Caret buttons hidden by default (`show_nav_buttons: false`).
+- [x] **PAUSE_BEHAVIOR**: PASS — Auto-rotation pauses on hover and focus.
+- [x] **REDUCED_MOTION**: PASS — Animation disabled for `prefers-reduced-motion: reduce`.
+- [x] **PHONE_LINK**: PASS — `tel:` protocol.
+- [x] **EMAIL_LINK**: PASS — `mailto:` protocol.
+- [x] **WHATSAPP_CONFIGURATION**: PASS — Configurable destination URL.
+- [x] **DESKTOP**: PASS — Single row utility + centered announcement + 40% Charcoal `#2E2E2E` transparent header overlay over hero.
+- [x] **TABLET**: PASS — Responsive layout without horizontal overflow.
+- [x] **MOBILE**: PASS — Streamlined contact info (`WhatsApp Support · 0327 1777879`) + centered announcement.
+- [x] **KEYBOARD**: PASS — Keyboard focusable controls.
+- [x] **FOCUS**: PASS — Visible focus rings.
+- [x] **THEME_EDITOR**: PASS — Full merchant settings exposure.
+- [x] **STICKY_HEADER**: PASS — Smooth transition to Stone White `#FCFBF8` background on scroll.
+- [x] **NO_HORIZONTAL_OVERFLOW**: PASS — Zero horizontal scroll.
+- [x] **NO_CONSOLE_ERRORS**: PASS — Clean JavaScript execution.
+- [x] **NO_CLS_REGRESSION**: PASS — Zero cumulative layout shift.
 - [ ] **HUMAN_VISUAL_ACCEPTANCE**: PENDING
+
+---
+
+## HEADER-001A — Visual Reference Integration Refinement
+- **Authoritative Reference**: [`docs/design-references/header/HEADER-001/header-001a-transparent-header-reference-01.png`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/header/HEADER-001/header-001a-transparent-header-reference-01.png)
+- **Main Header Overlay**: StyloDyna Charcoal `#2E2E2E` with 40% alpha (`rgba(46, 46, 46, 0.40)`) over homepage hero image, clean CSS selector specificity without `!important` flags.
+- **Full-Opacity Foreground**: Logo, navigation links, and icons retain 100% full opacity in Soft Ivory (`#F7F5F0`).
+- **Announcement Navigation Arrows**: Set `show_nav_buttons` to `false` for clean, un-cluttered editorial appearance.

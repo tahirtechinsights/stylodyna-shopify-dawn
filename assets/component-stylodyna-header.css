@@ -69,60 +69,47 @@
   gap: 1.6rem; /* Utility icon gap */
 }
 
-/* Transparent Header Mode on Homepage Overlay */
-@media screen and (min-width: 990px) {
-  .section-header:has(.header-wrapper--transparent) {
-    position: absolute;
-    top: var(--stylodyna-announcement-height, 36px);
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 40;
-    margin-bottom: 0 !important;
-  }
+/* Transparent Header Mode on Homepage Overlay (40% Charcoal #2E2E2E Overlay) */
+.section-header .header-wrapper.header-wrapper--transparent {
+  background: rgba(46, 46, 46, 0.40);
+  background-color: rgba(46, 46, 46, 0.40);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
 
-  .header-wrapper--transparent {
-    background: transparent !important;
-    background-color: transparent !important;
-    background-image: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border-bottom: 1px solid transparent !important;
-    box-shadow: none !important;
-  }
+.section-header .header-wrapper.header-wrapper--transparent .header__menu-item,
+.section-header .header-wrapper.header-wrapper--transparent .header__icon,
+.section-header .header-wrapper.header-wrapper--transparent .header__heading-link,
+.section-header .header-wrapper.header-wrapper--transparent .header__active-menu-item {
+  color: var(--stylo-warm-ivory, #F7F5F0);
+}
 
-  .header-wrapper--transparent .header__menu-item,
-  .header-wrapper--transparent .header__icon,
-  .header-wrapper--transparent .header__heading-link,
-  .header-wrapper--transparent .header__active-menu-item {
-    color: var(--stylo-warm-ivory, #F7F5F0) !important;
-  }
+/* Scrolled State: Switch to Stone White #FCFBF8 background with Charcoal #2E2E2E text */
+.scrolled-past-header .header-wrapper.header-wrapper--transparent,
+.sticky-header.is-sticky .header-wrapper.header-wrapper--transparent,
+.header-wrapper.header-wrapper--transparent.is-scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: var(--stylo-stone-white, #FCFBF8);
+  border-bottom: 1px solid rgba(46, 46, 46, 0.10);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
 
-  /* Scrolled State: Switch to Stone White #FCFBF8 background with Charcoal #2E2E2E text */
-  .scrolled-past-header .header-wrapper--transparent,
-  .sticky-header.is-sticky .header-wrapper--transparent,
-  .header-wrapper--transparent.is-scrolled {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    background-color: var(--stylo-stone-white, #FCFBF8) !important;
-    border-bottom: 1px solid rgba(46, 46, 46, 0.10) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
-  }
-
-  .scrolled-past-header .header-wrapper--transparent .header__menu-item,
-  .scrolled-past-header .header-wrapper--transparent .header__icon,
-  .scrolled-past-header .header-wrapper--transparent .header__heading-link,
-  .sticky-header.is-sticky .header-wrapper--transparent .header__menu-item,
-  .sticky-header.is-sticky .header-wrapper--transparent .header__icon,
-  .sticky-header.is-sticky .header-wrapper--transparent .header__heading-link,
-  .header-wrapper--transparent.is-scrolled .header__menu-item,
-  .header-wrapper--transparent.is-scrolled .header__icon,
-  .header-wrapper--transparent.is-scrolled .header__heading-link {
-    color: var(--stylo-charcoal, #2E2E2E) !important;
-  }
+.scrolled-past-header .header-wrapper.header-wrapper--transparent .header__menu-item,
+.scrolled-past-header .header-wrapper.header-wrapper--transparent .header__icon,
+.scrolled-past-header .header-wrapper.header-wrapper--transparent .header__heading-link,
+.sticky-header.is-sticky .header-wrapper.header-wrapper--transparent .header__menu-item,
+.sticky-header.is-sticky .header-wrapper.header-wrapper--transparent .header__icon,
+.sticky-header.is-sticky .header-wrapper.header-wrapper--transparent .header__heading-link,
+.header-wrapper.header-wrapper--transparent.is-scrolled .header__menu-item,
+.header-wrapper.header-wrapper--transparent.is-scrolled .header__icon,
+.header-wrapper.header-wrapper--transparent.is-scrolled .header__heading-link {
+  color: var(--stylo-charcoal, #2E2E2E);
 }
 
 /* ==========================================================================

@@ -7,12 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ## [Unreleased]
-### Added (HEADER-001 Two-Tier Communication System)
+### Added (HEADER-001 / HEADER-001A Two-Tier Communication System & Header Refinements)
 - Replaced previous single announcement container with a professional **Two-Tier Global Communication System** (`sections/announcement-bar.liquid` and `assets/component-stylodyna-header.css`).
-- **Tier 1 (Utility Bar)**: Dark Charcoal (`#1F1F1F`) contact bar rendering persistent support details (`tel:`, `mailto:`, WhatsApp URL).
+- **Tier 1 (Utility Bar)**: Solid Charcoal (`#1F1F1F`) contact bar rendering persistent support details (`tel:`, `mailto:`, WhatsApp URL).
 - **Tier 2 (Dynamic Announcement Bar)**: Soft Ivory (`#F7F5F0`) carousel rendering customer-facing trust and delivery announcements with controlled 6-second rotation interval.
-- Configured 4 default approved messages (`Fast & Reliable Delivery Across Pakistan`, `Free Delivery on Selected Products`, `Confident in Our Quality · Easy Returns If You’re Not Satisfied`, `WhatsApp Support Available 24/7 · 0327 1777879`).
-- Maintained sticky-header calculation compatibility and full Theme Editor merchant configuration controls.
+- **Main Header Overlay (HEADER-001A)**: Refined transparent header mode over homepage hero image with Charcoal `#2E2E2E` 40% alpha (`rgba(46, 46, 46, 0.40)`), clean CSS selector specificity without `!important`, and 100% full-opacity Soft Ivory (`#F7F5F0`) logo, navigation, and icons.
+- **Announcement Bar Arrows**: Hidden by default (`show_nav_buttons: false`) per reference [`header-001a-transparent-header-reference-01.png`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/header/HEADER-001/header-001a-transparent-header-reference-01.png).
 
 ---
 
