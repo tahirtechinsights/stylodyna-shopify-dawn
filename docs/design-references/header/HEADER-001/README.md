@@ -1,60 +1,60 @@
-# Design Reference README — HEADER-001 / HEADER-001A (Utility Bar & Dynamic Announcement System)
+# Design Reference README — HEADER-001 (Global Header, Utility Bar & Dynamic Announcement System)
 
 ## Reference Metadata
-- **Task ID**: `HEADER-001` / `HEADER-001A`
+- **Task ID**: `HEADER-001` / `HEADER-001A` / `HEADER-001B` / `HEADER-001C` / `HEADER-001D`
 - **Domain**: `header`
-- **Authoritative Reference Image**: [`header-001a-transparent-header-reference-01.png`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/header/HEADER-001/header-001a-transparent-header-reference-01.png)
-- **Status**: APPROVED AUTHORITATIVE VISUAL DIRECTION
+- **Authoritative Reference Image**: [`header-001-final-authoritative-ui-reference.png`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/header/HEADER-001/header-001-final-authoritative-ui-reference.png)
+- **Brand Logo Reference Image**: [`../../brand/logo/stylodyna-header-logo-reference.png`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/brand/logo/stylodyna-header-logo-reference.png)
+- **REFERENCE STATUS**: AUTHORITATIVE — FINAL HEADER-001 VISUAL TARGET
 
 ---
 
 ## 1. Reference Purpose
-This document records the human-approved visual direction and technical architecture for the **StyloDyna Global Header, Utility Bar, and Dynamic Announcement System** (`sections/announcement-bar.liquid`, `sections/header.liquid`, `assets/component-stylodyna-header.css`).
+This document records the human-approved visual target and architectural specifications for the **StyloDyna Global Header, Utility Bar, and Dynamic Announcement System** (`sections/announcement-bar.liquid`, `sections/header.liquid`, `assets/component-stylodyna-header.css`).
 
 ---
 
-## 2. Approved Visual Architecture
+## 2. Approved Global Visual Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│ TIER 1: UTILITY / CONTACT BAR                                │
-│ Background: Solid Charcoal (#1F1F1F) | Text: Soft Ivory (#F7F5F0) │
-│ Customer Care: 0327 1777879 · WhatsApp Support · Email       │
-├──────────────────────────────────────────────────────────────┤
-│ TIER 2: DYNAMIC ANNOUNCEMENT BAR                             │
-│ Background: Soft Ivory (#F7F5F0) | Text: Charcoal (#2E2E2E)  │
-│ Automatic rotation (6s interval) · Arrows removed by default │
-├──────────────────────────────────────────────────────────────┤
-│ MAIN HEADER (Transparent 40% Charcoal Overlay)              │
-│ Background: rgba(46, 46, 46, 0.40) over Hero Image           │
-│ Logo / Nav / Icons retain 100% full opacity in Soft Ivory    │
-└──────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────┐
+│ TIER 1: UTILITY / CONTACT, LIVE STATUS & SOCIAL BAR (Height: 48px)        │
+│ Background: Solid Charcoal (#1F1F1F) | Text: Soft Ivory (#F7F5F0)               │
+│ [☎] 0327 1777879 · [💬] WHATSAPP · [✉] sales@stylodyna.com                │
+│ [● Live] Welcome to StyloDyna — Designed for Homes, Crafted for Living.    │
+│ [IG] [FB] [YT]                                                             │
+├────────────────────────────────────────────────────────────────────────────┤
+│ TIER 2: CONTINUOUS ANNOUNCEMENT TICKER (Height: 36px)                      │
+│ Background: Soft Ivory (#F7F5F0) | Text: Charcoal (#2E2E2E) · Gold Dots    │
+│ Fast & Reliable Delivery Across Pakistan · Free Delivery on Selected...   │
+├────────────────────────────────────────────────────────────────────────────┤
+│ MAIN HEADER OVER HERO (Top Height: 86px / Scrolled Height: 74px)          │
+│ Top: rgba(46, 46, 46, 0.40) over Hero Image                                │
+│ Scrolled: rgba(46, 46, 46, 0.78) with 6px backdrop blur                    │
+│ [STYODUNA PRODUCTION LOGO] | Home Catalog Collections About Us Contact      │
+│ [Search] [Account] [Cart 0]                                               │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 3. Approved Design Decisions (HEADER-001A)
+## 3. Approved Authoritative Specifications
 
-### 1. Main Header Overlay Refinement
-- **Background**: StyloDyna Charcoal Black (`#2E2E2E`) with 40% alpha transparency: `rgba(46, 46, 46, 0.40)`.
-- **CSS Rule**: Specificity-based selector scoping (`.header-wrapper.header-wrapper--transparent` / `body .section-header .header-wrapper--transparent`) without unnecessary `!important` flags.
-- **Opacity Control**: Applied strictly as RGBA background transparency. CSS `opacity` must **NOT** be applied to the parent header container.
-- **Foreground Elements**: Logo, navigation items, and utility icons retain 100% full opacity in Soft Ivory (`#F7F5F0` / `#FFFFFF`).
-- **Scrolled State**: When scrolled past the header, sticky navigation transitions smoothly to Stone White (`#FCFBF8`) background with Charcoal (`#2E2E2E`) text.
+### 1. Utility Bar (Tier 1)
+- **Target Height**: `48px` (`--stylodyna-utility-height: 48px`).
+- **Background**: Solid Charcoal (`#1F1F1F`), **Foreground**: Soft Ivory (`#F7F5F0`).
+- **Three-Region Grid Layout**:
+  - **LEFT**: Phone `0327 1777879` · WhatsApp `WHATSAPP` · Email `sales@stylodyna.com` (13.5px font, weight 600, no wrap).
+  - **CENTER**: `#3FAE5A` live green pulse dot + 5 approved rotating utility messages (7s dwell time, subtle crossfade).
+  - **RIGHT**: Social icons (Instagram, Facebook, YouTube) in `#F7F5F0` with restrained gold hover (`#C7A24A`).
 
-### 2. Tier 2 Dynamic Announcement Bar
-- **Background**: Soft Ivory (`#F7F5F0`)
-- **Text Color**: Charcoal (`#2E2E2E`), Warm Gold accent (`#8A6A43`)
-- **Message Rotation**: Automatic 6-second rotation interval using native Dawn `<slideshow-component>`.
-- **Navigation Arrows**: Removed by default (`show_nav_buttons: false`) for a clean, editorial look.
-- **Preset Messages**:
-  1. `Fast & Reliable Delivery Across Pakistan`
-  2. `Free Delivery on Selected Products`
-  3. `Confident in Our Quality · Easy Returns If You’re Not Satisfied`
-  4. `WhatsApp Support Available 24/7 · 0327 1777879`
+### 2. Announcement Bar Ticker (Tier 2)
+- **Target Height**: `36px` (`--stylodyna-announcement-height: 36px`).
+- **Background**: Soft Ivory (`#F7F5F0`), **Text**: Charcoal (`#2E2E2E`), **Font**: 13.5px weight 600.
+- **Continuous Motion**: 30-second continuous horizontal keyframe scroll with warm gold separators (`#C7A24A`), hover/focus pause, and static reduced motion fallback.
 
-### 3. Tier 1 Utility Bar
-- **Background**: Solid Charcoal (`#1F1F1F`)
-- **Text Color**: Soft Ivory (`#F7F5F0`)
-- **Desktop View**: `Customer Care: 0327 1777879 · WhatsApp Support · sales@stylodyna.com` (`tel:`, `mailto:`, WhatsApp destination).
-- **Mobile View**: `WhatsApp Support · 0327 1777879`
+### 3. Main Header (Top & Scrolled States)
+- **Top State**: `rgba(46, 46, 46, 0.40)` background over homepage hero slider (Height: `86px`).
+- **Scrolled Sticky State**: `rgba(46, 46, 46, 0.78)` background with `backdrop-filter: blur(6px)` (Height: `74px`).
+- **Logo Asset**: `assets/stylodyna-logo-header.png` (`2172 × 724`, aspect ratio `3.0:1`), height `50px` (desktop), `44px` (tablet), `36px` (mobile).
+- **Cart Count Badge**: High-contrast 19px Soft Ivory (`#F7F5F0`) badge with bold Charcoal (`#2E2E2E`) count text, visibly displaying `"0"` when empty (`cart.item_count == 0`).

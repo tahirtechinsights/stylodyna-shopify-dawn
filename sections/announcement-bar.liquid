@@ -1,302 +1,333 @@
 {% comment %}theme-check-disable UndefinedObject{% endcomment %}
-<!-- StyloDyna Two-Tier Global Communication System -->
-{{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+<!-- StyloDyna Global Utility Bar & Continuous Announcement Ticker (HEADER-001 Canonical WhatsApp Implementation) -->
 {{ 'component-stylodyna-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stylodyna-header.js' | asset_url }}" defer="defer"></script>
 
-<!-- TIER 1: UTILITY / CONTACT BAR -->
+{%- assign raw_whatsapp_num = section.settings.whatsapp_number | default: '923271777879' | strip | replace: '+', '' | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
+{%- assign raw_whatsapp_msg = section.settings.whatsapp_message | default: "Hello StyloDyna! I'm interested in a product and would like some assistance." -%}
+{%- assign encoded_whatsapp_msg = raw_whatsapp_msg | url_encode -%}
+{%- capture whatsapp_url -%}https://wa.me/{{ raw_whatsapp_num }}?text={{ encoded_whatsapp_msg }}{%- endcapture -%}
+
+<!-- TIER 1: UTILITY / CONTACT, LIVE STATUS & SOCIAL BAR (THREE-REGION GRID) -->
 {%- if section.settings.enable_utility_bar -%}
-  <div class="stylodyna-utility-bar" role="region" aria-label="Customer Support Bar">
-    <div class="stylodyna-utility-bar__inner">
+  <div class="stylodyna-utility-bar" role="region" aria-label="Customer Support & Live Status Bar">
+    <div class="stylodyna-utility-bar__inner page-width">
       
-      <!-- Desktop Contact View -->
-      <div class="stylodyna-utility-bar__desktop">
+      <!-- LEFT REGION: CONTACT GROUP + INLINE EXPAND TRIGGER -->
+      <div class="stylodyna-utility-bar__contact-group">
         {%- if section.settings.show_phone and section.settings.phone_number != blank -%}
-          <a href="tel:{{ section.settings.phone_number | replace: ' ', '' }}" class="stylodyna-utility-bar__item">
-            <span>{{ section.settings.phone_label | default: 'Customer Care' | escape }}: {{ section.settings.phone_number | escape }}</span>
+          <a href="tel:{{ section.settings.phone_number | replace: ' ', '' }}" class="stylodyna-utility-bar__item stylodyna-utility-bar__item--phone" aria-label="Call StyloDyna: {{ section.settings.phone_number | escape }}">
+            <span class="stylodyna-utility-bar__icon-wrapper">{% render 'icon-stylodyna-phone' %}</span>
+            <span class="stylodyna-utility-bar__label stylodyna-utility-bar__desktop-only">{{ section.settings.phone_number | escape }}</span>
           </a>
         {%- endif -%}
 
-        {%- if section.settings.show_whatsapp and section.settings.whatsapp_url != blank -%}
+        {%- if section.settings.show_whatsapp -%}
           {%- if section.settings.show_phone and section.settings.phone_number != blank -%}
             <span class="stylodyna-utility-bar__divider" aria-hidden="true">·</span>
           {%- endif -%}
-          <a href="{{ section.settings.whatsapp_url }}" target="_blank" rel="noopener" class="stylodyna-utility-bar__item">
-            <span>{{ section.settings.whatsapp_label | default: 'WhatsApp Support' | escape }}</span>
-          </a>
+          <div class="stylodyna-whatsapp-wrapper">
+            <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="stylodyna-utility-bar__item stylodyna-utility-bar__item--whatsapp" aria-haspopup="true" aria-label="StyloDyna WhatsApp Support">
+              <span class="stylodyna-utility-bar__icon-wrapper">{% render 'icon-stylodyna-whatsapp' %}</span>
+              <span class="stylodyna-utility-bar__label stylodyna-utility-bar__desktop-only">WHATSAPP</span>
+            </a>
+
+            <!-- Desktop Customer Assistance Popover -->
+            <div class="stylodyna-whatsapp-popover stylodyna-utility-bar__desktop-only" role="dialog" aria-label="WhatsApp Support">
+              <div class="stylodyna-whatsapp-popover__header">
+                <span class="stylodyna-whatsapp-popover__brand-icon">
+                  {% render 'icon-stylodyna-whatsapp' %}
+                </span>
+                <span class="stylodyna-whatsapp-popover__title">WhatsApp StyloDyna</span>
+              </div>
+              <p class="stylodyna-whatsapp-popover__desc">Need help choosing a product?<br>Our team is ready to assist.</p>
+              <div class="stylodyna-whatsapp-popover__qr-box">
+                <img src="{{ 'stylodyna-whatsapp-qr.svg' | asset_url }}" width="128" height="128" alt="QR code to chat with StyloDyna on WhatsApp" loading="lazy" class="stylodyna-whatsapp-popover__qr-img">
+              </div>
+              <span class="stylodyna-whatsapp-popover__scan-text">Scan to chat on WhatsApp</span>
+              <div class="stylodyna-whatsapp-popover__divider"></div>
+              <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="stylodyna-whatsapp-popover__action">
+                <span>Continue on WhatsApp Web</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
         {%- endif -%}
 
         {%- if section.settings.show_email and section.settings.email_address != blank -%}
           {%- if section.settings.show_phone or section.settings.show_whatsapp -%}
-            <span class="stylodyna-utility-bar__divider" aria-hidden="true">·</span>
+            <span class="stylodyna-utility-bar__divider stylodyna-utility-bar__divider--email" aria-hidden="true">·</span>
           {%- endif -%}
-          <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-utility-bar__item">
+          <div class="stylodyna-utility-bar__email-container" data-stylodyna-email-container>
+            <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-utility-bar__item stylodyna-utility-bar__item--email" id="stylodyna-email-trigger" aria-label="Email StyloDyna: {{ section.settings.email_address | escape }}">
+              <span class="stylodyna-utility-bar__icon-wrapper">{% render 'icon-stylodyna-email' %}</span>
+              <span class="stylodyna-utility-bar__email-text stylodyna-utility-bar__desktop-only">{{ section.settings.email_address | escape }}</span>
+            </a>
+            <!-- MICRO EMAIL POPOVER -->
+            <div class="stylodyna-email-popover stylodyna-utility-bar__desktop-only" id="stylodyna-email-popover" role="dialog" aria-label="StyloDyna Email Contact">
+              <span class="stylodyna-email-popover__title">Email Us</span>
+              <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-email-popover__link">{{ section.settings.email_address | escape }}</a>
+              <span class="stylodyna-email-popover__desc">We typically reply within one business day.</span>
+              <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-email-popover__action">
+                <span>Compose Email</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <!-- INLINE HORIZONTAL EXPAND TRIGGER (>>) -->
+        <button type="button" class="stylodyna-utility-expand-trigger" id="stylodyna-utility-expand-trigger" aria-expanded="false" aria-controls="stylodyna-utility-expand-panel" aria-label="Expand Utility Navigation">
+          <span class="stylodyna-utility-expand-trigger__icon" aria-hidden="true">»</span>
+        </button>
+
+        <!-- INLINE HORIZONTAL EXPANDABLE PANEL -->
+        <div class="stylodyna-utility-expand-panel" id="stylodyna-utility-expand-panel" role="region" aria-label="Utility Links Menu">
+          <div class="stylodyna-utility-expand-panel__content">
+            {%- if section.settings.show_email and section.settings.email_address != blank -%}
+              <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-utility-expand__item stylodyna-utility-expand__item--email">
+                {% render 'icon-stylodyna-email' %}
+                <span>{{ section.settings.email_address | escape }}</span>
+              </a>
+              <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            {%- endif -%}
+            <a href="/pages/showrooms" class="stylodyna-utility-expand__item">Visit Our Showrooms</a>
+            <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            <span class="stylodyna-utility-expand__text">Mon–Sun: 10AM–9PM</span>
+            <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            <a href="/collections/new-arrivals" class="stylodyna-utility-expand__item">New Arrivals</a>
+            <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            <a href="/pages/track-order" class="stylodyna-utility-expand__item">Track Order</a>
+            <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            <a href="/pages/contact" class="stylodyna-utility-expand__item">Help & Support</a>
+          </div>
+          <button type="button" class="stylodyna-utility-expand-close" id="stylodyna-utility-expand-close" aria-label="Close Expanded Utility Menu">
+            <span>Close</span>
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CENTER REGION: INDIVISIBLE LIVE GREEN DOT + ROTATING MESSAGE UNIT -->
+      <div class="stylodyna-utility-bar__live" data-stylodyna-utility-rotator data-interval="7000" tabindex="0" id="stylodyna-live-rotator">
+        <span class="stylodyna-utility-bar__live-dot" aria-hidden="true"></span>
+        <div class="stylodyna-utility-bar__live-message-wrapper" id="stylodyna-live-message-wrapper">
+          <span class="stylodyna-utility-bar__live-text is-active" data-utility-message>Welcome to StyloDyna — Designed for Homes, Crafted for Living.</span>
+          <span class="stylodyna-utility-bar__live-text" data-utility-message>Same-Day Delivery & Assembly Available in Lahore.</span>
+          <span class="stylodyna-utility-bar__live-text" data-utility-message>Need Help? Our Team Is Just a WhatsApp Away.</span>
+          <span class="stylodyna-utility-bar__live-text" data-utility-message>StyloDyna Showrooms Are Coming Soon to Lahore.</span>
+          <span class="stylodyna-utility-bar__live-text" data-utility-message>Coming Soon to DHA & Bahria Town, Lahore.</span>
+        </div>
+        <!-- MICRO FULL-MESSAGE POPOVER (SHOWN ONLY WHEN TRUNCATED) -->
+        <div class="stylodyna-message-popover" id="stylodyna-message-popover" role="tooltip" aria-hidden="true">
+          <span class="stylodyna-message-popover__content" id="stylodyna-message-popover-text">Welcome to StyloDyna — Designed for Homes, Crafted for Living.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT REGION: SOCIAL MEDIA GROUP (CONFIGURED OR PREVIEW MODE) -->
+      <div class="stylodyna-utility-bar__social-group stylodyna-utility-bar__desktop-only">
+        {%- if settings.social_instagram_link != blank -%}
+          <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="stylodyna-utility-social__link" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        {%- elsif section.settings.show_unconfigured_social_icons -%}
+          <span class="stylodyna-utility-social__link stylodyna-utility-social__link--disabled" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </span>
+        {%- endif -%}
+
+        {%- if settings.social_facebook_link != blank -%}
+          <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="stylodyna-utility-social__link" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        {%- elsif section.settings.show_unconfigured_social_icons -%}
+          <span class="stylodyna-utility-social__link stylodyna-utility-social__link--disabled" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </span>
+        {%- endif -%}
+
+        {%- if settings.social_youtube_link != blank -%}
+          <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="stylodyna-utility-social__link" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </a>
+        {%- elsif section.settings.show_unconfigured_social_icons -%}
+          <span class="stylodyna-utility-social__link stylodyna-utility-social__link--disabled" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- DEDICATED STYLODYNA CHARCOAL MOBILE UTILITY DISCLOSURE DRAWER (< 990px) -->
+    <div class="stylodyna-mobile-utility-drawer" id="stylodyna-mobile-utility-drawer" role="dialog" aria-modal="true" aria-label="StyloDyna Mobile Utility Navigation">
+      <div class="stylodyna-mobile-utility-drawer__header">
+        <span class="stylodyna-mobile-utility-drawer__title">Utility Menu</span>
+        <button type="button" class="stylodyna-mobile-utility-drawer__close" id="stylodyna-mobile-utility-close" aria-label="Close Mobile Utility Menu">×</button>
+      </div>
+      <div class="stylodyna-mobile-utility-drawer__body">
+        {%- if section.settings.show_email and section.settings.email_address != blank -%}
+          <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-mobile-utility-drawer__link stylodyna-mobile-utility-drawer__link--email">
+            {% render 'icon-stylodyna-email' %}
             <span>{{ section.settings.email_address | escape }}</span>
           </a>
         {%- endif -%}
-      </div>
-
-      <!-- Mobile Streamlined Contact View -->
-      <div class="stylodyna-utility-bar__mobile">
-        {%- if section.settings.show_whatsapp and section.settings.whatsapp_url != blank -%}
-          <a href="{{ section.settings.whatsapp_url }}" target="_blank" rel="noopener" class="stylodyna-utility-bar__item">
-            <span>{{ section.settings.whatsapp_label | default: 'WhatsApp Support' | escape }}</span>
-          </a>
-        {%- endif -%}
-
-        {%- if section.settings.show_phone and section.settings.phone_number != blank -%}
-          {%- if section.settings.show_whatsapp -%}
-            <span class="stylodyna-utility-bar__divider" aria-hidden="true">·</span>
-          {%- endif -%}
-          <a href="tel:{{ section.settings.phone_number | replace: ' ', '' }}" class="stylodyna-utility-bar__item">
-            <span>{{ section.settings.phone_number | escape }}</span>
-          </a>
-        {%- endif -%}
-      </div>
-
-    </div>
-  </div>
-{%- endif -%}
-
-<!-- TIER 2: DYNAMIC ANNOUNCEMENT BAR -->
-{%- if section.blocks.size > 0 -%}
-  <div class="stylodyna-announcement-bar">
-    <div class="stylodyna-announcement-bar__inner">
-      {%- if section.blocks.size == 1 -%}
-        <div class="stylodyna-announcement-bar__content" role="region" aria-label="Announcement" {{ section.blocks.first.shopify_attributes }}>
-          <p class="stylodyna-announcement-bar__message">
-            {%- if section.blocks.first.settings.link != blank -%}
-              <a href="{{ section.blocks.first.settings.link }}" class="stylodyna-announcement-bar__link">
-                {{ section.blocks.first.settings.text | escape }}
-              </a>
-            {%- else -%}
-              <span>{{ section.blocks.first.settings.text | escape }}</span>
-            {%- endif -%}
-          </p>
+        <a href="/pages/showrooms" class="stylodyna-mobile-utility-drawer__link">
+          <span>Visit Our Showrooms</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <div class="stylodyna-mobile-utility-drawer__info">
+          <span>Mon–Sun: 10AM–9PM</span>
         </div>
-      {%- else -%}
-        <slideshow-component
-          class="slideshow-component"
-          role="region"
-          aria-roledescription="Carousel"
-          aria-label="Announcements"
-        >
-          <div class="stylodyna-announcement-bar__slider-wrapper slider-buttons">
-            
-            {%- if section.settings.show_nav_buttons -%}
-              <button
-                type="button"
-                class="stylodyna-announcement-bar__nav-btn slider-button slider-button--prev"
-                name="previous"
-                aria-label="Previous Announcement"
-                aria-controls="Slider-{{ section.id }}"
-              >
-                <span class="svg-wrapper">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.5 1.5L3 6L7.5 10.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-              </button>
-            {%- endif -%}
-
-            <div
-              class="grid grid--1-col slider slider--everywhere"
-              id="Slider-{{ section.id }}"
-              aria-live="polite"
-              aria-atomic="true"
-              data-autoplay="{{ section.settings.auto_rotate }}"
-              data-speed="{{ section.settings.change_slides_speed }}"
-            >
-              {%- for block in section.blocks -%}
-                <div
-                  class="slideshow__slide slider__slide grid__item grid--1-col"
-                  id="Slide-{{ section.id }}-{{ forloop.index }}"
-                  {{ block.shopify_attributes }}
-                  role="group"
-                  aria-roledescription="Announcement"
-                  aria-label="{{ forloop.index }} of {{ forloop.length }}"
-                  tabindex="-1"
-                >
-                  <div class="stylodyna-announcement-bar__content">
-                    <p class="stylodyna-announcement-bar__message">
-                      {%- if block.settings.link != blank -%}
-                        <a href="{{ block.settings.link }}" class="stylodyna-announcement-bar__link">
-                          {{ block.settings.text | escape }}
-                        </a>
-                      {%- else -%}
-                        <span>{{ block.settings.text | escape }}</span>
-                      {%- endif -%}
-                    </p>
-                  </div>
-                </div>
-              {%- endfor -%}
-            </div>
-
-            {%- if section.settings.show_nav_buttons -%}
-              <button
-                type="button"
-                class="stylodyna-announcement-bar__nav-btn slider-button slider-button--next"
-                name="next"
-                aria-label="Next Announcement"
-                aria-controls="Slider-{{ section.id }}"
-              >
-                <span class="svg-wrapper">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.5 1.5L9 6L4.5 10.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
-              </button>
-            {%- endif -%}
-
-          </div>
-        </slideshow-component>
-      {%- endif -%}
+        <a href="/collections/new-arrivals" class="stylodyna-mobile-utility-drawer__link">
+          <span>New Arrivals</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <a href="/pages/track-order" class="stylodyna-mobile-utility-drawer__link">
+          <span>Track Your Order</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <a href="/pages/contact" class="stylodyna-mobile-utility-drawer__link">
+          <span>Help & Support</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <div class="stylodyna-mobile-utility-drawer__socials">
+          {%- if settings.social_instagram_link != blank -%}
+            <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_facebook_link != blank -%}
+            <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
     </div>
   </div>
 {%- endif -%}
+
+<!-- TIER 2: CONTINUOUS ANNOUNCEMENT TICKER -->
+<div class="stylodyna-ticker-bar" role="region" aria-label="Announcements Ticker">
+  <div class="stylodyna-ticker-bar__track-wrapper">
+    <div class="stylodyna-ticker-bar__track">
+      <div class="stylodyna-ticker-bar__content">
+        <span>Fast & Reliable Delivery Across Pakistan</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>Free Delivery on Selected Products</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>Confident in Our Quality · Easy Returns If You’re Not Satisfied</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>WhatsApp Support Available 24/7 · 0327 1777879</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+      </div>
+      <!-- Duplicate content block for seamless looping -->
+      <div class="stylodyna-ticker-bar__content" aria-hidden="true">
+        <span>Fast & Reliable Delivery Across Pakistan</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>Free Delivery on Selected Products</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>Confident in Our Quality · Easy Returns If You’re Not Satisfied</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>WhatsApp Support Available 24/7 · 0327 1777879</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GLOBAL FLOATING WHATSAPP CTA -->
+{% render 'stylodyna-floating-whatsapp' %}
 
 {% schema %}
 {
-  "name": "Announcement & Utility",
-  "max_blocks": 8,
+  "name": "Announcement Bar",
+  "max_blocks": 12,
   "class": "announcement-bar-section",
   "enabled_on": {
     "groups": ["header"]
   },
   "settings": [
     {
-      "type": "header",
-      "content": "Tier 1: Utility Contact Bar Settings"
-    },
-    {
       "type": "checkbox",
       "id": "enable_utility_bar",
-      "label": "Enable Utility Bar",
-      "default": true
+      "default": true,
+      "label": "Enable Utility Contact Bar"
     },
     {
       "type": "checkbox",
       "id": "show_phone",
-      "label": "Show Phone Number",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "phone_label",
-      "label": "Phone Label",
-      "default": "Customer Care"
+      "default": true,
+      "label": "Show Phone Number"
     },
     {
       "type": "text",
       "id": "phone_number",
-      "label": "Phone Number",
-      "default": "0327 1777879"
+      "default": "0327 1777879",
+      "label": "Phone Number"
     },
     {
       "type": "checkbox",
       "id": "show_whatsapp",
-      "label": "Show WhatsApp Support",
-      "default": true
+      "default": true,
+      "label": "Show WhatsApp Support"
     },
     {
       "type": "text",
-      "id": "whatsapp_label",
-      "label": "WhatsApp Label",
-      "default": "WhatsApp Support"
+      "id": "whatsapp_number",
+      "default": "923271777879",
+      "label": "WhatsApp Phone Number (digits only, e.g. 923271777879)"
     },
     {
-      "type": "url",
-      "id": "whatsapp_url",
-      "label": "WhatsApp Destination URL"
+      "type": "textarea",
+      "id": "whatsapp_message",
+      "default": "Hello StyloDyna! I'm interested in a product and would like some assistance.",
+      "label": "WhatsApp Default Message"
     },
     {
       "type": "checkbox",
       "id": "show_email",
-      "label": "Show Email Address",
-      "default": true
+      "default": true,
+      "label": "Show Sales Email"
     },
     {
       "type": "text",
       "id": "email_address",
-      "label": "Email Address",
-      "default": "sales@stylodyna.com"
-    },
-    {
-      "type": "header",
-      "content": "Tier 2: Dynamic Announcement Settings"
+      "default": "sales@stylodyna.com",
+      "label": "Sales Email Address"
     },
     {
       "type": "checkbox",
-      "id": "auto_rotate",
-      "label": "Auto-rotate Announcements",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "change_slides_speed",
-      "min": 3,
-      "max": 10,
-      "step": 1,
-      "unit": "s",
-      "label": "Rotation Speed Interval",
-      "default": 6
-    },
-    {
-      "type": "checkbox",
-      "id": "show_nav_buttons",
-      "label": "Show Navigation Arrows",
-      "default": false
+      "id": "show_unconfigured_social_icons",
+      "default": true,
+      "label": "Show unconfigured social icons for visual layout preview"
     }
   ],
   "blocks": [
     {
       "type": "announcement",
-      "name": "Announcement Message",
+      "name": "Announcement",
       "settings": [
         {
           "type": "text",
           "id": "text",
           "default": "Fast & Reliable Delivery Across Pakistan",
-          "label": "Announcement Message"
+          "label": "Announcement Text"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Announcement Link (Optional)"
+          "label": "Announcement Link"
         }
       ]
     }
   ],
-  "presets": [
-    {
-      "name": "Announcement & Utility",
-      "blocks": [
-        {
-          "type": "announcement",
-          "settings": {
-            "text": "Fast & Reliable Delivery Across Pakistan"
-          }
-        },
-        {
-          "type": "announcement",
-          "settings": {
-            "text": "Free Delivery on Selected Products"
-          }
-        },
-        {
-          "type": "announcement",
-          "settings": {
-            "text": "Confident in Our Quality · Easy Returns If You’re Not Satisfied"
-          }
-        },
-        {
-          "type": "announcement",
-          "settings": {
-            "text": "WhatsApp Support Available 24/7 · 0327 1777879"
-          }
-        }
-      ]
-    }
-  ]
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement"
+      }
+    ]
+  }
 }
 {% endschema %}

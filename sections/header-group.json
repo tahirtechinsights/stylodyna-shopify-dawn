@@ -15,7 +15,7 @@
         "show_email": true,
         "email_address": "sales@stylodyna.com",
         "auto_rotate": true,
-        "change_slides_speed": 6,
+        "change_slides_speed": 7,
         "show_nav_buttons": false
       },
       "blocks": {
@@ -64,6 +64,7 @@
         "menu": "main-menu",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
+        "enable_transparent_header": true,
         "show_line_separator": true,
         "enable_country_selector": true,
         "enable_language_selector": true,

@@ -12,7 +12,7 @@ This master index provides the central sitemap and reference index for all techn
 - **Current Development Status**:
   - **WEB-001**: Storefront Development Documentation & Git Governance Baseline — **COMPLETE**
   - **HOME-004**: Why Choose StyloDyna (Design-Reference Integration & Redesign) — **COMPLETE**
-  - **HEADER-001**: Utility Bar & Dynamic Announcement System — **IN PROGRESS**
+  - **HEADER-001**: Global Header, 35px Utility Bar, Inline Expand Menu, Mobile Disclosure Panel & Floating WhatsApp System — **COMPLETED (Production Baseline: HEADER-001H, Audit: HEADER-001J, Rejected: HEADER-001I [Rolled Back], Reference Integrity: PASS, Recovery: COMPLETE, Human Acceptance: PASS)**
 
 ---
 

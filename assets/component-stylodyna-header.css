@@ -1,4 +1,4 @@
-/* StyloDyna Header Token System & Top-of-Page Architecture */
+/* StyloDyna Header Token System & Architectural Stylesheet (HEADER-001 Hard Layout Correction) */
 :root {
   --stylo-warm-ivory: #F7F5F0;
   --stylo-stone-white: #FCFBF8;
@@ -8,292 +8,1207 @@
   --stylo-dark-olive: #4E5B46;
   --stylo-sage: #7C8A73;
   --stylo-brass: #B5965A;
+  --stylo-gold-accent: #C7A24A;
 
-  --stylodyna-header-height: 64px;
-}
-
-@media screen and (max-width: 989px) {
-  :root {
-    --stylodyna-header-height: 60px;
-  }
-}
-
-.header-wrapper {
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1), top 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  z-index: 40;
-}
-
-.header {
-  min-height: var(--stylodyna-header-height, 64px);
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
-  display: flex;
-  align-items: center;
-}
-
-/* Header Alignment & Visual Weight */
-.header__heading {
-  max-width: 190px;
-}
-
-.header__heading-link {
-  font-family: var(--font-heading-family);
-  font-weight: 800;
-  letter-spacing: 0.18rem;
-  text-transform: uppercase;
-  color: inherit;
-  text-decoration: none;
-}
-
-.header__inline-menu {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.list-menu--inline {
-  gap: 3.6rem; /* 36px horizontal spacing between navigation items */
-}
-
-.header__menu-item {
-  font-family: var(--font-body-family);
-  font-size: 1.3rem;
-  font-weight: 500;
-  letter-spacing: 0.1rem;
-  text-transform: uppercase;
-  transition: color 200ms ease;
-  padding: 0.6rem 0;
-}
-
-.header__icons {
-  gap: 1.6rem; /* Utility icon gap */
-}
-
-/* Transparent Header Mode on Homepage Overlay (40% Charcoal #2E2E2E Overlay) */
-.section-header .header-wrapper.header-wrapper--transparent {
-  background: rgba(46, 46, 46, 0.40);
-  background-color: rgba(46, 46, 46, 0.40);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: none;
-}
-
-.section-header .header-wrapper.header-wrapper--transparent .header__menu-item,
-.section-header .header-wrapper.header-wrapper--transparent .header__icon,
-.section-header .header-wrapper.header-wrapper--transparent .header__heading-link,
-.section-header .header-wrapper.header-wrapper--transparent .header__active-menu-item {
-  color: var(--stylo-warm-ivory, #F7F5F0);
-}
-
-/* Scrolled State: Switch to Stone White #FCFBF8 background with Charcoal #2E2E2E text */
-.scrolled-past-header .header-wrapper.header-wrapper--transparent,
-.sticky-header.is-sticky .header-wrapper.header-wrapper--transparent,
-.header-wrapper.header-wrapper--transparent.is-scrolled {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  background-color: var(--stylo-stone-white, #FCFBF8);
-  border-bottom: 1px solid rgba(46, 46, 46, 0.10);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-}
-
-.scrolled-past-header .header-wrapper.header-wrapper--transparent .header__menu-item,
-.scrolled-past-header .header-wrapper.header-wrapper--transparent .header__icon,
-.scrolled-past-header .header-wrapper.header-wrapper--transparent .header__heading-link,
-.sticky-header.is-sticky .header-wrapper.header-wrapper--transparent .header__menu-item,
-.sticky-header.is-sticky .header-wrapper.header-wrapper--transparent .header__icon,
-.sticky-header.is-sticky .header-wrapper.header-wrapper--transparent .header__heading-link,
-.header-wrapper.header-wrapper--transparent.is-scrolled .header__menu-item,
-.header-wrapper.header-wrapper--transparent.is-scrolled .header__icon,
-.header-wrapper.header-wrapper--transparent.is-scrolled .header__heading-link {
-  color: var(--stylo-charcoal, #2E2E2E);
-}
-
-/* ==========================================================================
-   HEADER-001 — TWO-TIER GLOBAL COMMUNICATION SYSTEM STYLING
-   ========================================================================== */
-
-:root {
-  --stylodyna-utility-height: 34px;
-  --stylodyna-announcement-height: 38px;
+  --stylodyna-utility-height: 48px;
+  --stylodyna-announcement-height: 36px;
+  --stylodyna-header-top-height: 86px;
+  --stylodyna-header-scrolled-height: 74px;
 }
 
 @media screen and (max-width: 749px) {
   :root {
-    --stylodyna-utility-height: 32px;
-    --stylodyna-announcement-height: 36px;
+    --stylodyna-utility-height: 44px;
+    --stylodyna-announcement-height: 34px;
+    --stylodyna-header-top-height: 72px;
+    --stylodyna-header-scrolled-height: 64px;
   }
 }
 
-/* Tier 1: Utility / Contact Bar */
+/* Global Viewport Overflow Containment (Strict Containment on Ticker Bar Only) */
+.stylodyna-ticker-bar,
+.stylodyna-ticker-bar__track-wrapper {
+  max-width: 100vw !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.announcement-bar-section,
 .stylodyna-utility-bar {
-  background-color: #1F1F1F;
-  color: #F7F5F0;
-  min-height: var(--stylodyna-utility-height, 34px);
+  position: relative !important;
+  z-index: 120 !important;
+  overflow: visible !important;
+}
+
+/* ==========================================================================
+   TIER 1: UTILITY / CONTACT, LIVE STATUS & SOCIAL BAR (THREE-REGION GRID)
+   ========================================================================== */
+.stylodyna-utility-bar {
+  background-color: #1F1F1F !important;
+  color: #F7F5F0 !important;
+  height: 32px !important;
+  min-height: 32px !important;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 2rem;
+  padding-inline: clamp(16px, 2.5vw, 40px);
   font-family: var(--font-body-family);
-  font-size: 1.25rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   position: relative;
-  z-index: 50;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 120 !important;
+  overflow: visible !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 .stylodyna-utility-bar__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, auto) minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  gap: clamp(6px, 1.2vw, 18px);
+  box-sizing: border-box;
+  height: 100%;
+  position: relative;
+}
+
+/* Left Contact Group - Contacts Only */
+.stylodyna-utility-bar__contact-group {
+  justify-self: start;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.6rem;
-  width: 100%;
-  max-width: 1520px;
-  margin: 0 auto;
+  gap: clamp(8px, 1.2vw, 16px);
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .stylodyna-utility-bar__item {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  color: #F7F5F0;
+  gap: 0.5rem;
+  color: #F7F5F0 !important;
   text-decoration: none;
+  font-size: clamp(11.5px, 0.8vw, 13px);
+  font-weight: 600;
+  white-space: nowrap !important;
   transition: color 200ms ease, opacity 200ms ease;
+  flex-shrink: 0;
+}
+
+.stylodyna-utility-bar__icon-wrapper {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  line-height: 1;
+}
+
+.stylodyna-utility-bar__icon-wrapper svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.stylodyna-utility-bar__item span {
+  white-space: nowrap !important;
+  display: inline-block;
 }
 
 .stylodyna-utility-bar__item:hover {
-  color: #FFFFFF;
-  opacity: 0.9;
+  color: #C7A24A !important;
 }
 
-.stylodyna-utility-bar__item:focus-visible {
-  outline: 2px solid #FFFFFF;
-  outline-offset: 2px;
+/* WhatsApp icon artwork optical weight parity tuning (17px optical match) */
+.stylodyna-utility-bar__item--whatsapp .stylodyna-utility-bar__icon-wrapper svg,
+.stylodyna-utility-bar__item--whatsapp svg {
+  width: 17px !important;
+  height: 17px !important;
+  fill: #F7F5F0 !important;
+  color: #F7F5F0 !important;
+  transition: fill 200ms ease, color 200ms ease !important;
+}
+
+.stylodyna-utility-bar__item--whatsapp:hover .stylodyna-utility-bar__icon-wrapper svg,
+.stylodyna-utility-bar__item--whatsapp:hover svg {
+  fill: #C7A24A !important;
+  color: #C7A24A !important;
+}
+
+.stylodyna-utility-bar__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .stylodyna-utility-bar__divider {
-  color: rgba(247, 245, 240, 0.35);
+  color: rgba(247, 245, 240, 0.35) !important;
   font-size: 1.1rem;
   user-select: none;
+  flex-shrink: 0;
 }
 
-.stylodyna-utility-bar__desktop {
-  display: flex;
+/* Email Container & Micro Popover */
+.stylodyna-utility-bar__email-container {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 1.6rem;
 }
 
-.stylodyna-utility-bar__mobile {
-  display: none;
+.stylodyna-email-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: #1F1F1F !important;
+  border: 1px solid rgba(247, 245, 240, 0.12) !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  z-index: 200 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+  pointer-events: none;
 }
 
-@media screen and (max-width: 749px) {
-  .stylodyna-utility-bar__desktop {
-    display: none;
+.stylodyna-utility-bar__email-container:hover .stylodyna-email-popover,
+.stylodyna-utility-bar__email-container:focus-within .stylodyna-email-popover,
+.stylodyna-email-popover.is-open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(-50%) translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.stylodyna-email-popover__title {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(247, 245, 240, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stylodyna-email-popover__link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #C7A24A !important;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.stylodyna-email-popover__link:hover {
+  color: #25D366 !important;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 1439px) {
+  .stylodyna-utility-bar__email-text {
+    display: none !important;
   }
-  .stylodyna-utility-bar__mobile {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
+}
+
+/* INLINE HORIZONTAL EXPAND TRIGGER (>>) IMMEDIATELY AFTER CONTACT OPTIONS */
+.stylodyna-utility-expand-trigger {
+  background: transparent !important;
+  border: none !important;
+  color: #F7F5F0 !important;
+  opacity: 0.85 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  width: 26px !important;
+  height: 26px !important;
+  margin-left: 2px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  transition: transform 180ms ease, color 180ms ease, opacity 180ms ease !important;
+  user-select: none !important;
+  flex-shrink: 0 !important;
+  vertical-align: middle !important;
+}
+
+.stylodyna-utility-expand-trigger:hover,
+.stylodyna-utility-expand-trigger:focus-visible,
+.stylodyna-utility-expand-trigger[aria-expanded="true"] {
+  color: #C7A24A !important;
+  opacity: 1 !important;
+  transform: translateX(2px) !important;
+}
+
+/* INLINE HORIZONTAL EXPANDABLE PANEL (EXPANDS FROM LEFT TO RIGHT) */
+.stylodyna-utility-expand-panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: 100% !important;
+  background-color: #1F1F1F !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 12px !important;
+  gap: 12px !important;
+  z-index: 180 !important;
+  white-space: nowrap !important;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-8px);
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+  pointer-events: none;
+  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.stylodyna-utility-expand-panel.is-open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(0) !important;
+  pointer-events: auto !important;
+}
+
+.stylodyna-utility-expand-panel__content {
+  display: flex !important;
+  align-items: center !important;
+  gap: clamp(8px, 1.2vw, 16px) !important;
+  font-family: var(--font-body-family) !important;
+  font-size: clamp(11.5px, 0.8vw, 13px) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.02em !important;
+  color: #F7F5F0 !important;
+  line-height: 1 !important;
+}
+
+.stylodyna-utility-expand__item {
+  color: #F7F5F0 !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: color 150ms ease !important;
+  white-space: nowrap !important;
+}
+
+.stylodyna-utility-expand__item:hover {
+  color: #C7A24A !important;
+}
+
+.stylodyna-utility-expand__divider {
+  color: rgba(247, 245, 240, 0.35) !important;
+  font-size: 1.1rem !important;
+  user-select: none !important;
+}
+
+.stylodyna-utility-expand-close {
+  background: transparent !important;
+  border: none !important;
+  color: #F7F5F0 !important;
+  opacity: 0.85 !important;
+  font-size: clamp(11.5px, 0.8vw, 13px) !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  padding: 0 4px !important;
+  margin-left: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  transition: color 150ms ease, opacity 150ms ease !important;
+}
+
+.stylodyna-utility-expand-close:hover {
+  color: #C7A24A !important;
+  opacity: 1 !important;
+}
+
+/* Center Live Region - Indivisible Inline-Flex Unit (Dot + Message) */
+.stylodyna-utility-bar__live {
+  position: relative;
+  justify-self: center;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.6rem;
+  width: 100% !important;
+  max-width: clamp(260px, 35vw, 520px) !important;
+  min-width: 0 !important;
+  white-space: nowrap !important;
+  outline-offset: 2px;
+}
+
+.stylodyna-utility-bar__live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #3FAE5A !important;
+  display: inline-block !important;
+  flex: 0 0 auto !important;
+  margin-right: 0.5rem !important;
+  box-shadow: 0 0 6px rgba(63, 174, 90, 0.7);
+  animation: live-pulse 2s infinite ease-in-out;
+}
+
+@keyframes live-pulse {
+  0% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 4px rgba(63, 174, 90, 0.5); }
+  50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 10px rgba(63, 174, 90, 0.9); }
+  100% { transform: scale(0.95); opacity: 0.8; box-shadow: 0 0 4px rgba(63, 174, 90, 0.5); }
+}
+
+.stylodyna-utility-bar__live-message-wrapper {
+  display: grid !important;
+  align-items: center !important;
+  position: relative !important;
+  white-space: nowrap !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.stylodyna-utility-bar__live-text {
+  grid-area: 1 / 1 !important;
+  color: #F7F5F0 !important;
+  font-size: clamp(11.5px, 0.8vw, 12.5px);
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.stylodyna-utility-bar__live-text.is-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Center Message Full Text Micro Popover */
+.stylodyna-message-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: #1F1F1F !important;
+  border: 1px solid rgba(247, 245, 240, 0.12) !important;
+  border-radius: 8px !important;
+  padding: 10px 14px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  max-width: 380px !important;
+  z-index: 200 !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+  pointer-events: none;
+}
+
+.stylodyna-message-popover.is-open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(-50%) translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.stylodyna-message-popover__content {
+  font-size: 12px;
+  font-weight: 500;
+  color: #F7F5F0 !important;
+  line-height: 1.4;
+  white-space: normal !important;
+  display: block;
+}
+
+/* Right Social Group — Strict Vertical Alignment & Equal Padding Rhythm */
+.stylodyna-utility-bar__social-group {
+  justify-self: end;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: clamp(8px, 1vw, 12px);
+  flex-wrap: nowrap;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+@media screen and (max-width: 1365px) {
+  .stylodyna-utility-bar__item--email,
+  .stylodyna-utility-bar__divider--email {
+    display: none !important;
   }
 }
 
-/* Tier 2: Dynamic Announcement Bar */
-.stylodyna-announcement-bar {
-  background-color: #F7F5F0;
-  color: #2E2E2E;
-  min-height: var(--stylodyna-announcement-height, 38px);
+@media screen and (max-width: 1199px) {
+  .stylodyna-utility-bar__live {
+    max-width: 280px !important;
+  }
+}
+
+.stylodyna-utility-social__link {
+  width: 28px;
+  height: 28px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #F7F5F0 !important;
+  text-decoration: none;
+  white-space: nowrap !important;
+  transition: color 200ms ease, opacity 200ms ease;
+  line-height: 1 !important;
+}
+
+.stylodyna-utility-social__link:hover {
+  color: #C7A24A !important;
+}
+
+.stylodyna-utility-social__link--disabled {
+  opacity: 0.70 !important;
+  color: rgba(247, 245, 240, 0.70) !important;
+  cursor: default;
+}
+
+.stylodyna-utility-social__link svg {
+  width: 16px !important;
+  height: 16px !important;
+  display: block !important;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-utility-bar {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding-inline: 12px !important;
+  }
+
+  .stylodyna-utility-bar__inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 8px !important;
+  }
+
+  .stylodyna-utility-bar__contact-group {
+    gap: 6px !important;
+  }
+
+  .stylodyna-utility-bar__item {
+    font-size: 11px !important;
+  }
+
+  .stylodyna-utility-bar__live {
+    max-width: 180px !important;
+    font-size: 11px !important;
+  }
+
+  .stylodyna-utility-expand-panel {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 8px 12px !important;
+    background-color: #1F1F1F !important;
+    border-bottom: 1px solid rgba(247, 245, 240, 0.15) !important;
+    border-radius: 0 0 8px 8px !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    transform: none !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .stylodyna-utility-expand-panel__content {
+    flex-wrap: wrap !important;
+    gap: 6px 12px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* ==========================================================================
+   TIER 2: CONTINUOUS ANNOUNCEMENT TICKER (STRICT CONTAINMENT)
+   ========================================================================== */
+.stylodyna-ticker-bar {
+  background-color: #F7F5F0 !important;
+  color: #2E2E2E !important;
+  height: var(--stylodyna-announcement-height, 36px);
+  min-height: 34px;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 100vw !important;
   position: relative;
   z-index: 49;
   display: flex;
   align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-sizing: border-box !important;
 }
 
-.stylodyna-announcement-bar__inner {
-  width: 100%;
-  max-width: 1520px;
-  margin: 0 auto;
-  padding: 0 1.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.stylodyna-announcement-bar .slideshow-component {
-  width: 100%;
-}
-
-.stylodyna-announcement-bar__slider-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.stylodyna-ticker-bar__track-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
   position: relative;
-  width: 100%;
+  box-sizing: border-box !important;
 }
 
-.stylodyna-announcement-bar__content {
-  text-align: center;
-  padding: 0.6rem 2.8rem;
-  width: 100%;
+.stylodyna-ticker-bar__track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 30s linear infinite;
 }
 
-.stylodyna-announcement-bar__message {
-  color: #2E2E2E;
+.stylodyna-ticker-bar:hover .stylodyna-ticker-bar__track,
+.stylodyna-ticker-bar:focus-within .stylodyna-ticker-bar__track {
+  animation-play-state: paused;
+}
+
+.stylodyna-ticker-bar__content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-right: 2rem;
+  white-space: nowrap;
   font-family: var(--font-body-family);
   font-size: 1.35rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  line-height: 1.4;
-  margin: 0;
-  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #2E2E2E !important;
 }
 
-.stylodyna-announcement-bar__link {
-  color: #2E2E2E;
-  text-decoration: none;
-  transition: color 200ms ease;
+.stylodyna-ticker-bar__dot {
+  color: #C7A24A !important;
+  font-size: 1.4rem;
+  user-select: none;
 }
 
-.stylodyna-announcement-bar__link:hover {
-  color: #8A6A43;
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-.stylodyna-announcement-bar__nav-btn {
-  background: transparent;
-  border: none;
-  color: #2E2E2E;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.2rem;
-  height: 3.2rem;
-  padding: 0;
-  border-radius: 50%;
-  transition: background-color 200ms ease, color 200ms ease;
-  flex-shrink: 0;
-}
-
-.stylodyna-announcement-bar__nav-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: #8A6A43;
-}
-
-.stylodyna-announcement-bar__nav-btn:focus-visible {
-  outline: 2px solid #2E2E2E;
-  outline-offset: 2px;
-}
-
-/* Motion & Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
-  .stylodyna-announcement-bar .slider__slide {
-    transition: none !important;
+  .stylodyna-ticker-bar__track {
+    animation: none !important;
+    transform: none !important;
+  }
+  .stylodyna-utility-bar__live-dot {
+    animation: none !important;
   }
 }
 
+/* ==========================================================================
+   MAIN HEADER — PRODUCTION BRAND LOGO & THREE-STATE ARCHITECTURE
+   ========================================================================== */
+
+.header {
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+.stylodyna-header-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.stylodyna-header-logo__image {
+  display: block;
+  width: auto;
+  height: 44px;
+  max-width: min(240px, 100%);
+  object-fit: contain;
+  transition: height 200ms ease, opacity 200ms ease;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-header-logo__image {
+    height: 40px;
+    max-width: min(200px, 100%);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-header-logo__image {
+    height: 34px;
+    max-width: min(180px, 100%);
+  }
+}
+
+/* STATE 1: HOMEPAGE TOP STATE — 40% CHARCOAL OVERLAY OVER HERO */
+.header-wrapper--transparent {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 40 !important;
+  background-color: rgba(46, 46, 46, 0.40) !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: none !important;
+  min-height: var(--stylodyna-header-top-height, 66px);
+  transition: background-color 250ms ease, min-height 250ms ease;
+}
+
+/* State 1 Foreground Elements (Excluding Cart Badge Children) */
+.header-wrapper--transparent .header__heading-link,
+.header-wrapper--transparent .header__heading-link *,
+.header-wrapper--transparent .header__heading,
+.header-wrapper--transparent .header__heading *,
+.header-wrapper--transparent .header__menu-item,
+.header-wrapper--transparent .header__menu-item *,
+.header-wrapper--transparent .header__active-menu-item,
+.header-wrapper--transparent .header__active-menu-item * {
+  color: #F7F5F0 !important;
+  fill: #F7F5F0 !important;
+  stroke: #F7F5F0 !important;
+  opacity: 1 !important;
+}
+
+.header-wrapper--transparent .header__icon:not(.header__icon--cart) {
+  color: #F7F5F0 !important;
+  fill: #F7F5F0 !important;
+  stroke: #F7F5F0 !important;
+}
+
+.header-wrapper--transparent .header__icon--cart > .svg-wrapper,
+.header-wrapper--transparent .header__icon--cart > svg {
+  color: #F7F5F0 !important;
+  fill: #F7F5F0 !important;
+  stroke: #F7F5F0 !important;
+}
+
+/* STATE 2: HOMEPAGE / SCROLLED STICKY STATE — 78% CHARCOAL TRANSLUCENT BACKGROUND */
+.scrolled-past-header .header-wrapper--transparent,
+.sticky-header.is-sticky .header-wrapper--transparent,
+.header-wrapper--transparent.is-scrolled {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+  background-color: rgba(46, 46, 46, 0.78) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  min-height: var(--stylodyna-header-scrolled-height, 74px);
+}
+
+.scrolled-past-header .stylodyna-header-logo__image,
+.sticky-header.is-sticky .stylodyna-header-logo__image {
+  height: 44px;
+}
+
+/* Persistent Empty-State Cart Count Badge ("0") & Trolley Icon - APPROVED RESTRAINED SEMANTIC RED #B83A32 */
+.header__icon--cart {
+  position: relative !important;
+}
+
+.stylodyna-cart-icon {
+  width: 24px !important;
+  height: 24px !important;
+  stroke: currentColor !important;
+  stroke-width: 2 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  fill: none !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+  z-index: 20 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  box-sizing: border-box !important;
+}
+
+/* SINGLE DIGIT (0 to 9) - EXACT 20px x 20px CIRCLE */
+.cart-count-bubble--single,
+.cart-count-bubble.cart-count-bubble--single,
+.header-wrapper--transparent .header__icon--cart .cart-count-bubble--single,
+.scrolled-past-header .cart-count-bubble--single,
+.sticky-header.is-sticky .cart-count-bubble--single {
+  width: 20px !important;
+  min-width: 20px !important;
+  max-width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  max-height: 20px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 50% !important;
+}
+
+/* MULTI DIGIT (10+) - HORIZONTAL PILL EXPANSION */
+.cart-count-bubble--multi,
+.cart-count-bubble.cart-count-bubble--multi,
+.header-wrapper--transparent .header__icon--cart .cart-count-bubble--multi,
+.scrolled-past-header .cart-count-bubble--multi,
+.sticky-header.is-sticky .cart-count-bubble--multi {
+  min-width: 20px !important;
+  height: 20px !important;
+  min-height: 20px !important;
+  padding-inline: 5px !important;
+  padding-block: 0 !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 999px !important;
+}
+
+/* NORMALIZE DAWN CHILD SPANS & TEXT CENTERING */
+.cart-count-bubble > span,
+.cart-count-bubble span,
+.cart-count-bubble > span[aria-hidden="true"],
+.cart-count-bubble span[aria-hidden="true"] {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  line-height: 1 !important;
+  width: auto !important;
+  height: auto !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  stroke: none !important;
+  text-shadow: none !important;
+  letter-spacing: normal !important;
+  transform: translateY(0.25px) !important;
+}
+
+/* ==========================================================================
+   WHATSAPP DESKTOP CUSTOMER ASSISTANCE POPOVER & QR CODE
+   ========================================================================== */
+.stylodyna-whatsapp-wrapper {
+  position: relative !important;
+  z-index: 125 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.stylodyna-whatsapp-popover {
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 275px !important;
+  padding: 18px !important;
+  background-color: #FCFBF8 !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(46, 46, 46, 0.10) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18) !important;
+  z-index: 150 !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease, visibility 200ms ease;
+  text-align: center !important;
+  pointer-events: none;
+}
+
+/* Bridge gap so cursor stays over popover */
+.stylodyna-whatsapp-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.stylodyna-whatsapp-wrapper:hover .stylodyna-whatsapp-popover,
+.stylodyna-whatsapp-wrapper:focus-within .stylodyna-whatsapp-popover {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+
+.stylodyna-whatsapp-popover__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.6rem !important;
+}
+
+.stylodyna-whatsapp-popover__title {
+  font-size: 1.4rem !important;
+  font-weight: 700 !important;
+  color: #2E2E2E !important;
+}
+
+.stylodyna-whatsapp-popover__desc {
+  font-size: 1.2rem !important;
+  color: #666666 !important;
+  margin: 8px 0 12px !important;
+  line-height: 1.35 !important;
+}
+
+.stylodyna-whatsapp-popover__qr-box {
+  background-color: #FFFFFF !important;
+  padding: 8px !important;
+  border-radius: 8px !important;
+  display: inline-block !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+.stylodyna-whatsapp-popover__qr-img {
+  display: block !important;
+  width: 128px !important;
+  height: 128px !important;
+}
+
+.stylodyna-whatsapp-popover__scan-text {
+  display: block !important;
+  font-size: 1.1rem !important;
+  color: #666666 !important;
+  margin-top: 6px !important;
+}
+
+.stylodyna-whatsapp-popover__divider {
+  height: 1px !important;
+  background-color: rgba(46, 46, 46, 0.08) !important;
+  margin: 12px 0 10px !important;
+}
+
+.stylodyna-whatsapp-popover__action {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #C7A24A !important;
+  text-decoration: none !important;
+  transition: color 200ms ease !important;
+}
+
+.stylodyna-whatsapp-popover__action:hover {
+  color: #25D366 !important;
+}
+
+/* ==========================================================================
+   GLOBAL FLOATING WHATSAPP CTA & SHARED SUPPORT POPOVER (HEADER-001E)
+   ========================================================================== */
+.stylodyna-floating-whatsapp {
+  position: fixed !important;
+  right: 24px;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 1000 !important;
+}
+
+.stylodyna-floating-whatsapp__trigger,
+.stylodyna-floating-whatsapp__trigger:link,
+.stylodyna-floating-whatsapp__trigger:visited,
+.stylodyna-floating-whatsapp__trigger:hover,
+.stylodyna-floating-whatsapp__trigger:focus-visible,
+.stylodyna-floating-whatsapp__trigger:active {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50% !important;
+  background-color: #25D366 !important;
+  color: #FFFFFF !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18) !important;
+  text-decoration: none !important;
+  transition: transform 200ms cubic-bezier(0.2, 0, 0, 1), box-shadow 200ms ease !important;
+  cursor: pointer !important;
+  border: none !important;
+  outline-offset: 3px !important;
+}
+
+.stylodyna-floating-whatsapp__trigger svg,
+.stylodyna-floating-whatsapp__trigger svg *,
+.stylodyna-floating-whatsapp__trigger .stylodyna-whatsapp-icon,
+.stylodyna-floating-whatsapp__trigger .stylodyna-whatsapp-icon * {
+  fill: #FFFFFF !important;
+  color: #FFFFFF !important;
+  width: 24px !important;
+  height: 24px !important;
+  display: block !important;
+}
+
+.stylodyna-floating-whatsapp__trigger:hover,
+.stylodyna-floating-whatsapp__trigger:focus-visible {
+  transform: scale(1.08) !important;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4) !important;
+}
+
+.stylodyna-floating-whatsapp__trigger:active {
+  transform: scale(0.96) !important;
+}
+
+.stylodyna-floating-whatsapp__brand-icon,
+.stylodyna-whatsapp-popover__brand-icon {
+  color: #25D366 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.stylodyna-floating-whatsapp__brand-icon svg,
+.stylodyna-floating-whatsapp__brand-icon svg *,
+.stylodyna-whatsapp-popover__brand-icon svg,
+.stylodyna-whatsapp-popover__brand-icon svg * {
+  fill: #25D366 !important;
+  color: #25D366 !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.stylodyna-floating-whatsapp__popover {
+  position: absolute !important;
+  bottom: calc(100% + 10px) !important;
+  right: 0 !important;
+  width: 275px !important;
+  padding: 18px !important;
+  background-color: #FCFBF8 !important;
+  border-radius: 14px !important;
+  border: 1px solid #E6E2DA !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18) !important;
+  z-index: 1005 !important;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.98);
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease !important;
+  text-align: center !important;
+  pointer-events: none;
+}
+
+.stylodyna-floating-whatsapp.is-open .stylodyna-floating-whatsapp__popover,
+.stylodyna-floating-whatsapp:hover .stylodyna-floating-whatsapp__popover,
+.stylodyna-floating-whatsapp:focus-within .stylodyna-floating-whatsapp__popover {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) scale(1) !important;
+  pointer-events: auto !important;
+}
+
+.stylodyna-floating-whatsapp__popover-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 6px !important;
+}
+
+.stylodyna-floating-whatsapp__popover-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+}
+
+.stylodyna-floating-whatsapp__popover-title {
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #2E2E2E !important;
+}
+
+.stylodyna-floating-whatsapp__close-btn {
+  background: none !important;
+  border: none !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  color: #666666 !important;
+  cursor: pointer !important;
+  padding: 0 4px !important;
+  transition: color 200ms ease !important;
+}
+
+.stylodyna-floating-whatsapp__close-btn:hover {
+  color: #2E2E2E !important;
+}
+
+.stylodyna-floating-whatsapp__popover-desc {
+  font-size: 1.2rem !important;
+  color: #666666 !important;
+  margin: 6px 0 12px !important;
+  line-height: 1.35 !important;
+}
+
+.stylodyna-floating-whatsapp__qr-box {
+  background-color: #FFFFFF !important;
+  padding: 8px !important;
+  border-radius: 8px !important;
+  display: inline-block !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+}
+
+.stylodyna-floating-whatsapp__qr-img {
+  display: block !important;
+  width: 128px !important;
+  height: 128px !important;
+}
+
+.stylodyna-floating-whatsapp__scan-text {
+  display: block !important;
+  font-size: 1.1rem !important;
+  color: #666666 !important;
+  margin-top: 6px !important;
+}
+
+.stylodyna-floating-whatsapp__divider {
+  height: 1px !important;
+  background-color: rgba(46, 46, 46, 0.08) !important;
+  margin: 12px 0 10px !important;
+}
+
+.stylodyna-floating-whatsapp__action {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #C7A24A !important;
+  text-decoration: none !important;
+  transition: color 200ms ease !important;
+}
+
+.stylodyna-floating-whatsapp__action:hover {
+  color: #25D366 !important;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-floating-whatsapp {
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  .stylodyna-floating-whatsapp__popover {
+    display: none !important; /* Hide desktop QR popover on mobile viewports */
+  }
+}
+
+/* DEDICATED STYLODYNA CHARCOAL MOBILE UTILITY DISCLOSURE DRAWER (< 990px) */
+.stylodyna-mobile-utility-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease, visibility 200ms ease;
+}
+
+.stylodyna-mobile-utility-drawer.is-open {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.stylodyna-mobile-utility-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background-color: #1F1F1F;
+  border-bottom: 1px solid rgba(247, 245, 240, 0.12);
+}
+
+.stylodyna-mobile-utility-drawer__title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #F7F5F0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stylodyna-mobile-utility-drawer__close {
+  background: transparent;
+  border: none;
+  color: #F7F5F0;
+  font-size: 2.4rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.stylodyna-mobile-utility-drawer__body {
+  padding: 8px 0;
+  background-color: #1F1F1F;
+  display: flex;
+  flex-direction: column;
+}
+
+.stylodyna-mobile-utility-drawer__link {
+  min-height: 48px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #F7F5F0 !important;
+  text-decoration: none;
+  font-size: 1.35rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(247, 245, 240, 0.08);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.stylodyna-mobile-utility-drawer__link:hover,
+.stylodyna-mobile-utility-drawer__link:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #C7A24A !important;
+}
+
+.stylodyna-mobile-utility-drawer__link--email {
+  color: #C7A24A !important;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.stylodyna-mobile-utility-drawer__info {
+  padding: 14px 20px;
+  font-size: 1.2rem;
+  color: rgba(247, 245, 240, 0.7);
+  border-bottom: 1px solid rgba(247, 245, 240, 0.08);
+}
+
+.stylodyna-mobile-utility-drawer__socials {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 20px;
+}
+
+.stylodyna-mobile-utility-drawer__socials a {
+  color: #F7F5F0;
+  transition: color 150ms ease;
+}
+
+.stylodyna-mobile-utility-drawer__socials a:hover {
+  color: #C7A24A;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stylodyna-floating-whatsapp__trigger,
+  .stylodyna-floating-whatsapp__popover {
+    transition: none !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "$schema": "StyloDyna Design Reference Governance Schema v1.0",
+  "governance": {
+    "policy": "IMMUTABLE_REFERENCE_POLICY",
+    "rule": "Authoritative design reference files are strictly human-approved, read-only artifacts. Antigravity must never overwrite, recompress, convert, rename, replace from .user_uploaded, or automatically update manifest SHA-256 hashes for reference files.",
+    "versioningRule": "If a reference update is explicitly approved by the human operator, create a new versioned file (e.g. whatsapp-hover-panel-ui-reference-v2.png) and register it in this manifest."
+  },
+  "references": {
+    "HEADER-001-HEADER-UI": {
+      "taskId": "HEADER-001A",
+      "path": "docs/design-references/header/HEADER-001/header-001a-transparent-header-reference-01.png",
+      "purpose": "Human-approved StyloDyna Global Header transparent hero overlay visual target",
+      "format": "PNG",
+      "dimensions": "1024x439",
+      "sha256": "06a12abbe0bb6a342cb576fab28236a7f708624a485124c221c2112cb920f151",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "BRAND-LOGO-PRODUCTION": {
+      "taskId": "HEADER-001D",
+      "path": "docs/design-references/brand/logo/stylodyna-header-logo-reference.png",
+      "purpose": "Human-approved StyloDyna horizontal production logo reference",
+      "format": "PNG",
+      "dimensions": "2172x724",
+      "sha256": "a6462c2499f254ebb0695de00f4422f2519b93ccfe135df74e113eb3c7a2a350",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-004-WHY-CHOOSE": {
+      "taskId": "HOME-004",
+      "path": "docs/design-references/homepage/HOME-004/why-choose-layout-reference-01.png",
+      "purpose": "Human-approved Why Choose StyloDyna layout reference",
+      "format": "JPEG",
+      "dimensions": "1024x682",
+      "sha256": "2e2288e0bd400fcf58e139931ff8b0ebe0683a9a7ec220bbbdd847e9332b5ca0",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HEADER-001-WHATSAPP-QR": {
+      "taskId": "HEADER-001",
+      "path": "docs/design-references/header/HEADER-001/whatsapp/stylodyna-whatsapp-qr-reference.svg",
+      "purpose": "Canonical WhatsApp destination vector QR reference asset",
+      "format": "SVG",
+      "dimensions": "128x128",
+      "sha256": "5b1aa73ebbd592d9f5852df401bf6b488c491360b8618628012d3bbc478508d4",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HEADER-001-WHATSAPP-POPOVER-UI": {
+      "taskId": "HEADER-001",
+      "path": "docs/design-references/header/HEADER-001/whatsapp/whatsapp-hover-panel-ui-reference.png",
+      "purpose": "Human-approved WhatsApp customer assistance hover panel visual target",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "05af11922228715fc3b3d784ec6ed47694db67cf97d538836d2e6b8dcf6d4a89",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HEADER-001-FLOATING-WHATSAPP-UI": {
+      "taskId": "HEADER-001E",
+      "path": "docs/design-references/header/HEADER-001/whatsapp/floating-whatsapp-cta-ui-reference.png",
+      "purpose": "Human-approved global floating WhatsApp CTA visual and layout reference",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "13156d8b153be25686b1b3dd0eb0b57293fcb7a1f4184858c9052def709487c2",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HEADER-001-FLOATING-WHATSAPP-ANIMATION": {
+      "taskId": "HEADER-001E",
+      "path": "docs/design-references/header/HEADER-001/whatsapp/floating-whatsapp-cta-animation-reference.png",
+      "purpose": "Human-approved global floating WhatsApp CTA micro-interaction and animation contract",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "491dbb2fbcd824cfb6c1da215736a120b1620b72cc0d0e34fd2c764451006d00",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "BRAND-ICON-WHATSAPP": {
+      "taskId": "HEADER-001F",
+      "path": "docs/design-references/brand/icons/icon-stylodyna-whatsapp-reference.svg",
+      "purpose": "Human-approved StyloDyna vector WhatsApp brand icon reference asset",
+      "format": "SVG",
+      "dimensions": "256x256",
+      "sha256": "9df0625774ba63e9ae64d972454127bb9ae64f7eb4d0095a92dd745f0c359345",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HEADER-001-UTILITY-EXPAND-MENU": {
+      "taskId": "HEADER-001G",
+      "path": "docs/design-references/header/HEADER-001/utility-bar/header-001g-responsive-utility-expand-menu-reference.png",
+      "purpose": "Human-approved StyloDyna compact utility bar with inline horizontal expand menu reference",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "de851e60d0563456877f59977a30db5a806392dfa805c49258bf7fa6aeadae99",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HEADER-001H-UTILITY-MENU": {
+      "taskId": "HEADER-001H",
+      "path": "docs/design-references/header/HEADER-001/utility-bar/header-001h-responsive-utility-menu-reference.png",
+      "purpose": "Human-approved StyloDyna compact utility bar with inline expand menu & mobile disclosure panel reference",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "7e1e3d0d39ebff0104bc821e3da16c15003b269c7161a841296b08a52ad8062d",
+      "immutable": true,
+      "status": "human_approved"
+    }
+  }
+}
