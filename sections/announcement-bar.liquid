@@ -1,219 +1,247 @@
-{{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+{% comment %}theme-check-disable UndefinedObject{% endcomment %}
+<!-- StyloDyna Global Utility Bar & Continuous Announcement Ticker (HEADER-001 Canonical WhatsApp Implementation) -->
+{{ 'component-stylodyna-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stylodyna-header.js' | asset_url }}" defer="defer"></script>
 
-{%- style -%}
-  :root {
-    --stylodyna-announcement-height: 36px;
-  }
-  @media screen and (max-width: 749px) {
-    :root {
-      --stylodyna-announcement-height: 34px;
-    }
-  }
+{%- assign raw_whatsapp_num = section.settings.whatsapp_number | default: '923271777879' | strip | replace: '+', '' | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
+{%- assign raw_whatsapp_msg = section.settings.whatsapp_message | default: "Hello StyloDyna! I'm interested in a product and would like some assistance." -%}
+{%- assign encoded_whatsapp_msg = raw_whatsapp_msg | url_encode -%}
+{%- capture whatsapp_url -%}https://wa.me/{{ raw_whatsapp_num }}?text={{ encoded_whatsapp_msg }}{%- endcapture -%}
 
-  .utility-bar,
-  .announcement-bar-section {
-    background-color: #1F1F1F !important;
-    color: #F7F5F0 !important;
-    position: relative;
-    z-index: 50;
-    margin: 0 !important;
-  }
-
-  .utility-bar {
-    min-height: var(--stylodyna-announcement-height, 36px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  .announcement-bar__message {
-    color: #F7F5F0 !important;
-    font-family: var(--font-body-family);
-    font-size: 1.3rem !important;
-    font-weight: 500 !important;
-    letter-spacing: 0.08rem !important;
-    text-align: center;
-    margin: 0;
-    padding: 0.6rem 0;
-  }
-
-  .announcement-bar__link {
-    color: #F7F5F0 !important;
-    text-decoration: none;
-  }
-
-  .announcement-bar-slider .slider-button {
-    color: #F7F5F0 !important;
-  }
-{%- endstyle -%}
-
-{%- liquid
-  assign social_icons = true
-  if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
-    assign social_icons = false
-  endif
-  if section.settings.enable_country_selector or section.settings.enable_language_selector
-    assign language_country_selector = true
-  endif
-  if section.blocks.size > 0
-    assign announcement_bar = true
-  endif
--%}
-
-{% if social_icons %}
-  {{ 'component-list-social.css' | asset_url | stylesheet_tag }}
-{% endif %}
-
-<div
-  class="utility-bar color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator and section.blocks.size > 0 %} utility-bar--bottom-border{% elsif section.settings.show_line_separator and section.settings.show_social and social_icons%} utility-bar--bottom-border-social-only{% endif %}{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header-localization{% endif %}"
->
-  <div class="page-width utility-bar__grid{% if announcement_bar and language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--3-col{% elsif language_country_selector or section.settings.show_social and social_icons %} utility-bar__grid--2-col{% endif %}">
-    {%- if section.settings.show_social and social_icons -%}
-      {%- render 'social-icons' -%}
-    {%- endif -%}
-    {%- if section.blocks.size == 1 -%}
-      <div
-        class="announcement-bar{% if section.settings.show_social %} announcement-bar--one-announcement{% endif %}"
-        role="region"
-        aria-label="{{ 'sections.header.announcement' | t }}"
-        {{ section.blocks.first.shopify_attributes }}
-      >
-        {%- if section.blocks.first.settings.text != blank -%}
-          {%- if section.blocks.first.settings.link != blank -%}
-            <a
-              href="{{ section.blocks.first.settings.link }}"
-              class="announcement-bar__link link link--text focus-inset animate-arrow"
-            >
-          {%- endif -%}
-          <p class="announcement-bar__message h5">
-            <span>{{ section.blocks.first.settings.text | escape }}</span>
-            {%- if section.blocks.first.settings.link != blank -%}
-              {{- 'icon-arrow.svg' | inline_asset_content -}}
-            {%- endif -%}
-          </p>
-          {%- if section.blocks.first.settings.link != blank -%}
-            </a>
-          {%- endif -%}
+<!-- TIER 1: UTILITY / CONTACT, LIVE STATUS & SOCIAL BAR (THREE-REGION GRID) -->
+{%- if section.settings.enable_utility_bar -%}
+  <div class="stylodyna-utility-bar" role="region" aria-label="Customer Support & Live Status Bar">
+    <div class="stylodyna-utility-bar__inner page-width">
+      
+      <!-- LEFT REGION: CONTACT GROUP + INLINE EXPAND TRIGGER -->
+      <div class="stylodyna-utility-bar__contact-group">
+        {%- if section.settings.show_phone and section.settings.phone_number != blank -%}
+          <a href="tel:{{ section.settings.phone_number | replace: ' ', '' }}" class="stylodyna-utility-bar__item stylodyna-utility-bar__item--phone" aria-label="Call StyloDyna: {{ section.settings.phone_number | escape }}">
+            <span class="stylodyna-utility-bar__icon-wrapper">{% render 'icon-stylodyna-phone' %}</span>
+            <span class="stylodyna-utility-bar__label stylodyna-utility-bar__desktop-only">{{ section.settings.phone_number | escape }}</span>
+          </a>
         {%- endif -%}
-      </div>
-    {%- elsif section.blocks.size > 1 -%}
-      <slideshow-component
-        class="announcement-bar"
-        role="region"
-        aria-roledescription="{{ 'sections.announcements.carousel' | t }}"
-        aria-label="{{ 'sections.announcements.announcement_bar' | t }}"
-      >
-        <div class="announcement-bar-slider slider-buttons">
-          <button
-            type="button"
-            class="slider-button slider-button--prev"
-            name="previous"
-            aria-label="{{ 'sections.announcements.previous_announcement' | t }}"
-            aria-controls="Slider-{{ section.id }}"
-          >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
-          </button>
-          <div
-            class="grid grid--1-col slider slider--everywhere"
-            id="Slider-{{ section.id }}"
-            aria-live="polite"
-            aria-atomic="true"
-            data-autoplay="{{ section.settings.auto_rotate }}"
-            data-speed="{{ section.settings.change_slides_speed }}"
-          >
-            {%- for block in section.blocks -%}
-              <div
-                class="slideshow__slide slider__slide grid__item grid--1-col"
-                id="Slide-{{ section.id }}-{{ forloop.index }}"
-                {{ block.shopify_attributes }}
-                role="group"
-                aria-roledescription="{{ 'sections.announcements.announcement' | t }}"
-                aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
-                tabindex="-1"
-              >
-                <div
-                  class="announcement-bar__announcement"
-                  role="region"
-                  aria-label="{{ 'sections.header.announcement' | t }}"
-                >
-                  {%- if block.settings.text != blank -%}
-                    {%- if block.settings.link != blank -%}
-                      <a
-                        href="{{ block.settings.link }}"
-                        class="announcement-bar__link link link--text focus-inset animate-arrow"
-                      >
-                    {%- endif -%}
-                    <p class="announcement-bar__message h5">
-                      <span>{{ block.settings.text | escape }}</span>
-                      {%- if block.settings.link != blank -%}
-                        {{- 'icon-arrow.svg' | inline_asset_content -}}
-                      {%- endif -%}
-                    </p>
-                    {%- if block.settings.link != blank -%}
-                      </a>
-                    {%- endif -%}
-                  {%- endif -%}
-                </div>
+
+        {%- if section.settings.show_whatsapp -%}
+          {%- if section.settings.show_phone and section.settings.phone_number != blank -%}
+            <span class="stylodyna-utility-bar__divider" aria-hidden="true">·</span>
+          {%- endif -%}
+          <div class="stylodyna-whatsapp-wrapper">
+            <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="stylodyna-utility-bar__item stylodyna-utility-bar__item--whatsapp" aria-haspopup="true" aria-label="StyloDyna WhatsApp Support">
+              <span class="stylodyna-utility-bar__icon-wrapper">{% render 'icon-stylodyna-whatsapp' %}</span>
+              <span class="stylodyna-utility-bar__label stylodyna-utility-bar__desktop-only">WHATSAPP</span>
+            </a>
+
+            <!-- Desktop Customer Assistance Popover -->
+            <div class="stylodyna-whatsapp-popover stylodyna-utility-bar__desktop-only" role="dialog" aria-label="WhatsApp Support">
+              <div class="stylodyna-whatsapp-popover__header">
+                <span class="stylodyna-whatsapp-popover__brand-icon">
+                  {% render 'icon-stylodyna-whatsapp' %}
+                </span>
+                <span class="stylodyna-whatsapp-popover__title">WhatsApp StyloDyna</span>
               </div>
-            {%- endfor -%}
+              <p class="stylodyna-whatsapp-popover__desc">Need help choosing a product?<br>Our team is ready to assist.</p>
+              <div class="stylodyna-whatsapp-popover__qr-box">
+                <img src="{{ 'stylodyna-whatsapp-qr.svg' | asset_url }}" width="128" height="128" alt="QR code to chat with StyloDyna on WhatsApp" loading="lazy" class="stylodyna-whatsapp-popover__qr-img">
+              </div>
+              <span class="stylodyna-whatsapp-popover__scan-text">Scan to chat on WhatsApp</span>
+              <div class="stylodyna-whatsapp-popover__divider"></div>
+              <a href="{{ whatsapp_url }}" target="_blank" rel="noopener" class="stylodyna-whatsapp-popover__action">
+                <span>Continue on WhatsApp Web</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
-          <button
-            type="button"
-            class="slider-button slider-button--next"
-            name="next"
-            aria-label="{{ 'sections.announcements.next_announcement' | t }}"
-            aria-controls="Slider-{{ section.id }}"
-          >
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
+        {%- endif -%}
+
+        {%- if section.settings.show_email and section.settings.email_address != blank -%}
+          {%- if section.settings.show_phone or section.settings.show_whatsapp -%}
+            <span class="stylodyna-utility-bar__divider stylodyna-utility-bar__divider--email" aria-hidden="true">·</span>
+          {%- endif -%}
+          <div class="stylodyna-utility-bar__email-container" data-stylodyna-email-container>
+            <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-utility-bar__item stylodyna-utility-bar__item--email" id="stylodyna-email-trigger" aria-label="Email StyloDyna: {{ section.settings.email_address | escape }}">
+              <span class="stylodyna-utility-bar__icon-wrapper">{% render 'icon-stylodyna-email' %}</span>
+              <span class="stylodyna-utility-bar__email-text stylodyna-utility-bar__desktop-only">{{ section.settings.email_address | escape }}</span>
+            </a>
+            <!-- MICRO EMAIL POPOVER -->
+            <div class="stylodyna-email-popover stylodyna-utility-bar__desktop-only" id="stylodyna-email-popover" role="dialog" aria-label="StyloDyna Email Contact">
+              <span class="stylodyna-email-popover__title">Email Us</span>
+              <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-email-popover__link">{{ section.settings.email_address | escape }}</a>
+              <span class="stylodyna-email-popover__desc">We typically reply within one business day.</span>
+              <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-email-popover__action">
+                <span>Compose Email</span>
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <!-- INLINE HORIZONTAL EXPAND TRIGGER (>>) -->
+        <button type="button" class="stylodyna-utility-expand-trigger" id="stylodyna-utility-expand-trigger" aria-expanded="false" aria-controls="stylodyna-utility-expand-panel" aria-label="Expand Utility Navigation">
+          <span class="stylodyna-utility-expand-trigger__icon" aria-hidden="true">»</span>
+        </button>
+
+        <!-- INLINE HORIZONTAL EXPANDABLE PANEL -->
+        <div class="stylodyna-utility-expand-panel" id="stylodyna-utility-expand-panel" role="region" aria-label="Utility Links Menu">
+          <div class="stylodyna-utility-expand-panel__content">
+            {%- if section.settings.show_email and section.settings.email_address != blank -%}
+              <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-utility-expand__item stylodyna-utility-expand__item--email">
+                {% render 'icon-stylodyna-email' %}
+                <span>{{ section.settings.email_address | escape }}</span>
+              </a>
+              <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            {%- endif -%}
+            <a href="/pages/showrooms" class="stylodyna-utility-expand__item">Visit Our Showrooms</a>
+            <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            <span class="stylodyna-utility-expand__text">Mon–Sun: 10AM–9PM</span>
+            <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            <a href="/collections/new-arrivals" class="stylodyna-utility-expand__item">New Arrivals</a>
+            <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            <a href="/pages/track-order" class="stylodyna-utility-expand__item">Track Order</a>
+            <span class="stylodyna-utility-expand__divider" aria-hidden="true">|</span>
+            <a href="/pages/contact" class="stylodyna-utility-expand__item">Help & Support</a>
+          </div>
+          <button type="button" class="stylodyna-utility-expand-close" id="stylodyna-utility-expand-close" aria-label="Close Expanded Utility Menu">
+            <span>Close</span>
+            <span aria-hidden="true">×</span>
           </button>
         </div>
-      </slideshow-component>
-      {%- if request.design_mode -%}
-        <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
-        <style>
-          /* theme editor power preview fix */
-          .announcement-bar-slider .slider__slide[aria-hidden='true'] {
-            visibility: hidden;
-          }
-        </style>
-      {%- endif -%}
-    {%- endif -%}
-    <div class="localization-wrapper">
-      {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
-        <localization-form class="small-hide medium-hide">
-          {%- form 'localization', id: 'AnnouncementCountryForm', class: 'localization-form' -%}
-            <div>
-              <h2 class="visually-hidden" id="AnnouncementCountryLabel">{{ 'localization.country_label' | t }}</h2>
-              {%- render 'country-localization', localPosition: 'AnnouncementCountry' -%}
-            </div>
-          {%- endform -%}
-        </localization-form>
-      {% endif %}
+      </div>
 
-      {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-        <localization-form class="small-hide medium-hide">
-          {%- form 'localization', id: 'AnnouncementLanguageForm', class: 'localization-form' -%}
-            <div>
-              <h2 class="visually-hidden" id="AnnouncementLanguageLabel">{{ 'localization.language_label' | t }}</h2>
-              {%- render 'language-localization', localPosition: 'AnnouncementLanguage' -%}
-            </div>
-          {%- endform -%}
-        </localization-form>
-      {%- endif -%}
+      <!-- CENTER REGION: INDIVISIBLE LIVE GREEN DOT + ROTATING MESSAGE UNIT -->
+      <div class="stylodyna-utility-bar__live" data-stylodyna-utility-rotator data-interval="7000" tabindex="0" id="stylodyna-live-rotator">
+        <span class="stylodyna-utility-bar__live-dot" aria-hidden="true"></span>
+        <div class="stylodyna-utility-bar__live-message-wrapper" id="stylodyna-live-message-wrapper">
+          <span class="stylodyna-utility-bar__live-text is-active" data-utility-message>Welcome to StyloDyna — Designed for Homes, Crafted for Living.</span>
+          <span class="stylodyna-utility-bar__live-text" data-utility-message>Same-Day Delivery & Assembly Available in Lahore.</span>
+          <span class="stylodyna-utility-bar__live-text" data-utility-message>Need Help? Our Team Is Just a WhatsApp Away.</span>
+          <span class="stylodyna-utility-bar__live-text" data-utility-message>StyloDyna Showrooms Are Coming Soon to Lahore.</span>
+          <span class="stylodyna-utility-bar__live-text" data-utility-message>Coming Soon to DHA & Bahria Town, Lahore.</span>
+        </div>
+        <!-- MICRO FULL-MESSAGE POPOVER (SHOWN ONLY WHEN TRUNCATED) -->
+        <div class="stylodyna-message-popover" id="stylodyna-message-popover" role="tooltip" aria-hidden="true">
+          <span class="stylodyna-message-popover__content" id="stylodyna-message-popover-text">Welcome to StyloDyna — Designed for Homes, Crafted for Living.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT REGION: SOCIAL MEDIA GROUP (CONFIGURED OR PREVIEW MODE) -->
+      <div class="stylodyna-utility-bar__social-group stylodyna-utility-bar__desktop-only">
+        {%- if settings.social_instagram_link != blank -%}
+          <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="stylodyna-utility-social__link" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        {%- elsif section.settings.show_unconfigured_social_icons -%}
+          <span class="stylodyna-utility-social__link stylodyna-utility-social__link--disabled" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </span>
+        {%- endif -%}
+
+        {%- if settings.social_facebook_link != blank -%}
+          <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="stylodyna-utility-social__link" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        {%- elsif section.settings.show_unconfigured_social_icons -%}
+          <span class="stylodyna-utility-social__link stylodyna-utility-social__link--disabled" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </span>
+        {%- endif -%}
+
+        {%- if settings.social_youtube_link != blank -%}
+          <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="stylodyna-utility-social__link" aria-label="YouTube">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </a>
+        {%- elsif section.settings.show_unconfigured_social_icons -%}
+          <span class="stylodyna-utility-social__link stylodyna-utility-social__link--disabled" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- DEDICATED STYLODYNA CHARCOAL MOBILE UTILITY DISCLOSURE DRAWER (< 990px) -->
+    <div class="stylodyna-mobile-utility-drawer" id="stylodyna-mobile-utility-drawer" role="dialog" aria-modal="true" aria-label="StyloDyna Mobile Utility Navigation">
+      <div class="stylodyna-mobile-utility-drawer__header">
+        <span class="stylodyna-mobile-utility-drawer__title">Utility Menu</span>
+        <button type="button" class="stylodyna-mobile-utility-drawer__close" id="stylodyna-mobile-utility-close" aria-label="Close Mobile Utility Menu">×</button>
+      </div>
+      <div class="stylodyna-mobile-utility-drawer__body">
+        {%- if section.settings.show_email and section.settings.email_address != blank -%}
+          <a href="mailto:{{ section.settings.email_address }}" class="stylodyna-mobile-utility-drawer__link stylodyna-mobile-utility-drawer__link--email">
+            {% render 'icon-stylodyna-email' %}
+            <span>{{ section.settings.email_address | escape }}</span>
+          </a>
+        {%- endif -%}
+        <a href="/pages/showrooms" class="stylodyna-mobile-utility-drawer__link">
+          <span>Visit Our Showrooms</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <div class="stylodyna-mobile-utility-drawer__info">
+          <span>Mon–Sun: 10AM–9PM</span>
+        </div>
+        <a href="/collections/new-arrivals" class="stylodyna-mobile-utility-drawer__link">
+          <span>New Arrivals</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <a href="/pages/track-order" class="stylodyna-mobile-utility-drawer__link">
+          <span>Track Your Order</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <a href="/pages/contact" class="stylodyna-mobile-utility-drawer__link">
+          <span>Help & Support</span>
+          <span aria-hidden="true">›</span>
+        </a>
+        <div class="stylodyna-mobile-utility-drawer__socials">
+          {%- if settings.social_instagram_link != blank -%}
+            <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_facebook_link != blank -%}
+            <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+<!-- TIER 2: CONTINUOUS ANNOUNCEMENT TICKER -->
+<div class="stylodyna-ticker-bar" role="region" aria-label="Announcements Ticker">
+  <div class="stylodyna-ticker-bar__track-wrapper">
+    <div class="stylodyna-ticker-bar__track">
+      <div class="stylodyna-ticker-bar__content">
+        <span>Fast & Reliable Delivery Across Pakistan</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>Free Delivery on Selected Products</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>Confident in Our Quality · Easy Returns If You’re Not Satisfied</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>WhatsApp Support Available 24/7 · 0327 1777879</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+      </div>
+      <!-- Duplicate content block for seamless looping -->
+      <div class="stylodyna-ticker-bar__content" aria-hidden="true">
+        <span>Fast & Reliable Delivery Across Pakistan</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>Free Delivery on Selected Products</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>Confident in Our Quality · Easy Returns If You’re Not Satisfied</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+        <span>WhatsApp Support Available 24/7 · 0327 1777879</span>
+        <span class="stylodyna-ticker-bar__dot" aria-hidden="true">·</span>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- GLOBAL FLOATING WHATSAPP CTA -->
+{% render 'stylodyna-floating-whatsapp' %}
+
 {% schema %}
 {
-  "name": "t:sections.announcement-bar.name",
+  "name": "Announcement Bar",
   "max_blocks": 12,
   "class": "announcement-bar-section",
   "enabled_on": {
@@ -222,90 +250,84 @@
   "settings": [
     {
       "type": "checkbox",
-      "id": "auto_rotate",
-      "label": "t:sections.announcement-bar.settings.auto_rotate.label",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "change_slides_speed",
-      "min": 3,
-      "max": 10,
-      "step": 1,
-      "unit": "s",
-      "label": "t:sections.announcement-bar.settings.change_slides_speed.label",
-      "default": 5
-    },    
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-4"
-    },  
-    {
-      "type": "checkbox",
-      "id": "show_line_separator",
+      "id": "enable_utility_bar",
       "default": true,
-      "label": "t:sections.header.settings.show_line_separator.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.announcement-bar.settings.heading_utilities.content"
-    },
-    {
-      "type": "paragraph",
-         "content": "t:sections.announcement-bar.settings.paragraph.content"
-    },             
-    {
-      "type": "checkbox",
-      "id": "show_social",
-      "default": false,
-      "label": "t:sections.announcement-bar.settings.show_social.label",
-      "info": "t:sections.announcement-bar.settings.show_social.info"
+      "label": "Enable Utility Contact Bar"
     },
     {
       "type": "checkbox",
-      "id": "enable_country_selector",
-      "default": false,
-      "label": "t:sections.announcement-bar.settings.enable_country_selector.label",
-      "info": "t:sections.announcement-bar.settings.enable_country_selector.info"
+      "id": "show_phone",
+      "default": true,
+      "label": "Show Phone Number"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "default": "0327 1777879",
+      "label": "Phone Number"
     },
     {
       "type": "checkbox",
-      "id": "enable_language_selector",
-      "default": false,
-      "label": "t:sections.announcement-bar.settings.enable_language_selector.label",
-      "info": "t:sections.announcement-bar.settings.enable_language_selector.info"
+      "id": "show_whatsapp",
+      "default": true,
+      "label": "Show WhatsApp Support"
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "default": "923271777879",
+      "label": "WhatsApp Phone Number (digits only, e.g. 923271777879)"
+    },
+    {
+      "type": "textarea",
+      "id": "whatsapp_message",
+      "default": "Hello StyloDyna! I'm interested in a product and would like some assistance.",
+      "label": "WhatsApp Default Message"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_email",
+      "default": true,
+      "label": "Show Sales Email"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "default": "sales@stylodyna.com",
+      "label": "Sales Email Address"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_unconfigured_social_icons",
+      "default": true,
+      "label": "Show unconfigured social icons for visual layout preview"
     }
   ],
   "blocks": [
     {
       "type": "announcement",
-      "name": "t:sections.announcement-bar.blocks.announcement.name",
+      "name": "Announcement",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "default": "t:sections.announcement-bar.blocks.announcement.settings.text.default",
-          "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
+          "default": "Fast & Reliable Delivery Across Pakistan",
+          "label": "Announcement Text"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "t:sections.announcement-bar.blocks.announcement.settings.link.label"
+          "label": "Announcement Link"
         }
       ]
     }
   ],
-  "presets": [
-    {
-      "name": "t:sections.announcement-bar.presets.name",
-      "blocks": [
-        {
-          "type": "announcement"
-        }
-      ]
-    }
-  ]
+  "default": {
+    "blocks": [
+      {
+        "type": "announcement"
+      }
+    ]
+  }
 }
 {% endschema %}

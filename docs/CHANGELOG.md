@@ -7,12 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ---
 
 ## [Unreleased]
-### Added (HOME-004 Design-Reference Integration & HOME-004A Visual Remediation)
-- Implemented **Why Choose StyloDyna** homepage section (`sections/stylodyna-why-choose.liquid` and `assets/section-stylodyna-why-choose.css`) using the approved asymmetrical design reference (`docs/design-references/homepage/HOME-004/why-choose-layout-reference-01.png`).
-- Left Editorial Column: Eyebrow (`WHY CHOOSE STYLODYNA`), Heading (`Why Choose StyloDyna?`), Supporting copy, optional CTA, and merchant-configurable lifestyle visual (`image_picker` with `sd-collection-living-room.webp` fallback).
-- Right Column: 2 × 2 Trust-Card Grid (`Timeless Design`, `Premium Craftsmanship`, `Reliable Delivery`, `Dedicated Support`) with soft ivory card containers (`#F7F5F0`), 2px stroke monochrome SVG line icons (`aria-hidden="true"`), and hover lift interaction.
-- Fixed HOME-004A lifestyle image visibility issue by establishing 2-tier fallback pipeline.
-- Established Design References Governance Framework under `docs/design-references/`.
+### Added (HEADER-001 / HEADER-001A Two-Tier Communication System & Header Refinements)
+- Replaced previous single announcement container with a professional **Two-Tier Global Communication System** (`sections/announcement-bar.liquid` and `assets/component-stylodyna-header.css`).
+- **Tier 1 (Utility Bar)**: Solid Charcoal (`#1F1F1F`) contact bar rendering persistent support details (`tel:`, `mailto:`, WhatsApp URL).
+- **Tier 2 (Dynamic Announcement Bar)**: Soft Ivory (`#F7F5F0`) carousel rendering customer-facing trust and delivery announcements with controlled 6-second rotation interval.
+- **Main Header Overlay (HEADER-001A)**: Refined transparent header mode over homepage hero image with Charcoal `#2E2E2E` 40% alpha (`rgba(46, 46, 46, 0.40)`), clean CSS selector specificity without `!important`, and 100% full-opacity Soft Ivory (`#F7F5F0`) logo, navigation, and icons.
+- **Announcement Bar Arrows**: Hidden by default (`show_nav_buttons: false`) per reference [`header-001a-transparent-header-reference-01.png`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/header/HEADER-001/header-001a-transparent-header-reference-01.png).
 
 ---
 
