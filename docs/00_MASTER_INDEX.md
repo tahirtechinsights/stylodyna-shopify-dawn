@@ -13,6 +13,7 @@ This master index provides the central sitemap and reference index for all techn
   - **WEB-001**: Storefront Development Documentation & Git Governance Baseline — **COMPLETE**
   - **HOME-004**: Why Choose StyloDyna (Design-Reference Integration & Redesign) — **COMPLETE**
   - **HEADER-001**: Global Header, 35px Utility Bar, Inline Expand Menu, Mobile Disclosure Panel & Floating WhatsApp System — **COMPLETED (Production Baseline: HEADER-001H, Audit: HEADER-001J, Rejected: HEADER-001I [Rolled Back], Reference Integrity: PASS, Recovery: COMPLETE, Human Acceptance: PASS)**
+  - **HOME-005**: Shop by Categories Carousel & Rail Experience — **COMPLETED (Production Baseline: Shopify OS 2.0 9-Category Scalable Carousel Rail, References Registered: 21, WebP Derivatives: 9, Reference Integrity: PASS, Recovery: COMPLETE, Human Acceptance: PASS)**
 
 ---
 

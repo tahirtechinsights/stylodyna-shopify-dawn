@@ -1,0 +1,2 @@
+# Force LF line endings for reference SVG assets to preserve exact SHA-256 binary hashes across platforms
+*.svg text eol=lf
