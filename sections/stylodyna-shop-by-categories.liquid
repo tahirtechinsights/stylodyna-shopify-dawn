@@ -1,0 +1,324 @@
+{%- comment -%}
+  StyloDyna Shop by Categories Section (HOME-005E)
+  Production Baseline: Shopify OS 2.0 9-Category Scalable Carousel Rail + Approved Visual Conformance
+{%- endcomment -%}
+
+{{ 'component-stylodyna-shop-by-categories.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stylodyna-shop-by-categories.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  class="stylodyna-shop-by-categories section-{{ section.id }}-padding"
+  id="ShopByCategories-{{ section.id }}"
+  data-enable-autoplay="{{ section.settings.enable_autoplay }}"
+  data-autoplay-interval="{{ section.settings.autoplay_interval }}"
+>
+  <div class="page-width">
+    {%- comment -%} Centered Section Header {%- endcomment -%}
+    <div class="stylodyna-categories__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="stylodyna-categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="stylodyna-categories__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="stylodyna-categories__description rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Horizontal Category Rail & Lateral Side Navigation Controls {%- endcomment -%}
+    <div class="stylodyna-categories__rail-wrapper">
+      {%- if section.settings.show_nav_buttons -%}
+        <button
+          type="button"
+          class="stylodyna-categories__nav-btn stylodyna-categories__nav-btn--prev"
+          aria-label="Previous categories"
+          disabled
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+      {%- endif -%}
+
+      <ul
+        class="stylodyna-categories__rail"
+        role="list"
+        aria-label="{{ section.settings.heading | default: 'Shop by Categories' }}"
+        tabindex="0"
+      >
+        {%- for block in section.blocks -%}
+          {%- assign card_title = block.settings.category_title -%}
+          {%- assign target_collection = block.settings.collection -%}
+          
+          {%- comment -%} Card Link Priority: custom_link > collection.url > '#' {%- endcomment -%}
+          {%- assign target_url = '#' -%}
+          {%- if block.settings.custom_link != blank -%}
+            {%- assign target_url = block.settings.custom_link -%}
+          {%- elsif target_collection != blank -%}
+            {%- assign target_url = target_collection.url -%}
+          {%- endif -%}
+
+          {%- comment -%} Fallback Asset Priority Logic for 9 Default Categories {%- endcomment -%}
+          {%- assign fallback_asset = '' -%}
+          {%- case forloop.index -%}
+            {%- when 1 -%}{%- assign fallback_asset = 'sd-category-sofa.webp' -%}
+            {%- when 2 -%}{%- assign fallback_asset = 'sd-category-chair.webp' -%}
+            {%- when 3 -%}{%- assign fallback_asset = 'sd-category-bed.webp' -%}
+            {%- when 4 -%}{%- assign fallback_asset = 'sd-category-dining-table.webp' -%}
+            {%- when 5 -%}{%- assign fallback_asset = 'sd-category-table.webp' -%}
+            {%- when 6 -%}{%- assign fallback_asset = 'sd-category-lamp.webp' -%}
+            {%- when 7 -%}{%- assign fallback_asset = 'sd-category-lifestyle.webp' -%}
+            {%- when 8 -%}{%- assign fallback_asset = 'sd-category-sports-outdoors.webp' -%}
+            {%- when 9 -%}{%- assign fallback_asset = 'sd-category-smart-home.webp' -%}
+          {%- endcase -%}
+
+          <li class="stylodyna-category-card__item" {{ block.shopify_attributes }}>
+            <a
+              href="{{ target_url }}"
+              class="stylodyna-category-card"
+              aria-label="{{ block.settings.accessible_label | default: card_title | escape }}"
+            >
+              <div class="stylodyna-category-card__image-surface">
+                {%- if block.settings.custom_image != blank -%}
+                  {{ block.settings.custom_image | image_url: width: 1254 | image_tag:
+                    loading: 'lazy',
+                    class: 'stylodyna-category-card__image',
+                    sizes: '(min-width: 1200px) 240px, (min-width: 750px) 280px, 50vw',
+                    widths: '300, 450, 600, 900, 1254',
+                    alt: card_title
+                  }}
+                {%- elsif fallback_asset != '' -%}
+                  <img
+                    src="{{ fallback_asset | asset_url }}"
+                    alt="{{ card_title | escape }}"
+                    class="stylodyna-category-card__image"
+                    loading="lazy"
+                    width="1254"
+                    height="1254"
+                  >
+                {%- else -%}
+                  <div class="stylodyna-category-card__placeholder">
+                    {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {%- endif -%}
+              </div>
+
+              <div class="stylodyna-category-card__footer">
+                <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
+                <span class="stylodyna-category-card__arrow" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if section.settings.show_nav_buttons -%}
+        <button
+          type="button"
+          class="stylodyna-categories__nav-btn stylodyna-categories__nav-btn--next"
+          aria-label="Next categories"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Centered Pagination / Progress Dots {%- endcomment -%}
+    <div class="stylodyna-categories__pagination" role="tablist" aria-label="Category pages"></div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by Categories",
+  "tag": "section",
+  "class": "section-stylodyna-shop-by-categories",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "EXPLORE OUR COLLECTIONS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Categories"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Find the perfect pieces for every room.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav_buttons",
+      "label": "Show Desktop Arrow Controls",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable Intelligent Autoplay (Desktop)",
+      "default": true,
+      "info": "Autoplay only runs when category rail overflows. Pauses on hover, focus, or scroll."
+    },
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay Dwell Interval",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Card",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_title",
+          "label": "Category Title",
+          "default": "Furniture Category"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Shopify Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Category Image (Overrides Fallback)"
+        },
+        {
+          "type": "url",
+          "id": "custom_link",
+          "label": "Custom Link (Overrides Collection URL)"
+        },
+        {
+          "type": "text",
+          "id": "accessible_label",
+          "label": "Accessible ARIA Label",
+          "info": "Optional custom accessibility label for screen readers."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Categories",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Sofa"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Chair"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Bed"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Dining Table"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Table"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Lamp"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Lifestyle"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Sports & Outdoors"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_title": "Smart Home"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

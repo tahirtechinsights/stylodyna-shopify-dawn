@@ -105,6 +105,116 @@
       "sha256": "7e1e3d0d39ebff0104bc821e3da16c15003b269c7161a841296b08a52ad8062d",
       "immutable": true,
       "status": "human_approved"
+    },
+    "HOME-005-UI": {
+      "taskId": "HOME-005A",
+      "path": "docs/design-references/home/HOME-005/ui/home-005-shop-by-categories-reference.png",
+      "purpose": "Human-approved Shop by Categories section layout and visual experience reference target",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "a2649d2f5b6c8732f869d500ea9960e271aa1ba9ad602af60d9906c598003cd6",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-SOFA": {
+      "taskId": "HOME-005A",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-sofa.png",
+      "purpose": "Human-approved master source asset for Sofa category",
+      "format": "PNG",
+      "dimensions": "1254x1254",
+      "sha256": "28367f10e2ccfd401c16d3a2f8968eed84a7b9dfaa27b9ca4e80c78f48b1751a",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-CHAIR": {
+      "taskId": "HOME-005A",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-chair.png",
+      "purpose": "Human-approved master source asset for Chair category",
+      "format": "PNG",
+      "dimensions": "1254x1254",
+      "sha256": "662ffeb7583be2997215800788b0fd5bbc378c097145bef53fd04e8184477adc",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-BED": {
+      "taskId": "HOME-005A",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-bed.png",
+      "purpose": "Human-approved master source asset for Bed category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "7c0ec2748f8db2e2fcadddc2b4ace8831e9a47a735d8d9299945b839b3960cad",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-DINING-TABLE": {
+      "taskId": "HOME-005A",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-dining-table.png",
+      "purpose": "Human-approved master source asset for Dining Table category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "c143d2ca4527482439ef56e6eb6be3d22baac9c0314045c1f0b3c720c89aee8c",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-TABLE": {
+      "taskId": "HOME-005A",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-table.png",
+      "purpose": "Human-approved master source asset for Table category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "b10acaa9a347d0369769053e494fc9cccfb3a4fcc2c9d8eccc71a8de871fad97",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-LAMP": {
+      "taskId": "HOME-005A",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-lamp.png",
+      "purpose": "Human-approved master source asset for Lamp category",
+      "format": "PNG",
+      "dimensions": "1285x1224",
+      "sha256": "25db9533b1a5c9531ef2acb3ce15c95786c3e8d303b54928b3b1fbf2a5d73401",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CAROUSEL-APPROVED": {
+      "taskId": "HOME-005D",
+      "path": "docs/design-references/home/HOME-005/ui/home-005-shop-by-categories-carousel-approved.png",
+      "purpose": "Human-approved primary visual reference for Shop by Categories centered 6-card carousel and dot pagination system",
+      "format": "PNG",
+      "dimensions": "1615x974",
+      "sha256": "df728b741e350cdec992dfa7da5284f1e5865798b299f11c23dfeaf62cfad925",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-LIFESTYLE": {
+      "taskId": "HOME-005E",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-lifestyle.png",
+      "purpose": "Human-approved master source asset for Lifestyle category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "2f4a2e01411ca1df1b043e0e36fe0f650fbdea8c699c9002fcaea3e9c0801859",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-SPORTS-OUTDOORS": {
+      "taskId": "HOME-005E",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-sports-outdoors.png",
+      "purpose": "Human-approved master source asset for Sports & Outdoors category",
+      "format": "PNG",
+      "dimensions": "1384x1136",
+      "sha256": "b79c4f79c3d1caa0bbe23e963d9c58980eac8a6e8354610a04b116f39e77acde",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "HOME-005-CATEGORY-SMART-HOME": {
+      "taskId": "HOME-005E",
+      "path": "docs/design-references/home/HOME-005/source-assets/sd-category-smart-home.png",
+      "purpose": "Human-approved master source asset for Smart Home category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "25908cd04d84b99ddde1830df0f8570eaa89be34c591255a3bd2304787183f18",
+      "immutable": true,
+      "status": "human_approved"
     }
   }
 }
