@@ -14,7 +14,8 @@ This master index provides the central sitemap and reference index for all techn
   - **HOME-004**: Why Choose StyloDyna (Design-Reference Integration & Redesign) — **COMPLETE**
   - **HEADER-001**: Global Header, 35px Utility Bar, Inline Expand Menu, Mobile Disclosure Panel & Floating WhatsApp System — **COMPLETED (Production Baseline: HEADER-001H, Audit: HEADER-001J, Rejected: HEADER-001I [Rolled Back], Reference Integrity: PASS, Recovery: COMPLETE, Human Acceptance: PASS)**
   - **HOME-005**: Shop by Categories Carousel & Rail Experience — **COMPLETED (Production Baseline: Shopify OS 2.0 9-Category Scalable Carousel Rail, References Registered: 21, WebP Derivatives: 9, Reference Integrity: PASS, Recovery: COMPLETE, Human Acceptance: PASS)**
-  - **CAT-UI-001**: Category Hierarchy, Routing & Reusable Page Architecture Standard — **COMPLETED (Document: CAT-UI-001, Decision: ADR-006, Closure: CAT-UI-001-CLOSURE, Taxonomy Depth: 3 Levels, Metafield Contract: 9 Fields, Next Task: CAT-UI-002)**
+  - **CAT-UI-001**: Category Hierarchy, Routing & Reusable Page Architecture Standard — **COMPLETED (Document: CAT-UI-001, Decision: ADR-006, Closure: CAT-UI-001-CLOSURE, Taxonomy Depth: 3 Levels, Metafield Contract: 9 Fields)**
+  - **CAT-UI-002**: Lifestyle Department Landing Page — **COMPLETED (Production Baseline: Type-A Department Landing Standard, Product: SD-PROD-000031 / Mokobara Tote, Customer Identities: 5/5 Locked, WebP Derivatives: 24, References Registered: 41, Specifications: CAT-UI-002A through CAT-UI-002N, Human Visual Acceptance: APPROVED)**
 
 ---
 

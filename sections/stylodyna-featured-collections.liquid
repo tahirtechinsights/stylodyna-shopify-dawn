@@ -1,15 +1,18 @@
 {% comment %}theme-check-disable UndefinedObject{% endcomment %}
-<!-- StyloDyna Featured Collections Section -->
+<!-- StyloDyna Featured Collections & Real Product Grid Section -->
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'section-stylodyna-featured-collections.css' | asset_url | stylesheet_tag }}
+{{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
-    --columns-desktop: {{ section.settings.columns_desktop }};
-    --columns-mobile: {{ section.settings.columns_mobile }};
-    --card-gap: {{ section.settings.card_gap }}px;
-    --image-radius: {{ section.settings.image_radius }}px;
+    --columns-desktop: {{ section.settings.columns_desktop | default: 4 }};
+    --columns-mobile: {{ section.settings.columns_mobile | default: 1 }};
+    --card-gap: {{ section.settings.card_gap | default: 24 }}px;
+    --image-radius: {{ section.settings.image_radius | default: 6 }}px;
   }
 
   @media screen and (min-width: 750px) {
@@ -27,8 +30,21 @@
   }
 {%- endstyle -%}
 
+{%- liquid
+  assign featured_collection = section.settings.collection | default: collection
+  assign products_to_show = section.settings.products_to_show | default: 4
+  assign has_real_products = false
+  assign product_count = 0
+
+  if featured_collection != blank and featured_collection.products_count > 0
+    assign has_real_products = true
+    assign product_count = featured_collection.products_count
+  endif
+-%}
+
+{%- if has_real_products or section.blocks.size > 0 -%}
 <div class="stylodyna-featured-collections section-{{ section.id }}-padding">
-  <div class="stylodyna-featured-collections__inner">
+  <div class="stylodyna-featured-collections__inner page-width">
     
     <!-- Section Header -->
     <div class="stylodyna-featured-collections__header">
@@ -47,118 +63,169 @@
       {%- endif -%}
     </div>
 
-    <!-- Collection Grid -->
-    <div class="stylodyna-featured-collections__grid">
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'collection_card' -%}
-          {%- liquid
-            assign card_collection = block.settings.collection
-            assign card_title = block.settings.title | default: card_collection.title
-            assign card_link = block.settings.link | default: card_collection.url | default: '/collections/all'
-            assign card_subtitle = block.settings.subtitle | default: 'COLLECTION'
-            assign card_focal = block.settings.image_focal_point | default: 'center'
-            assign fallback_asset = ''
-
-            case forloop.index
-              when 1
-                assign fallback_asset = 'sd-collection-living-room.webp'
-                assign default_title = 'Living Room'
-              when 2
-                assign fallback_asset = 'sd-collection-bedroom.webp'
-                assign default_title = 'Bedroom'
-              when 3
-                assign fallback_asset = 'sd-collection-dining.webp'
-                assign default_title = 'Dining'
-              when 4
-                assign fallback_asset = 'sd-collection-home-office.webp'
-                assign default_title = 'Home Office'
-              when 5
-                assign fallback_asset = 'sd-collection-lighting.webp'
-                assign default_title = 'Lighting'
-              when 6
-                assign fallback_asset = 'sd-collection-wall-decor.webp'
-                assign default_title = 'Wall Décor'
-              when 7
-                assign fallback_asset = 'sd-collection-storage.webp'
-                assign default_title = 'Storage'
-              when 8
-                assign fallback_asset = 'sd-collection-outdoor.webp'
-                assign default_title = 'Outdoor Living'
-              else
-                assign fallback_asset = 'sd-collection-living-room.webp'
-                assign default_title = 'Collection'
-            endcase
-
-            if card_title == blank
-              assign card_title = default_title
-            endif
-          -%}
-
-          <a
-            href="{{ card_link }}"
-            class="stylodyna-featured-collections__card{% if section.settings.enable_hover_animation %} stylodyna-featured-collections__card--hover-enabled{% endif %}"
-            {{ block.shopify_attributes }}
-          >
-            <!-- Media Container (4:5 Ratio) -->
-            <div class="stylodyna-featured-collections__media" style="--image-focal: {{ card_focal }};">
-              {%- if block.settings.image != blank -%}
-                {%- assign img_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
-                {{ block.settings.image | image_url: width: 1200 | image_tag:
+    {%- if has_real_products -%}
+      {%- if product_count == 1 -%}
+        {%- assign single_product = featured_collection.products.first -%}
+        <!-- CAT-UI-002J Premium Single Product State -->
+        <div class="stylodyna-featured-product-single">
+          <div class="stylodyna-featured-product-single__wrapper">
+            <!-- Left: Contained Quiet Luxury Product Visual -->
+            <div class="stylodyna-featured-product-single__media">
+              {%- if single_product.featured_media -%}
+                {{ single_product.featured_media | image_url: width: 1000 | image_tag:
                   loading: 'lazy',
-                  width: block.settings.image.width,
-                  height: img_height,
-                  class: 'stylodyna-featured-collections__image',
-                  widths: '375, 550, 750, 990, 1200',
-                  alt: block.settings.alt_text | default: block.settings.image.alt | default: card_title | escape
+                  class: 'stylodyna-featured-product-single__image stylodyna-featured-product-single__image--primary',
+                  alt: single_product.title | escape
                 }}
-              {%- elsif card_collection.featured_image != blank -%}
-                {%- assign img_height = card_collection.featured_image.width | divided_by: card_collection.featured_image.aspect_ratio -%}
-                {{ card_collection.featured_image | image_url: width: 1200 | image_tag:
-                  loading: 'lazy',
-                  width: card_collection.featured_image.width,
-                  height: img_height,
-                  class: 'stylodyna-featured-collections__image',
-                  widths: '375, 550, 750, 990, 1200',
-                  alt: card_collection.featured_image.alt | default: card_title | escape
-                }}
+                {%- if single_product.media[1] != null -%}
+                  {{ single_product.media[1] | image_url: width: 1000 | image_tag:
+                    loading: 'lazy',
+                    class: 'stylodyna-featured-product-single__image stylodyna-featured-product-single__image--secondary',
+                    alt: single_product.title | escape
+                  }}
+                {%- endif -%}
               {%- else -%}
-                <img
-                  src="{{ fallback_asset | asset_url }}"
-                  alt="{{ block.settings.alt_text | default: card_title | escape }}"
-                  loading="lazy"
-                  width="800"
-                  height="1000"
-                  class="stylodyna-featured-collections__image"
-                >
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
               {%- endif -%}
 
-              <!-- Overlay Gradient -->
-              <div class="stylodyna-featured-collections__overlay"></div>
+              {%- if single_product.compare_at_price > single_product.price and single_product.available -%}
+                <span class="stylodyna-featured-product-single__sale-tag">Sale</span>
+              {%- endif -%}
             </div>
 
-            <!-- Content Overlay -->
-            <div class="stylodyna-featured-collections__content">
-              <h3 class="stylodyna-featured-collections__title">{{ card_title | escape }}</h3>
-              <div class="stylodyna-featured-collections__meta">
-                <span>{{ card_subtitle | escape }}</span>
-                <span class="stylodyna-featured-collections__arrow" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </span>
+            <!-- Right: Real Shopify Product Information -->
+            <div class="stylodyna-featured-product-single__info">
+              {%- if section.settings.show_vendor and single_product.vendor != blank -%}
+                <p class="stylodyna-featured-product-single__vendor">{{ single_product.vendor | escape }}</p>
+              {%- endif -%}
+
+              <h3 class="stylodyna-featured-product-single__title">
+                <a href="{{ single_product.url }}">{{ single_product.title | escape }}</a>
+              </h3>
+
+              <div class="stylodyna-featured-product-single__price-wrapper">
+                <span class="stylodyna-featured-product-single__price">{{ single_product.price | money }}</span>
+                {%- if single_product.compare_at_price > single_product.price -%}
+                  <s class="stylodyna-featured-product-single__compare-price">{{ single_product.compare_at_price | money }}</s>
+                {%- endif -%}
+              </div>
+
+              <div class="stylodyna-featured-product-single__availability">
+                {%- if single_product.available -%}
+                  <span class="stylodyna-featured-product-single__stock-status stylodyna-featured-product-single__stock-status--in-stock">In Stock</span>
+                {%- else -%}
+                  <span class="stylodyna-featured-product-single__stock-status stylodyna-featured-product-single__stock-status--sold-out">Sold Out</span>
+                {%- endif -%}
+              </div>
+
+              {%- if single_product.description != blank -%}
+                <div class="stylodyna-featured-product-single__description rte">
+                  {{ single_product.description | strip_html | truncatewords: 28 }}
+                </div>
+              {%- endif -%}
+
+              <div class="stylodyna-featured-product-single__actions">
+                <a href="{{ single_product.url }}" class="stylodyna-category-hero__btn stylodyna-featured-product-single__btn">
+                  View Product
+                </a>
               </div>
             </div>
-          </a>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
+          </div>
+        </div>
+      {%- else -%}
+        <!-- Multi-Product Scalable Grid -->
+        <div class="grid product-grid contains-card contains-card--product grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down">
+          {%- for product in featured_collection.products limit: products_to_show -%}
+            <div class="grid__item">
+              {% render 'card-product',
+                card_product: product,
+                media_aspect_ratio: 'portrait',
+                show_secondary_image: true,
+                show_vendor: section.settings.show_vendor,
+                show_rating: false,
+                section_id: section.id
+              %}
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <!-- Collection Card Blocks Fallback -->
+      <div class="stylodyna-featured-collections__grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'collection_card' -%}
+            {%- liquid
+              assign card_collection = block.settings.collection
+              assign card_title = block.settings.title | default: card_collection.title
+              assign card_link = block.settings.link | default: card_collection.url | default: '/collections/all'
+              assign card_subtitle = block.settings.subtitle | default: 'COLLECTION'
+              assign card_focal = block.settings.image_focal_point | default: 'center'
+              assign fallback_asset = 'sd-collection-living-room.webp'
+            -%}
+
+            <a
+              href="{{ card_link }}"
+              class="stylodyna-featured-collections__card{% if section.settings.enable_hover_animation %} stylodyna-featured-collections__card--hover-enabled{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="stylodyna-featured-collections__media" style="--image-focal: {{ card_focal }};">
+                {%- if block.settings.image != blank -%}
+                  {%- assign img_height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio -%}
+                  {{ block.settings.image | image_url: width: 1200 | image_tag:
+                    loading: 'lazy',
+                    width: block.settings.image.width,
+                    height: img_height,
+                    class: 'stylodyna-featured-collections__image',
+                    widths: '375, 550, 750, 990, 1200',
+                    alt: block.settings.alt_text | default: block.settings.image.alt | default: card_title | escape
+                  }}
+                {%- elsif card_collection.featured_image != blank -%}
+                  {%- assign img_height = card_collection.featured_image.width | divided_by: card_collection.featured_image.aspect_ratio -%}
+                  {{ card_collection.featured_image | image_url: width: 1200 | image_tag:
+                    loading: 'lazy',
+                    width: card_collection.featured_image.width,
+                    height: img_height,
+                    class: 'stylodyna-featured-collections__image',
+                    widths: '375, 550, 750, 990, 1200',
+                    alt: card_collection.featured_image.alt | default: card_title | escape
+                  }}
+                {%- else -%}
+                  <img
+                    src="{{ fallback_asset | asset_url }}"
+                    alt="{{ block.settings.alt_text | default: card_title | escape }}"
+                    loading="lazy"
+                    width="800"
+                    height="1000"
+                    class="stylodyna-featured-collections__image"
+                  >
+                {%- endif -%}
+                <div class="stylodyna-featured-collections__overlay"></div>
+              </div>
+
+              <div class="stylodyna-featured-collections__content">
+                <h3 class="stylodyna-featured-collections__title">{{ card_title | escape }}</h3>
+                <div class="stylodyna-featured-collections__meta">
+                  <span>{{ card_subtitle | escape }}</span>
+                  <span class="stylodyna-featured-collections__arrow" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
   </div>
 </div>
+{%- endif -%}
 
 {% schema %}
 {
-  "name": "Featured Collections",
+  "name": "Featured Lifestyle",
   "tag": "section",
   "class": "section-stylodyna-featured-collections",
   "disabled_on": {
@@ -173,19 +240,43 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow Label",
-      "default": "SHOP BY COLLECTION"
+      "default": "FEATURED LIFESTYLE"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Discover Every Space"
+      "default": "New & Noteworthy"
     },
     {
       "type": "richtext",
       "id": "description",
       "label": "Body Description",
-      "default": "<p>Explore thoughtfully curated collections designed to bring timeless comfort and refined living into every corner of your home.</p>"
+      "default": "<p>Discover fresh arrivals and thoughtfully selected pieces for modern everyday style.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Real Product Source"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection Source"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "Products to Show",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show Vendor",
+      "default": true
     },
     {
       "type": "header",
@@ -316,65 +407,8 @@
   ],
   "presets": [
     {
-      "name": "Featured Collections",
-      "blocks": [
-        {
-          "type": "collection_card",
-          "settings": {
-            "title": "Living Room",
-            "subtitle": "COLLECTION"
-          }
-        },
-        {
-          "type": "collection_card",
-          "settings": {
-            "title": "Bedroom",
-            "subtitle": "COLLECTION"
-          }
-        },
-        {
-          "type": "collection_card",
-          "settings": {
-            "title": "Dining",
-            "subtitle": "COLLECTION"
-          }
-        },
-        {
-          "type": "collection_card",
-          "settings": {
-            "title": "Home Office",
-            "subtitle": "COLLECTION"
-          }
-        },
-        {
-          "type": "collection_card",
-          "settings": {
-            "title": "Lighting",
-            "subtitle": "COLLECTION"
-          }
-        },
-        {
-          "type": "collection_card",
-          "settings": {
-            "title": "Wall Décor",
-            "subtitle": "COLLECTION"
-          }
-        },
-        {
-          "type": "collection_card",
-          "settings": {
-            "title": "Storage",
-            "subtitle": "COLLECTION"
-          }
-        },
-        {
-          "type": "collection_card",
-          "settings": {
-            "title": "Outdoor Living",
-            "subtitle": "COLLECTION"
-          }
-        }
-      ]
+      "name": "Featured Lifestyle",
+      "blocks": []
     }
   ]
 }

@@ -1,0 +1,170 @@
+{%- comment -%}
+  StyloDyna Category Children / Audience Section (CAT-UI-002B)
+  Reusable Type-A Audience Navigation Cards (Women / Men)
+{%- endcomment -%}
+
+{{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
+
+<div class="stylodyna-category-children-section page-width" id="ShopByAudience">
+  <div class="stylodyna-categories__header">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="stylodyna-categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="stylodyna-categories__title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.description != blank -%}
+      <div class="stylodyna-categories__description rte">
+        {{ section.settings.description }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="stylodyna-audience-grid">
+    {%- for block in section.blocks -%}
+      {%- assign target_collection = block.settings.collection -%}
+      {%- assign card_title = block.settings.title | default: target_collection.title | default: 'Audience Collection' -%}
+      {%- assign target_url = block.settings.custom_link | default: target_collection.url | default: '#' -%}
+      
+      <a href="{{ target_url }}" class="stylodyna-audience-card" {{ block.shopify_attributes }}>
+        <div class="stylodyna-audience-card__image-surface">
+          {%- if block.settings.image != blank -%}
+            {{ block.settings.image | image_url: width: 1200 | image_tag:
+              loading: 'lazy',
+              class: 'stylodyna-audience-card__image',
+              sizes: '(min-width: 750px) 50vw, 100vw',
+              widths: '400, 600, 900, 1200',
+              alt: card_title
+            }}
+          {%- elsif block.settings.fallback_asset != blank -%}
+            <img
+              src="{{ block.settings.fallback_asset | asset_url }}"
+              alt="{{ card_title | escape }}"
+              class="stylodyna-audience-card__image"
+              loading="lazy"
+              width="900"
+              height="600"
+            >
+          {%- else -%}
+            <div class="stylodyna-category-card__placeholder">
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          {%- endif -%}
+          <div class="stylodyna-audience-card__overlay"></div>
+        </div>
+
+        <div class="stylodyna-audience-card__content">
+          {%- if block.settings.subtitle != blank -%}
+            <span class="stylodyna-audience-card__subtitle">{{ block.settings.subtitle | escape }}</span>
+          {%- endif -%}
+          <h3 class="stylodyna-audience-card__title">{{ card_title | escape }}</h3>
+          <span class="stylodyna-audience-card__cta">
+            {{ block.settings.cta_text | default: 'Explore Collection' | escape }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </span>
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by Audience",
+  "tag": "section",
+  "class": "section-stylodyna-category-children",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "CURATED COLLECTIONS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Audience"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover tailored selections designed specifically for your lifestyle needs.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "audience_card",
+      "name": "Audience Card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Audience Title",
+          "default": "Women's Collection"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "EXPLORE WOMEN"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Target Collection"
+        },
+        {
+          "type": "url",
+          "id": "custom_link",
+          "label": "Custom Link (Overrides Collection URL)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "fallback_asset",
+          "label": "Theme Fallback Asset Name"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA Text",
+          "default": "Explore Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Audience",
+      "blocks": [
+        {
+          "type": "audience_card",
+          "settings": {
+            "title": "Women",
+            "subtitle": "CURATED FASHION & ACCESSORIES",
+            "fallback_asset": "sd-category-chair.webp"
+          }
+        },
+        {
+          "type": "audience_card",
+          "settings": {
+            "title": "Men",
+            "subtitle": "ESSENTIAL BAGS & WALLETS",
+            "fallback_asset": "sd-category-sofa.webp"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

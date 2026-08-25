@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "customer_id": "SD-CUST-003",
+  "display_name": "Sana Ahmed",
+  "identity_type": "FICTIONAL_BRAND_PERSONA",
+  "status": "IDENTITY_LOCKED",
+  "identity_lock": true,
+  "department_scope": [
+    "Lifestyle"
+  ],
+  "persona": null,
+  "identity_features": {
+    "face": null,
+    "hair": null,
+    "clothing": null,
+    "environment": null,
+    "photography": null,
+    "personality_signal": null
+  },
+  "master_asset": {
+    "expected_filename": "sd-cust-003-master.png",
+    "present": true,
+    "sha256": "fc9b94827141098f47aef8ec0a2fd0515ea70db50ad5f6cb7363c48f7555f718",
+    "width_px": 1254,
+    "height_px": 1254,
+    "format": "PNG",
+    "file_size_bytes": 2495363,
+    "human_approved": true
+  },
+  "governance_notes": [
+    "Do not infer unresolved identity attributes.",
+    "Replace no approved master without explicit human approval.",
+    "Complete this record from the authoritative approved prompt and generated master."
+  ]
+}

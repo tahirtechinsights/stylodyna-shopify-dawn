@@ -1,0 +1,89 @@
+{%- comment -%}
+  StyloDyna Reusable Department Announcement Strip Section (CAT-UI-002L)
+  Connected Top-of-Page Module aligned to page-width container with dark charcoal badge
+{%- endcomment -%}
+
+{%- if section.settings.enabled -%}
+  <div class="stylodyna-department-announcement-section page-width">
+    <div class="stylodyna-department-announcement stylodyna-department-announcement--{{ section.settings.visual_style }}">
+      <div class="stylodyna-department-announcement__wrapper">
+        <div class="stylodyna-department-announcement__content">
+          {%- if section.settings.eyebrow != blank -%}
+            <span class="stylodyna-department-announcement__eyebrow">{{ section.settings.eyebrow | escape }}</span>
+          {%- endif -%}
+
+          {%- if section.settings.message != blank -%}
+            <p class="stylodyna-department-announcement__message">{{ section.settings.message | escape }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- assign announcement_link = section.settings.link | default: "/collections/lifestyle" -%}
+        {%- if section.settings.link_label != blank -%}
+          <div class="stylodyna-department-announcement__action">
+            <a href="{{ announcement_link }}" class="stylodyna-department-announcement__link">
+              <span>{{ section.settings.link_label | escape }}</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M1 7H13M13 7L7 1M13 7L7 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Department Announcement",
+  "tag": "section",
+  "class": "section-stylodyna-department-announcement",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enabled",
+      "label": "Enable Announcement Strip",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "visual_style",
+      "label": "Visual Style",
+      "options": [
+        { "value": "charcoal", "label": "Charcoal Black (Default)" },
+        { "value": "warm_gold", "label": "Warm Gold Accent" },
+        { "value": "soft_neutral", "label": "Soft Neutral" }
+      ],
+      "default": "charcoal"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow / Label",
+      "default": "DEPARTMENT NOTICE"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Announcement Message",
+      "default": "New Lifestyle arrivals are now available."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link Button Label",
+      "default": "Explore Arrivals"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link Destination"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Department Announcement"
+    }
+  ]
+}
+{% endschema %}

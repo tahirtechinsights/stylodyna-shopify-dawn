@@ -1,0 +1,108 @@
+{%- comment -%}
+  StyloDyna Continuous Trust / Service Ticker Section (CAT-UI-002L Remediation)
+  Aligned strictly to page-width container edges matching Hero and Department Notice
+{%- endcomment -%}
+
+{{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
+
+<div class="stylodyna-trust-ticker-section page-width">
+  <div class="stylodyna-trust-ticker-container">
+    <div
+      class="stylodyna-trust-ticker"
+      tabindex="0"
+      role="region"
+      aria-label="Trust and Service Guarantees"
+    >
+      <div class="stylodyna-trust-ticker__track">
+        <!-- Loop Track 1 -->
+        <div class="stylodyna-trust-ticker__group">
+          {%- for block in section.blocks -%}
+            <div class="stylodyna-trust-ticker__item" {{ block.shopify_attributes }}>
+              <span class="stylodyna-trust-ticker__title">{{ block.settings.title | escape }}</span>
+              <span class="stylodyna-trust-ticker__sep" aria-hidden="true">—</span>
+              <span class="stylodyna-trust-ticker__desc">{{ block.settings.description | escape }}</span>
+              <span class="stylodyna-trust-ticker__bullet" aria-hidden="true">✦</span>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- Duplicated Loop Track for Seamless Continuous Motion -->
+        <div class="stylodyna-trust-ticker__group" aria-hidden="true">
+          {%- for block in section.blocks -%}
+            <div class="stylodyna-trust-ticker__item">
+              <span class="stylodyna-trust-ticker__title">{{ block.settings.title | escape }}</span>
+              <span class="stylodyna-trust-ticker__sep">—</span>
+              <span class="stylodyna-trust-ticker__desc">{{ block.settings.description | escape }}</span>
+              <span class="stylodyna-trust-ticker__bullet">✦</span>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust & Service Strip",
+  "tag": "section",
+  "class": "section-stylodyna-trust-strip",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Nationwide Shipping"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Reliable delivery across Pakistan"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust & Service Strip",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "title": "Nationwide Shipping",
+            "description": "Reliable delivery across Pakistan"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "title": "Secure Payments",
+            "description": "Safe and trusted checkout"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "title": "Customer Assistance",
+            "description": "Dedicated support for your orders"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "title": "Quality Assurance",
+            "description": "Carefully inspected prior to dispatch"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

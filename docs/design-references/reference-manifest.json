@@ -215,6 +215,206 @@
       "sha256": "25908cd04d84b99ddde1830df0f8570eaa89be34c591255a3bd2304787183f18",
       "immutable": true,
       "status": "human_approved"
+    },
+    "CAT-UI-002-LIFESTYLE-DEPARTMENT-UI": {
+      "taskId": "CAT-UI-002A",
+      "path": "docs/design-references/category/CAT-UI-002/ui/cat-ui-002-lifestyle-department-reference.png",
+      "purpose": "Human-approved primary visual reference for Lifestyle Department Landing Page composition",
+      "format": "PNG",
+      "dimensions": "869x1810",
+      "sha256": "21ef105f7aa833eee9c5e4b20c1c8ae7b798ab8941a2bf1e9c12948c13609646",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-HERO-LIFESTYLE": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/hero/sd-lifestyle-hero.png",
+      "purpose": "Human-approved master source asset for Lifestyle Hero banner",
+      "format": "PNG",
+      "dimensions": "1402x1122",
+      "sha256": "4df05c06070615423f674da2d1b02dec58c7ef6ad1c2d559306f23b37150861e",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-AUDIENCE-WOMEN": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/audience/sd-lifestyle-women.png",
+      "purpose": "Human-approved master source asset for Women audience card",
+      "format": "PNG",
+      "dimensions": "1448x1086",
+      "sha256": "261e17bbfcec98e9251930d981febed27ad8c5a2a7366f9a3c95505caa7238e4",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-AUDIENCE-MEN": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/audience/sd-lifestyle-men.png",
+      "purpose": "Human-approved master source asset for Men audience card",
+      "format": "PNG",
+      "dimensions": "1448x1086",
+      "sha256": "74eb2b43517032e4aab8556ba3557c2f2670b44549f2cfd9e04c138af1c05650",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-CATEGORY-WOMENS-HANDBAGS": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/categories/sd-lifestyle-womens-handbags.png",
+      "purpose": "Human-approved master source asset for Women's Handbags category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "958a66e92bcf7cddd78c603cc8bbb2e3c6b34e3581a98978777379250e9edc9c",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-CATEGORY-WOMENS-ACCESSORIES": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/categories/sd-lifestyle-womens-accessories.png",
+      "purpose": "Human-approved master source asset for Women's Accessories category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "839fb4724979f9fbcb7206f36f653bb8154964c597ee99a465052f25fa1be041",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-CATEGORY-WOMENS-UNDERGARMENTS": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/categories/sd-lifestyle-womens-undergarments.png",
+      "purpose": "Human-approved master source asset for Women's Undergarments category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "5eb86c93518aed12bb1d4bdfe4380ef29d0c91c6b304e532d8cbc9dbfae0680d",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-CATEGORY-MENS-BAGS": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/categories/sd-lifestyle-mens-bags.png",
+      "purpose": "Human-approved master source asset for Men's Bags category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "e51856212c95db375715ab5f05c711625d548e2dac84b317c5b0b9c36dbdad53",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-CATEGORY-MENS-WALLETS": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/categories/sd-lifestyle-mens-wallets.png",
+      "purpose": "Human-approved master source asset for Men's Wallets category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "cf003012aef02b3fa6be2f6a5120a24a9abb1d206da63eb14d0afc6177233ca7",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-CATEGORY-MENS-BELTS": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/categories/sd-lifestyle-mens-belts.png",
+      "purpose": "Human-approved master source asset for Men's Belts category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "f4cbac55078fb12b9b67e6cb13de32e9371adad2c237f587a150624977293776",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-CATEGORY-MENS-ACCESSORIES": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/categories/sd-lifestyle-mens-accessories.png",
+      "purpose": "Human-approved master source asset for Men's Accessories category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "68ae085a38f9b9b02b65f2a8f4b04c2d08386bc994b890a516453be0f6587ed4",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-CATEGORY-MENS-UNDERGARMENTS": {
+      "taskId": "CAT-UI-002E",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/categories/sd-lifestyle-mens-undergarments.png",
+      "purpose": "Human-approved master source asset for Men's Undergarments category",
+      "format": "PNG",
+      "dimensions": "1536x1024",
+      "sha256": "5435c35617752cab58b170b97c54cf0165c6ad10243eaeb75e36783bbaf38d3d",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-REVIEW-PORTRAIT-AYESHA-KHAN": {
+      "taskId": "CAT-UI-002G",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/reviews/sd-review-ayesha-khan.png",
+      "purpose": "Master source asset for Ayesha Khan demo review portrait",
+      "format": "PNG",
+      "dimensions": "400x400",
+      "sha256": "a643bcbd4227fd31c71a36ae3ae9616182373280249a862ea151703f950dd90f",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-REVIEW-PORTRAIT-HIRA-MALIK": {
+      "taskId": "CAT-UI-002G",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/reviews/sd-review-hira-malik.png",
+      "purpose": "Master source asset for Hira Malik demo review portrait",
+      "format": "PNG",
+      "dimensions": "400x400",
+      "sha256": "3afb965621249620a58524e8e81d81ed624e60193024cd16f571100913ccdb42",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-REVIEW-PORTRAIT-SANA-AHMED": {
+      "taskId": "CAT-UI-002G",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/reviews/sd-review-sana-ahmed.png",
+      "purpose": "Master source asset for Sana Ahmed demo review portrait",
+      "format": "PNG",
+      "dimensions": "400x400",
+      "sha256": "9b08c1d8cd3306c20403ad5b1e1658ba145b0741035c99d2d2a4c8228638e0d8",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-REVIEW-PRODUCT-HANDBAG": {
+      "taskId": "CAT-UI-002N",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/reviews/products/sd-review-product-handbag.png",
+      "purpose": "Master source asset for handbag review presentation",
+      "format": "PNG",
+      "dimensions": "1402x1122",
+      "sha256": "e8c32d8a911d7ab3f3e2a963307a3598fb09b032b2f103f62658f68d8da5922f",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-REVIEW-PRODUCT-WATCH": {
+      "taskId": "CAT-UI-002N",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/reviews/products/sd-review-product-watch.png",
+      "purpose": "Master source asset for watch review presentation",
+      "format": "PNG",
+      "dimensions": "1254x1254",
+      "sha256": "77267490d0fcda9d79f20263b1fc0b5a52a1ce9319196e6cdc8e9dfb93886c4c",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-REVIEW-PRODUCT-WALLET": {
+      "taskId": "CAT-UI-002N",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/reviews/products/sd-review-product-wallet.png",
+      "purpose": "Master source asset for wallet review presentation",
+      "format": "PNG",
+      "dimensions": "1402x1122",
+      "sha256": "da989f5fbc5a116b95452984dfad3c6aa1ac4a734d5902161712653421f2d69b",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-REVIEW-PRODUCT-SUNGLASSES": {
+      "taskId": "CAT-UI-002N",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/reviews/products/sd-review-product-sunglasses.png",
+      "purpose": "Master source asset for sunglasses review presentation",
+      "format": "PNG",
+      "dimensions": "1402x1122",
+      "sha256": "ed758ab1cffc0435ff355934e959aa830eb895261ce74ed2430ab873521ab958",
+      "immutable": true,
+      "status": "human_approved"
+    },
+    "CAT-UI-002-REVIEW-PRODUCT-BELT": {
+      "taskId": "CAT-UI-002N",
+      "path": "docs/design-references/category/CAT-UI-002/source-assets/reviews/products/sd-review-product-belt.png",
+      "purpose": "Master source asset for belt review presentation",
+      "format": "PNG",
+      "dimensions": "1402x1122",
+      "sha256": "3c3c4f9562d5bc53fcd0812d6175e0aa6fbace239990060a3f287301580179ca",
+      "immutable": true,
+      "status": "human_approved"
     }
   }
 }

@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "registry_id": "STYLODYNA-CUSTOMER-IDENTITY-REGISTRY",
+  "purpose": "Global registry for governed fictional StyloDyna customer identities.",
+  "next_id_recommendation": "SD-CUST-006",
+  "identities": [
+    {
+      "customer_id": "SD-CUST-001",
+      "display_name": "Ayesha Khan",
+      "identity_type": "FICTIONAL_BRAND_PERSONA",
+      "status": "IDENTITY_LOCKED",
+      "identity_lock": true,
+      "master_asset_present": true,
+      "record_path": "identities/SD-CUST-001/identity.json",
+      "master_asset_path": "identities/SD-CUST-001/master/sd-cust-001-master.png",
+      "master_sha256": "4e41970b9301d60eedda77f5a47a3a89715532bafe73345f955b08553c2aa989"
+    },
+    {
+      "customer_id": "SD-CUST-002",
+      "display_name": "Hira Malik",
+      "identity_type": "FICTIONAL_BRAND_PERSONA",
+      "status": "IDENTITY_LOCKED",
+      "identity_lock": true,
+      "master_asset_present": true,
+      "record_path": "identities/SD-CUST-002/identity.json",
+      "master_asset_path": "identities/SD-CUST-002/master/sd-cust-002-master.png",
+      "master_sha256": "001805a419e224e2ca3745c89fe675c153f5ec89e04e3a32b5c296769891103d"
+    },
+    {
+      "customer_id": "SD-CUST-003",
+      "display_name": "Sana Ahmed",
+      "identity_type": "FICTIONAL_BRAND_PERSONA",
+      "status": "IDENTITY_LOCKED",
+      "identity_lock": true,
+      "master_asset_present": true,
+      "record_path": "identities/SD-CUST-003/identity.json",
+      "master_asset_path": "identities/SD-CUST-003/master/sd-cust-003-master.png",
+      "master_sha256": "fc9b94827141098f47aef8ec0a2fd0515ea70db50ad5f6cb7363c48f7555f718"
+    },
+    {
+      "customer_id": "SD-CUST-004",
+      "display_name": "Mahnoor Ali",
+      "identity_type": "FICTIONAL_BRAND_PERSONA",
+      "status": "IDENTITY_LOCKED",
+      "identity_lock": true,
+      "master_asset_present": true,
+      "record_path": "identities/SD-CUST-004/identity.json",
+      "master_asset_path": "identities/SD-CUST-004/master/sd-cust-004-master.png",
+      "master_sha256": "d40822f8828f570a668d5c7bfa24cce558764e32905661b934f7c495322582e8"
+    },
+    {
+      "customer_id": "SD-CUST-005",
+      "display_name": "Hamza Raza",
+      "identity_type": "FICTIONAL_BRAND_PERSONA",
+      "status": "IDENTITY_LOCKED",
+      "identity_lock": true,
+      "master_asset_present": true,
+      "record_path": "identities/SD-CUST-005/identity.json",
+      "master_asset_path": "identities/SD-CUST-005/master/sd-cust-005-master.png",
+      "master_sha256": "0542e7d9eb7c165fb77a9e22aeb1f1555952fb4e529d6d778e8e73cc03776c62"
+    }
+  ]
+}
