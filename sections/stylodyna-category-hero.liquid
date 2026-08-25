@@ -1,0 +1,137 @@
+{%- comment -%}
+  StyloDyna Category Hero Section (CAT-UI-002B)
+  Reusable Type-A Department Landing Hero with Metafield Fallbacks
+{%- endcomment -%}
+
+{{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
+
+{%- assign eyebrow_val = collection.metafields.custom.category_eyebrow | default: section.settings.eyebrow -%}
+{%- assign heading_val = collection.metafields.custom.category_heading | default: collection.title | default: section.settings.heading -%}
+{%- assign desc_val = collection.metafields.custom.category_description | default: collection.description | default: section.settings.description -%}
+{%- assign hero_img = collection.metafields.custom.category_hero_image | default: collection.image | default: section.settings.custom_image -%}
+
+<div class="stylodyna-category-hero-section page-width">
+  {%- comment -%} Breadcrumb Hierarchy {%- endcomment -%}
+  <nav class="stylodyna-category-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="stylodyna-category-breadcrumbs__list">
+      <li class="stylodyna-category-breadcrumbs__item">
+        <a href="{{ routes.root_url }}">Home</a>
+      </li>
+      <li class="stylodyna-category-breadcrumbs__separator" aria-hidden="true">/</li>
+      {%- if collection.metafields.custom.parent_collection.value != blank -%}
+        {%- assign parent_coll = collection.metafields.custom.parent_collection.value -%}
+        <li class="stylodyna-category-breadcrumbs__item">
+          <a href="{{ parent_coll.url }}">{{ parent_coll.title | escape }}</a>
+        </li>
+        <li class="stylodyna-category-breadcrumbs__separator" aria-hidden="true">/</li>
+      {%- endif -%}
+      <li class="stylodyna-category-breadcrumbs__item" aria-current="page">
+        <span>{{ collection.title | default: section.settings.heading | escape }}</span>
+      </li>
+    </ol>
+  </nav>
+
+  {%- comment -%} Department Hero Banner Surface {%- endcomment -%}
+  <div class="stylodyna-category-hero">
+    <div class="stylodyna-category-hero__wrapper">
+      <div class="stylodyna-category-hero__content">
+        {%- if eyebrow_val != blank -%}
+          <p class="stylodyna-category-hero__eyebrow">{{ eyebrow_val | escape }}</p>
+        {%- endif -%}
+        {%- if heading_val != blank -%}
+          <h1 class="stylodyna-category-hero__title">{{ heading_val | escape }}</h1>
+        {%- endif -%}
+        {%- if desc_val != blank -%}
+          <div class="stylodyna-category-hero__description rte">
+            {{ desc_val }}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          <a href="{{ section.settings.cta_link | default: '#ShopByAudience' }}" class="stylodyna-category-hero__btn">
+            {{ section.settings.cta_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <div class="stylodyna-category-hero__media">
+        {%- if hero_img != blank -%}
+          {{ hero_img | image_url: width: 2400 | image_tag:
+            loading: 'eager',
+            class: 'stylodyna-category-hero__image',
+            sizes: '(min-width: 990px) 50vw, 100vw',
+            widths: '600, 900, 1200, 1800, 2400',
+            alt: heading_val
+          }}
+        {%- elsif section.settings.fallback_asset != blank -%}
+          <img
+            src="{{ section.settings.fallback_asset | asset_url }}"
+            alt="{{ heading_val | escape }}"
+            class="stylodyna-category-hero__image"
+            loading="eager"
+            width="1200"
+            height="800"
+          >
+        {%- else -%}
+          <div class="stylodyna-category-card__placeholder">
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Category Hero",
+  "tag": "section",
+  "class": "section-stylodyna-category-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text (Fallback)",
+      "default": "LIFESTYLE DEPARTMENT"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Hero Heading (Fallback)",
+      "default": "Style for Every Part of Life"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Hero Description (Fallback)",
+      "default": "<p>Curated fashion, accessories, and everyday essentials designed for modern comfort and timeless sophistication.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Button Label",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image",
+      "label": "Custom Hero Image (Fallback)"
+    },
+    {
+      "type": "text",
+      "id": "fallback_asset",
+      "label": "Theme Fallback Asset Name",
+      "default": "sd-category-lifestyle.webp"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Hero"
+    }
+  ]
+}
+{% endschema %}

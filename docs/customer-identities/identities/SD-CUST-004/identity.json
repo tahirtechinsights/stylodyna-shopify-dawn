@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "customer_id": "SD-CUST-004",
+  "display_name": "Mahnoor Ali",
+  "identity_type": "FICTIONAL_BRAND_PERSONA",
+  "status": "IDENTITY_LOCKED",
+  "identity_lock": true,
+  "department_scope": [
+    "Lifestyle"
+  ],
+  "persona": null,
+  "identity_features": {
+    "face": null,
+    "hair": null,
+    "clothing": null,
+    "environment": null,
+    "photography": null,
+    "personality_signal": null
+  },
+  "master_asset": {
+    "expected_filename": "sd-cust-004-master.png",
+    "present": true,
+    "sha256": "d40822f8828f570a668d5c7bfa24cce558764e32905661b934f7c495322582e8",
+    "width_px": 1402,
+    "height_px": 1122,
+    "format": "PNG",
+    "file_size_bytes": 2015659,
+    "human_approved": true
+  },
+  "governance_notes": [
+    "Do not infer unresolved identity attributes.",
+    "Replace no approved master without explicit human approval.",
+    "Complete this record from the authoritative approved prompt and generated master."
+  ]
+}

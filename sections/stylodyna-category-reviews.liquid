@@ -1,0 +1,195 @@
+{%- comment -%}
+  StyloDyna Category Reviews Section (CAT-UI-002H)
+  Reusable Type-A Client Testimonial Carousel (Upper-Right Product Visual & Portrait Render Fix)
+{%- endcomment -%}
+
+{{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stylodyna-category-landing.js' | asset_url }}" defer="defer"></script>
+
+<div class="stylodyna-reviews-section page-width">
+  <div class="stylodyna-categories__header">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="stylodyna-categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="stylodyna-categories__title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+    {%- if section.settings.description != blank -%}
+      <div class="stylodyna-categories__description rte">
+        {{ section.settings.description }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <stylodyna-reviews-carousel class="stylodyna-reviews__carousel-wrapper">
+    <div class="stylodyna-reviews-grid" role="region" aria-label="Customer Testimonials">
+      {%- for block in section.blocks -%}
+        <div class="stylodyna-review-card" {{ block.shopify_attributes }}>
+          <div class="stylodyna-review-card__top">
+            <div class="stylodyna-review-card__top-left">
+              <div class="stylodyna-review-card__rating-badge" aria-label="5 out of 5 stars rating">
+                <span class="stylodyna-review-card__rating-num">5.0</span>
+                <span class="stylodyna-review-card__rating-star" aria-hidden="true">★</span>
+              </div>
+              <span class="stylodyna-review-card__demo-badge">{{ block.settings.demo_badge | default: 'Sample Review' | escape }}</span>
+            </div>
+
+            {%- if block.settings.product_asset != blank -%}
+              <div class="stylodyna-review-card__product-container" aria-hidden="true">
+                <img
+                  src="{{ block.settings.product_asset | asset_url }}"
+                  alt=""
+                  class="stylodyna-review-card__product-img"
+                  loading="lazy"
+                  width="110"
+                  height="110"
+                >
+              </div>
+            {%- endif -%}
+          </div>
+
+          <p class="stylodyna-review-card__text">“{{ block.settings.review_text | escape }}”</p>
+
+          <div class="stylodyna-review-card__footer">
+            <div class="stylodyna-review-card__author">
+              {%- if block.settings.avatar_asset != blank -%}
+                <img
+                  src="{{ block.settings.avatar_asset | asset_url }}"
+                  alt="{{ block.settings.author_name | escape }}"
+                  class="stylodyna-review-card__avatar"
+                  loading="lazy"
+                  width="52"
+                  height="52"
+                >
+              {%- else -%}
+                <div class="stylodyna-review-card__avatar stylodyna-review-card__avatar--initials">
+                  {{ block.settings.author_name | slice: 0 | default: 'C' }}
+                </div>
+              {%- endif -%}
+
+              <div class="stylodyna-review-card__author-info">
+                <h4 class="stylodyna-review-card__author-name">{{ block.settings.author_name | escape }}</h4>
+                <p class="stylodyna-review-card__author-city">{{ block.settings.author_city | escape }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="stylodyna-categories__pagination stylodyna-reviews__pagination" role="tablist" aria-label="Testimonial slides"></div>
+  </stylodyna-reviews-carousel>
+</div>
+
+{% schema %}
+{
+  "name": "Client Reviews",
+  "tag": "section",
+  "class": "section-stylodyna-category-reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "CUSTOMER FEEDBACK"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Clients Review"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Read feedback and experiences shared by our community.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review_card",
+      "name": "Review Card (Sample)",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "demo_badge",
+          "label": "Sample Badge Label",
+          "default": "Sample Review"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "The quality feels excellent and the design is beautifully refined. It works effortlessly with my everyday style."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Customer Name",
+          "default": "Ayesha Khan"
+        },
+        {
+          "type": "text",
+          "id": "author_city",
+          "label": "City, Country",
+          "default": "Lahore, Pakistan"
+        },
+        {
+          "type": "text",
+          "id": "avatar_asset",
+          "label": "Avatar Asset Name",
+          "default": "sd-review-ayesha-khan.webp"
+        },
+        {
+          "type": "text",
+          "id": "product_asset",
+          "label": "Transparent Product Image Asset Name",
+          "default": "sd-lifestyle-womens-handbags.webp"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Client Reviews",
+      "blocks": [
+        {
+          "type": "review_card",
+          "settings": {
+            "demo_badge": "Sample Review",
+            "review_text": "The quality feels excellent and the design is beautifully refined. It works effortlessly with my everyday style.",
+            "author_name": "Ayesha Khan",
+            "author_city": "Lahore, Pakistan",
+            "avatar_asset": "sd-review-ayesha-khan.webp",
+            "product_asset": "sd-lifestyle-womens-handbags.webp"
+          }
+        },
+        {
+          "type": "review_card",
+          "settings": {
+            "demo_badge": "Sample Review",
+            "review_text": "Beautiful detailing with a polished finish. The accessory feels thoughtfully selected and easy to style.",
+            "author_name": "Hira Malik",
+            "author_city": "Islamabad, Pakistan",
+            "avatar_asset": "sd-review-hira-malik.webp",
+            "product_asset": "sd-lifestyle-womens-accessories.webp"
+          }
+        },
+        {
+          "type": "review_card",
+          "settings": {
+            "demo_badge": "Sample Review",
+            "review_text": "Clean design, practical size and a premium finish. Exactly the everyday piece I was looking for.",
+            "author_name": "Sana Ahmed",
+            "author_city": "Karachi, Pakistan",
+            "avatar_asset": "sd-review-sana-ahmed.webp",
+            "product_asset": "sd-lifestyle-mens-wallets.webp"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
