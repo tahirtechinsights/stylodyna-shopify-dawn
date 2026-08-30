@@ -1,0 +1,110 @@
+{
+  "name": "Women's Handbags Collection",
+  "sections": {
+    "women_hero": {
+      "type": "stylodyna-women-hero",
+      "settings": {
+        "eyebrow": "WOMEN'S LIFESTYLE",
+        "heading": "Women's Handbags",
+        "body_text": "Discover thoughtfully selected luxury handbags, totes, and carryalls designed for modern everyday routines with timeless elegance and structural sophistication.",
+        "cta_label": "EXPLORE COLLECTION",
+        "cta_link": "#product-grid"
+      }
+    },
+    "bag_type_filter": {
+      "type": "stylodyna-bag-type-filter",
+      "settings": {
+        "heading": "Shop by Bag Type",
+        "subheading": "Find the silhouette that fits your everyday."
+      },
+      "blocks": {
+        "type_totes": {
+          "type": "type_item",
+          "settings": {
+            "title": "Totes",
+            "filter_value": "Tote",
+            "fallback_asset": "sd-lifestyle-womens-handbags.webp",
+            "count": 1,
+            "state": "active"
+          }
+        }
+      },
+      "block_order": [
+        "type_totes"
+      ]
+    },
+    "trust_strip": {
+      "type": "stylodyna-trust-strip",
+      "settings": {},
+      "blocks": {
+        "t_1": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Nationwide Shipping",
+            "description": "Reliable delivery across Pakistan"
+          }
+        },
+        "t_2": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Secure Payments",
+            "description": "Safe and trusted checkout"
+          }
+        },
+        "t_3": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Customer Assistance",
+            "description": "Dedicated support for your orders"
+          }
+        },
+        "t_4": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Quality Assurance",
+            "description": "Carefully inspected prior to dispatch"
+          }
+        }
+      },
+      "block_order": [
+        "t_1",
+        "t_2",
+        "t_3",
+        "t_4"
+      ]
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "columns_mobile": "2",
+        "padding_top": 16,
+        "padding_bottom": 24
+      }
+    },
+    "buying_guide": {
+      "type": "stylodyna-collection-buying-guide",
+      "settings": {
+        "heading": "Thoughtful Design & Quality Craftsmanship"
+      }
+    }
+  },
+  "order": [
+    "women_hero",
+    "bag_type_filter",
+    "trust_strip",
+    "product-grid",
+    "buying_guide"
+  ]
+}

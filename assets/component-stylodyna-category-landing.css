@@ -11,35 +11,49 @@
 }
 
 /* 1. BREADCRUMBS */
-.stylodyna-category-breadcrumbs {
+.stylodyna-category-breadcrumbs,
+.stylodyna-breadcrumbs {
   margin-bottom: 1.6rem;
 }
 
-.stylodyna-category-breadcrumbs__list {
+.stylodyna-category-breadcrumbs__list,
+.stylodyna-breadcrumbs__list {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  list-style: none;
+  list-style: none !important;
   padding: 0;
   margin: 0;
   font-family: var(--font-body-family);
   font-size: 1.3rem;
-  color: #6B6B6B;
+  color: #6F6F6F;
 }
 
-.stylodyna-category-breadcrumbs__item a {
-  color: #6B6B6B;
+.stylodyna-breadcrumbs__item {
+  list-style: none !important;
+}
+
+.stylodyna-category-breadcrumbs__item a,
+.stylodyna-breadcrumbs__link {
+  color: #6F6F6F;
   text-decoration: none;
   transition: color 200ms ease;
 }
 
-.stylodyna-category-breadcrumbs__item a:hover {
+.stylodyna-category-breadcrumbs__item a:hover,
+.stylodyna-breadcrumbs__link:hover {
   color: #C7A24A;
 }
 
-.stylodyna-category-breadcrumbs__separator {
-  color: #B0B0B0;
+.stylodyna-category-breadcrumbs__separator,
+.stylodyna-breadcrumbs__separator {
+  color: #B7B1A8;
   font-size: 1.1rem;
+}
+
+.stylodyna-breadcrumbs__item--current span {
+  color: #2B2B2B;
+  font-weight: 600;
 }
 
 /* 2. APPROVED CHARCOAL HERO SECTION (Frame-Free & Moderately Expanded Image) */
@@ -252,18 +266,18 @@
 
 /* 4. CONTINUOUS TRUST TICKER MARQUEE (Exact Page-Width Alignment) */
 .stylodyna-trust-ticker-section {
-  margin-bottom: var(--stylodyna-section-gap-desktop);
+  margin-bottom: 3.6rem;
 }
 
 @media screen and (max-width: 989px) {
   .stylodyna-trust-ticker-section {
-    margin-bottom: var(--stylodyna-section-gap-tablet);
+    margin-bottom: 3.2rem;
   }
 }
 
 @media screen and (max-width: 749px) {
   .stylodyna-trust-ticker-section {
-    margin-bottom: var(--stylodyna-section-gap-mobile);
+    margin-bottom: 2.8rem;
   }
 }
 
@@ -1087,8 +1101,470 @@
 
 .stylodyna-reviews__pagination {
   margin-top: 2.0rem;
+font-size: 1.45rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 9. CLIENT REVIEWS — CHARCOAL SECTION SURFACE */
+.stylodyna-reviews-section {
+  background-color: #181818;
+  padding: 3.6rem 2.4rem;
+  border-radius: 2.0rem;
+  margin-bottom: var(--stylodyna-section-gap-desktop);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-reviews-section {
+    padding: 3.0rem 1.8rem;
+    margin-bottom: var(--stylodyna-section-gap-tablet);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-reviews-section {
+    padding: 2.4rem 1.4rem;
+    margin-bottom: var(--stylodyna-section-gap-mobile);
+  }
+}
+
+.stylodyna-reviews-section .stylodyna-categories__eyebrow {
+  color: #C7A24A;
+}
+
+.stylodyna-reviews-section .stylodyna-categories__title {
+  color: #FAF9F5;
+}
+
+.stylodyna-reviews-section .stylodyna-categories__description {
+  color: #B0B0B0;
+}
+
+.stylodyna-reviews-grid {
+  display: flex;
+  gap: 2.0rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.4rem 0.2rem 1.0rem 0.2rem;
+  margin: 0;
+  scrollbar-width: none;
+}
+
+.stylodyna-reviews-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.stylodyna-review-card {
+  flex: 0 0 calc((100% - 2 * 2.0rem) / 3);
+  scroll-snap-align: start;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  border-radius: 1.6rem;
+  padding: 2.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-review-card {
+    flex: 0 0 calc((100% - 2.0rem) / 2);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-review-card {
+    flex: 0 0 88%;
+  }
+}
+
+.stylodyna-review-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.6rem;
+  margin-bottom: 1.6rem;
+}
+
+.stylodyna-review-card__rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #FAF9F5;
+  padding: 0.4rem 1.0rem;
+  border-radius: 0.6rem;
+  border: 1px solid rgba(31, 31, 31, 0.08);
+}
+
+.stylodyna-review-card__rating-num {
+  font-family: var(--font-heading-family);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1F1F1F;
+}
+
+.stylodyna-review-card__rating-star {
+  color: #C7A24A;
+  font-size: 1.5rem;
+}
+
+.stylodyna-review-card__demo-badge {
+  display: none;
+}
+
+.stylodyna-review-card__product-container {
+  width: 105px;
+  height: 105px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-review-card__product-container {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-review-card__product-container {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.stylodyna-review-card__product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.08));
+}
+
+.stylodyna-review-card__text {
+  font-family: var(--font-body-family);
+  font-size: 1.45rem;
+  line-height: 1.55;
+  color: #333333;
+  margin: 0 0 2.0rem;
+  flex-grow: 1;
+}
+
+.stylodyna-review-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.stylodyna-review-card__author {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.stylodyna-review-card__avatar {
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FAF9F5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stylodyna-review-card__author-name {
+  margin: 0 0 0.2rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.55rem;
+  font-weight: 500;
+  color: #1F1F1F;
+}
+
+.stylodyna-review-card__author-city {
+  margin: 0;
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  color: #777777;
+}
+
+.stylodyna-reviews__pagination {
+  margin-top: 2.0rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
+}
+/* ==========================================================================
+   STYLODYNA WOMEN AUDIENCE HERO COMPONENT (CAT-UI-003D-R4E INTEGRATED 2-COLUMN HERO)
+   ========================================================================== */
+.stylodyna-women-hero {
+  padding-top: 1.6rem;
+  padding-bottom: 0.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-women-hero {
+    padding-bottom: 0.6rem;
+  }
+}
+
+.stylodyna-women-hero .stylodyna-breadcrumbs {
+  margin-bottom: 1.6rem;
+}
+
+/* UNIFIED 2-COLUMN HERO SURFACE PANEL */
+.stylodyna-women-hero__inner,
+.stylodyna-women-hero__panel {
+  display: grid;
+  grid-template-columns: 42% 58%;
+  background-color: #FAF9F5;
+  border: 1px solid #EAE6DE;
+  border-radius: 1.6rem;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+  min-height: 480px;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-women-hero__inner,
+  .stylodyna-women-hero__panel {
+    grid-template-columns: 46% 54%;
+    min-height: 420px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-women-hero__inner,
+  .stylodyna-women-hero__panel {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+}
+
+/* LEFT CONTENT COLUMN (~42% DESKTOP) */
+.stylodyna-women-hero__content {
+  padding: 4.8rem 4.0rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-women-hero__content {
+    padding: 3.2rem 2.8rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-women-hero__content {
+    padding: 2.8rem 2.0rem;
+  }
+}
+
+.stylodyna-women-hero__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C7A24A;
+  font-weight: 600;
+  margin: 0 0 1.6rem 0; /* Eyebrow -> Heading: 16px */
+}
+
+.stylodyna-women-hero__heading {
+  font-family: var(--font-heading-family);
+  font-size: clamp(3.0rem, 3.8vw, 4.4rem);
+  font-weight: 400;
+  line-height: 1.14;
+  color: #1F1F1F;
+  margin: 0 0 2.0rem 0; /* Heading -> Description: 20px */
+  letter-spacing: -0.01em;
+}
+
+.stylodyna-women-hero__body {
+  font-family: var(--font-body-family);
+  font-size: 1.55rem;
+  line-height: 1.55;
+  color: #555555;
+  margin: 0 0 2.4rem 0; /* Description -> CTA: 24px */
+}
+
+.stylodyna-women-hero__cta-wrapper {
+  margin-bottom: 0;
+}
+
+.stylodyna-women-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.3rem 2.8rem;
+  background-color: #1F1F1F;
+  color: #FAF9F5;
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0.4rem;
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
+}
+
+.stylodyna-women-hero__cta:hover {
+  background-color: #C7A24A;
+  color: #1F1F1F;
+}
+
+/* RIGHT IMAGE CAROUSEL COLUMN (~58% DESKTOP) */
+.stylodyna-women-hero__media,
+.stylodyna-women-hero__carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  overflow: hidden;
+  background-color: #F8F7F4;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-women-hero__media,
+  .stylodyna-women-hero__carousel {
+    min-height: 420px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-women-hero__media,
+  .stylodyna-women-hero__carousel {
+    min-height: 280px;
+    height: 280px;
+  }
+}
+
+.stylodyna-women-hero__slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* SOFT CROSS-FADE SLIDES (700ms TRANSITION) */
+.stylodyna-women-hero__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1), visibility 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.stylodyna-women-hero__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.stylodyna-women-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* MINIMAL CIRCULAR ARROW CONTROLS (INSIDE RIGHT IMAGE PANEL) */
+.stylodyna-women-hero__controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1.6rem;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-women-hero__controls {
+    display: none;
+  }
+}
+
+.stylodyna-women-hero__control {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.88);
+  color: #1F1F1F;
+  border: 1px solid rgba(31, 31, 31, 0.1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 200ms ease, color 200ms ease, transform 200ms ease;
+}
+
+.stylodyna-women-hero__control:hover {
+  background-color: #1F1F1F;
+  color: #FAF9F5;
+  border-color: #1F1F1F;
+  transform: scale(1.05);
+}
+
+/* DOT NAVIGATION (BOTTOM INSIDE RIGHT IMAGE PANEL) */
+.stylodyna-women-hero__dots {
+  position: absolute;
+  bottom: 1.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  z-index: 5;
+  background-color: rgba(31, 31, 31, 0.35);
+  padding: 0.6rem 1.2rem;
+  border-radius: 2.0rem;
+  backdrop-filter: blur(4px);
+}
+
+.stylodyna-women-hero__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.55);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 250ms ease, transform 250ms ease;
+}
+
+.stylodyna-women-hero__dot.is-active {
+  background-color: #C7A24A;
+  transform: scale(1.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stylodyna-women-hero__slide {
+    transition: none !important;
+  }
+}
+
+/* STYLODYNA COLLECTION BUYING GUIDE COMPONENT SPACING (CAT-UI-003C PLP Target Gap ~48px) */
+.stylodyna-buying-guide {
+  padding-top: 1.8rem;
 }

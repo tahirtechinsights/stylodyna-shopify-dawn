@@ -1,0 +1,42 @@
+{%- comment -%}
+  StyloDyna Collection Buying Guide / SEO Section (CAT-UI-003C-R2)
+  Subordinate SEO Copy & Buying Guidance for Type-C Collection Pages
+{%- endcomment -%}
+
+<div class="stylodyna-buying-guide page-width">
+  <div class="stylodyna-buying-guide__container">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="stylodyna-buying-guide__title">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    <div class="stylodyna-buying-guide__content rte">
+      {%- if collection.metafields.custom.category_seo_copy.value != blank -%}
+        {{ collection.metafields.custom.category_seo_copy.value }}
+      {%- elsif section.settings.default_text != blank -%}
+        {{ section.settings.default_text }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Buying Guide & SEO",
+  "tag": "section",
+  "class": "section-stylodyna-buying-guide",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Thoughtful Design & Quality Craftsmanship"
+    },
+    {
+      "type": "richtext",
+      "id": "default_text",
+      "label": "Default Buying Guide Text",
+      "default": "<p>Each piece in our Women's Handbags collection is selected for structural harmony, functional utility, and refined aesthetics. Designed to seamlessly complement your daily routine with practical compartment layouts and timeless silhouette profiles.</p>"
+    }
+  ]
+}
+{% endschema %}
