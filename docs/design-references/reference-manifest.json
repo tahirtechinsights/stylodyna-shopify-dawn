@@ -415,6 +415,16 @@
       "sha256": "3c3c4f9562d5bc53fcd0812d6175e0aa6fbace239990060a3f287301580179ca",
       "immutable": true,
       "status": "human_approved"
+    },
+    "CAT-UI-003D-R1": {
+      "taskId": "CAT-UI-003D-R1",
+      "path": "docs/design-references/category/CAT-UI-003D/CAT-UI-003D-R1-approved-reference.png",
+      "purpose": "Approved visual reference for Women Level-2 Audience Landing Page redesign",
+      "format": "PNG",
+      "dimensions": "1440x2880",
+      "sha256": "70feaf2221140440f8ec1b8d57769aac454a6299b935d30305b483e038428113",
+      "immutable": true,
+      "status": "human_approved"
     }
   }
 }
