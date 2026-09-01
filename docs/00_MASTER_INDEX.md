@@ -36,7 +36,7 @@ This master index provides the central sitemap and reference index for all techn
 - [`THEME-DATA-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/THEME-DATA-ARCHITECTURE.md) — OS 2.0 Data Binding, Metafields & Liquid Schema Rules
 
 ### Engineering Standards (`docs/standards/`)
-- [`DESIGN-SYSTEM.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/DESIGN-SYSTEM.md) — Visual Direction, Color Tokens (`#FCFBF8`, `#2E2E2E`, `#8A6A43`), Typography & Spacing
+- [`DESIGN-SYSTEM.md`](standards/DESIGN-SYSTEM.md) — StyloDyna Design System v2 Master Specification (Canonical Visual, UI Surface & Asset Governance Authority)
 - [`LIQUID-SECTION-STANDARD.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/LIQUID-SECTION-STANDARD.md) — OS 2.0 Schema Rules, 3-Tier Image Fallbacks & Zero Hardcoding
 - [`CSS-STANDARD.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/CSS-STANDARD.md) — Section BEM Scoping, Design Custom Properties & CLS Prevention
 - [`RESPONSIVE-STANDARD.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/RESPONSIVE-STANDARD.md) — Breakpoints (Desktop >=1200px / 1520px container, Tablet, Mobile), 44px Touch Targets
