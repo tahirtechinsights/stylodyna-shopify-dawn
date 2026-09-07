@@ -1,6 +1,7 @@
 {% comment %}
   Renders sub-collection navigation pills on collection landing pages
-  deriving relationships dynamically from collection metafields (custom.subcollections).
+  deriving relationships dynamically from collection metafields (custom.subcollections)
+  and validating explicit storefront exposure authorization (custom.exposure_status).
 {% endcomment %}
 
 {{ 'component-child-collection-nav.css' | asset_url | stylesheet_tag }}
@@ -8,16 +9,36 @@
 {%- assign child_collections = collection.metafields.custom.subcollections.value -%}
 
 {%- if child_collections != blank and child_collections.size > 0 -%}
-  <nav class="child-collection-nav" aria-label="Sub-collections">
-    <span class="child-collection-nav__label">Explore Category:</span>
-    <div class="child-collection-nav__list">
-      {%- for sub_coll in child_collections -%}
-        {%- if sub_coll != blank -%}
-          <a href="{{ sub_coll.url }}" class="child-collection-nav__pill button button--secondary">
-            {{ sub_coll.title | escape }}
-          </a>
+  {%- assign has_exposed_children = false -%}
+  {%- for sub_coll in child_collections -%}
+    {%- if sub_coll != blank -%}
+      {%- assign exp_status = sub_coll.metafields.custom.exposure_status.value | default: sub_coll.metafields.custom.exposure_status -%}
+      {%- if exp_status == 'COMMERCE_READY' or exp_status == 'AUTHORIZED' -%}
+        {%- if sub_coll.all_products_count > 0 -%}
+          {%- assign has_exposed_children = true -%}
+          {%- break -%}
         {%- endif -%}
-      {%- endfor -%}
-    </div>
-  </nav>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if has_exposed_children -%}
+    <nav class="child-collection-nav" aria-label="Sub-collections">
+      <span class="child-collection-nav__label">Explore Category:</span>
+      <div class="child-collection-nav__list">
+        {%- for sub_coll in child_collections -%}
+          {%- if sub_coll != blank -%}
+            {%- assign exp_status = sub_coll.metafields.custom.exposure_status.value | default: sub_coll.metafields.custom.exposure_status -%}
+            {%- if exp_status == 'COMMERCE_READY' or exp_status == 'AUTHORIZED' -%}
+              {%- if sub_coll.all_products_count > 0 -%}
+                <a href="{{ sub_coll.url }}" class="child-collection-nav__pill button button--secondary">
+                  {{ sub_coll.title | escape }}
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </nav>
+  {%- endif -%}
 {%- endif -%}
