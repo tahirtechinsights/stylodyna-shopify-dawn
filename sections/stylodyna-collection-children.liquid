@@ -1,0 +1,135 @@
+{%- comment -%}
+  StyloDyna Dynamic Collection Children Section
+  Renders visual category cards for child collections derived dynamically
+  from collection.metafields.custom.subcollections.value, strictly validating
+  exposure status (custom.exposure_status == 'COMMERCE_READY') and product count (> 0).
+{%- endcomment -%}
+
+{{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
+
+{%- assign child_collections = collection.metafields.custom.subcollections.value -%}
+
+{%- if child_collections != blank and child_collections.size > 0 -%}
+  {%- assign exposed_count = 0 -%}
+  {%- for sub_coll in child_collections -%}
+    {%- if sub_coll != blank -%}
+      {%- assign exp_status = sub_coll.metafields.custom.exposure_status.value | default: sub_coll.metafields.custom.exposure_status -%}
+      {%- if exp_status == 'COMMERCE_READY' -%}
+        {%- if sub_coll.all_products_count > 0 -%}
+          {%- assign exposed_count = exposed_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if exposed_count > 0 -%}
+    <div class="stylodyna-category-children-section page-width" id="SubCollectionGrid">
+      <div class="stylodyna-categories__header">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="stylodyna-categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="stylodyna-categories__title">{{ section.settings.heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <div class="stylodyna-categories__description rte">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="stylodyna-audience-grid">
+        {%- for sub_coll in child_collections -%}
+          {%- if sub_coll != blank -%}
+            {%- assign exp_status = sub_coll.metafields.custom.exposure_status.value | default: sub_coll.metafields.custom.exposure_status -%}
+            {%- if exp_status == 'COMMERCE_READY' -%}
+              {%- if sub_coll.all_products_count > 0 -%}
+                {%- assign card_title = sub_coll.title -%}
+                {%- assign target_url = sub_coll.url -%}
+                
+                {%- assign card_image = sub_coll.metafields.custom.hero_banner_image.value -%}
+                {%- if card_image == blank and sub_coll.image != blank -%}
+                  {%- assign card_image = sub_coll.image -%}
+                {%- endif -%}
+                {%- if card_image == blank and sub_coll.products.first != blank and sub_coll.products.first.featured_image != blank -%}
+                  {%- assign card_image = sub_coll.products.first.featured_image -%}
+                {%- endif -%}
+
+                <a href="{{ target_url }}" class="stylodyna-audience-card">
+                  <div class="stylodyna-audience-card__image-surface">
+                    {%- if card_image != blank -%}
+                      {{ card_image | image_url: width: 1200 | image_tag:
+                        loading: 'lazy',
+                        class: 'stylodyna-audience-card__image',
+                        sizes: '(min-width: 750px) 50vw, 100vw',
+                        widths: '400, 600, 900, 1200',
+                        alt: card_title
+                      }}
+                    {%- else -%}
+                      <img
+                        src="{{ 'sd-decor-hero.webp' | asset_url }}"
+                        alt="{{ card_title | escape }}"
+                        class="stylodyna-audience-card__image"
+                        loading="lazy"
+                        width="900"
+                        height="600"
+                      >
+                    {%- endif -%}
+                    <div class="stylodyna-audience-card__overlay"></div>
+                  </div>
+
+                  <div class="stylodyna-audience-card__content">
+                    <span class="stylodyna-audience-card__subtitle">
+                      {{ sub_coll.all_products_count }} {{ sub_coll.all_products_count | pluralize: 'PRODUCT', 'PRODUCTS' }}
+                    </span>
+                    <h3 class="stylodyna-audience-card__title">{{ card_title | escape }}</h3>
+                    <span class="stylodyna-audience-card__cta">
+                      Explore Collection
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Sub-Collection Cards",
+  "tag": "section",
+  "class": "section-stylodyna-collection-children",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "EXPLORE CATEGORIES"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sub-Collections"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": ""
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sub-Collection Cards"
+    }
+  ]
+}
+{% endschema %}
