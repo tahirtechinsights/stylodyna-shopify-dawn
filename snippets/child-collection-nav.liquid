@@ -13,7 +13,7 @@
   {%- for sub_coll in child_collections -%}
     {%- if sub_coll != blank -%}
       {%- assign exp_status = sub_coll.metafields.custom.exposure_status.value | default: sub_coll.metafields.custom.exposure_status -%}
-      {%- if exp_status == 'COMMERCE_READY' or exp_status == 'AUTHORIZED' -%}
+      {%- if exp_status == 'COMMERCE_READY' -%}
         {%- if sub_coll.all_products_count > 0 -%}
           {%- assign has_exposed_children = true -%}
           {%- break -%}
@@ -29,7 +29,7 @@
         {%- for sub_coll in child_collections -%}
           {%- if sub_coll != blank -%}
             {%- assign exp_status = sub_coll.metafields.custom.exposure_status.value | default: sub_coll.metafields.custom.exposure_status -%}
-            {%- if exp_status == 'COMMERCE_READY' or exp_status == 'AUTHORIZED' -%}
+            {%- if exp_status == 'COMMERCE_READY' -%}
               {%- if sub_coll.all_products_count > 0 -%}
                 <a href="{{ sub_coll.url }}" class="child-collection-nav__pill button button--secondary">
                   {{ sub_coll.title | escape }}
