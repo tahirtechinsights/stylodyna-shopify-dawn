@@ -13,8 +13,8 @@
     "children_grid": {
       "type": "stylodyna-collection-children",
       "settings": {
-        "eyebrow": "EXPLORE CATEGORIES",
-        "heading": "Sub-Collections"
+        "eyebrow": "EXPLORE BY MODEL TYPE",
+        "heading": "Model Collections"
       }
     },
     "product-grid": {
