@@ -20,6 +20,8 @@
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
+        "eyebrow": "FEATURED FROM DECORATIVE MODELS",
+        "heading": "Curated Highlights",
         "products_per_page": 16,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",
