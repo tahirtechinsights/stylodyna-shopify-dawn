@@ -10,11 +10,59 @@
         "color_scheme": "scheme-1"
       }
     },
-    "children_grid": {
+    "shop_by_model_type": {
+      "type": "stylodyna-shop-by-model-type",
+      "blocks": {
+        "maritime": {
+          "type": "model_type",
+          "settings": {
+            "title": "Maritime Models",
+            "collection": "maritime-models"
+          }
+        },
+        "aviation": {
+          "type": "model_type",
+          "settings": {
+            "title": "Aviation Models",
+            "collection": "aviation-models"
+          }
+        },
+        "automotive": {
+          "type": "model_type",
+          "settings": {
+            "title": "Automotive Models",
+            "collection": "automotive-models"
+          }
+        },
+        "spaceflight": {
+          "type": "model_type",
+          "settings": {
+            "title": "Spaceflight Models",
+            "collection": "spaceflight-models"
+          }
+        }
+      },
+      "block_order": [
+        "maritime",
+        "aviation",
+        "automotive",
+        "spaceflight"
+      ],
+      "settings": {
+        "eyebrow": "DISCOVER TAXONOMY",
+        "heading": "Shop by Model Type",
+        "description": "<p>Explore canonical model categories and commercial availability.</p>",
+        "show_nav_buttons": true,
+        "enable_autoplay": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "top_selling_model": {
       "type": "stylodyna-collection-children",
       "settings": {
-        "eyebrow": "EXPLORE BY MODEL TYPE",
-        "heading": "Model Collections"
+        "eyebrow": "FEATURED MODEL CATEGORY",
+        "heading": "Top Selling Model"
       }
     },
     "product-grid": {
@@ -42,7 +90,8 @@
   },
   "order": [
     "banner",
-    "children_grid",
+    "shop_by_model_type",
+    "top_selling_model",
     "product-grid"
   ]
 }
