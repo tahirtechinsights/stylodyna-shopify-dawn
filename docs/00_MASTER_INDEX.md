@@ -36,6 +36,7 @@ This master index provides the central sitemap and reference index for all techn
 - [`THEME-DATA-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/THEME-DATA-ARCHITECTURE.md) — OS 2.0 Data Binding, Metafields & Liquid Schema Rules
 
 ### Engineering Standards (`docs/standards/`)
+- [`DECOR-TAXONOMY.md`](standards/DECOR-TAXONOMY.md) — StyloDyna Decor Department Canonical Taxonomy Specification (45 Nodes, 8 L2 Families, 30 L3 Categories, 6 L4 Leaves, 3-State Governance Matrix)
 - [`DESIGN-SYSTEM.md`](standards/DESIGN-SYSTEM.md) — StyloDyna Design System v2 Master Specification (Canonical Visual, UI Surface & Asset Governance Authority)
 - [`LIQUID-SECTION-STANDARD.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/LIQUID-SECTION-STANDARD.md) — OS 2.0 Schema Rules, 3-Tier Image Fallbacks & Zero Hardcoding
 - [`CSS-STANDARD.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/CSS-STANDARD.md) — Section BEM Scoping, Design Custom Properties & CLS Prevention

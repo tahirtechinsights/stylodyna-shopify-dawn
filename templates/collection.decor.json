@@ -1,0 +1,53 @@
+{
+  "name": "Decor Department Landing",
+  "wrapper": "div.stylodyna-category-landing-wrapper",
+  "sections": {
+    "hero": {
+      "type": "stylodyna-category-hero",
+      "settings": {
+        "eyebrow": "DECOR DEPARTMENT",
+        "heading": "Decor",
+        "description": "<p>Curated decorative objects designed to bring character, detail and considered style to contemporary spaces.</p>",
+        "cta_label": "Explore Decorative Models",
+        "cta_link": "/collections/decorative-models",
+        "fallback_asset": "sd-decor-hero.webp"
+      }
+    },
+    "children": {
+      "type": "stylodyna-category-children",
+      "settings": {
+        "eyebrow": "EXPLORE DECOR",
+        "heading": "Decorative Collections",
+        "description": ""
+      },
+      "blocks": {
+        "decorative_models_card": {
+          "type": "audience_card",
+          "settings": {
+            "title": "Decorative Models",
+            "subtitle": "EXPLORE COLLECTION",
+            "collection": "decorative-models"
+          }
+        }
+      },
+      "block_order": [
+        "decorative_models_card"
+      ]
+    },
+    "featured_products": {
+      "type": "stylodyna-featured-collections",
+      "settings": {
+        "eyebrow": "FEATURED DECOR",
+        "heading": "Curated Highlights",
+        "description": "",
+        "collection": "decor",
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "children",
+    "featured_products"
+  ]
+}
