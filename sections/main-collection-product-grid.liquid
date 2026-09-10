@@ -40,7 +40,7 @@
   view-event-payload="{{ collection | standard_event_data: 'view' | escape }}"
   data-collection-id="{{ collection.id }}"
 >
-  <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
+  <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}" id="featured-products" style="scroll-margin-top: 100px;">
     {%- if section.settings.heading != blank or section.settings.eyebrow != blank -%}
       <div class="collection-product-grid__header page-width" style="margin-bottom: 2.4rem;">
         {%- if section.settings.eyebrow != blank -%}
@@ -52,66 +52,19 @@
       </div>
     {%- endif -%}
     {%- paginate collection.products by section.settings.products_per_page -%}
-      {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
-      {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
-        <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
-          <form class="facets-vertical-form" id="FacetSortForm">
-            <div class="facet-filters sorting caption">
-              <div class="facet-filters__field">
-                <h2 class="facet-filters__label caption-large text-body">
-                  <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
-                </h2>
-                <div class="select">
-                  {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
-                  <select
-                    name="sort_by"
-                    class="facet-filters__sort select__select caption-large"
-                    id="SortBy"
-                    aria-describedby="a11y-refresh-page-message"
-                  >
-                    {%- for option in collection.sort_options -%}
-                      <option
-                        value="{{ option.value | escape }}"
-                        {% if option.value == sort_by %}
-                          selected="selected"
-                        {% endif %}
-                      >
-                        {{ option.name | escape }}
-                      </option>
-                    {%- endfor -%}
-                  </select>
-                  <span class="svg-wrapper">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div class="product-count-vertical light" role="status">
-              <h2 class="product-count__text text-body">
-                <span id="ProductCountDesktop">
-                  {%- if collection.results_count -%}
-                    {{
-                      'templates.search.results_with_count'
-                      | t: terms: collection.terms, count: collection.results_count
-                    }}
-                  {%- elsif collection.products_count == collection.all_products_count -%}
-                    {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
-                  {%- else -%}
-                    {{
-                      'products.facets.product_count'
-                      | t: product_count: collection.products_count, count: collection.all_products_count
-                    }}
-                  {%- endif -%}
-                </span>
-              </h2>
-              {%- render 'loading-spinner' -%}
-            </div>
-          </form>
-        </facet-filters-form>
-      {%- endif -%}
-
-      <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
+      {%- liquid
+        assign is_decor_plp = false
+        if collection.handle == 'decor' or collection.handle == 'decorative-models' or collection.handle == 'maritime-models' or collection.handle == 'ship-models' or template.suffix contains 'decor'
+          assign is_decor_plp = true
+        endif
+        if collection.metafields.custom.parent_collection.value != blank
+          assign p_col = collection.metafields.custom.parent_collection.value
+          if p_col.handle == 'decor' or p_col.handle == 'decorative-models' or p_col.handle == 'maritime-models'
+            assign is_decor_plp = true
+          endif
+        endif
+      -%}
+      <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %} collection-plp{% if is_decor_plp %} collection-plp--decor stylodyna-decor-plp stylodyna-maritime-plp{% else %} collection-plp--generic{% endif %}">
         {{ 'component-facets.css' | asset_url | stylesheet_tag }}
         <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
         {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
@@ -138,6 +91,66 @@
             data-cascade
           {% endif %}
         >
+          {% comment %} Commerce toolbar inside product results column {% endcomment %}
+          {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
+            <facet-filters-form class="facets facets-vertical-sort">
+              <form class="facets-vertical-form" id="FacetSortForm">
+                <div class="facets__controls-right">
+                  <div class="facet-filters sorting caption">
+                    <div class="facet-filters__field">
+                      <h2 class="facet-filters__label caption-large text-body">
+                        <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+                      </h2>
+                      <div class="select">
+                        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+                        <select
+                          name="sort_by"
+                          class="facet-filters__sort select__select caption-large"
+                          id="SortBy"
+                          aria-describedby="a11y-refresh-page-message"
+                        >
+                          {%- for option in collection.sort_options -%}
+                            <option
+                              value="{{ option.value | escape }}"
+                              {% if option.value == sort_by %}
+                                selected="selected"
+                              {% endif %}
+                            >
+                              {{ option.name | escape }}
+                            </option>
+                          {%- endfor -%}
+                        </select>
+                        <span class="svg-wrapper">
+                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="product-count-vertical light" role="status">
+                    <h2 class="product-count__text text-body">
+                      <span id="ProductCountDesktop">
+                        {%- if collection.results_count -%}
+                          {{
+                            'templates.search.results_with_count'
+                            | t: terms: collection.terms, count: collection.results_count
+                          }}
+                        {%- elsif collection.products_count == collection.all_products_count -%}
+                          {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
+                        {%- else -%}
+                          {{
+                            'products.facets.product_count'
+                            | t: product_count: collection.products_count, count: collection.all_products_count
+                          }}
+                        {%- endif -%}
+                      </span>
+                    </h2>
+                    {%- render 'loading-spinner' -%}
+                  </div>
+                </div>
+              </form>
+            </facet-filters-form>
+          {%- endif -%}
           {%- if collection.products.size == 0 -%}
             <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
               <div class="loading-overlay gradient"></div>

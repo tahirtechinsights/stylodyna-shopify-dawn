@@ -56,32 +56,58 @@
   font-weight: 600;
 }
 
-/* 2. APPROVED CHARCOAL HERO SECTION (Frame-Free & Moderately Expanded Image) */
+/* Integrated Dark Hero Breadcrumbs */
+.stylodyna-category-hero .stylodyna-category-breadcrumbs__list {
+  color: rgba(250, 249, 245, 0.75);
+  margin-bottom: 1.2rem;
+}
+
+.stylodyna-category-hero .stylodyna-category-breadcrumbs__item a {
+  color: rgba(250, 249, 245, 0.75);
+  text-decoration: none;
+}
+
+.stylodyna-category-hero .stylodyna-category-breadcrumbs__item a:hover {
+  color: #FAF9F5;
+  text-decoration: underline;
+}
+
+.stylodyna-category-hero .stylodyna-category-breadcrumbs__separator {
+  color: rgba(250, 249, 245, 0.4);
+}
+
+.stylodyna-category-hero .stylodyna-category-breadcrumbs__item[aria-current="page"] span {
+  color: #FAF9F5 !important;
+  font-weight: 600;
+}
+
+/* 2. APPROVED CHARCOAL HERO SECTION (Frame-Free & Integrated Editorial Layout) */
 .stylodyna-category-hero-section {
   margin-bottom: 0.8rem; /* Controlled 8px gap to Department Notice */
+  background-color: #1F1F1F;
 }
 
 .stylodyna-category-hero {
   position: relative;
   width: 100%;
-  background-color: #1F1F1F;
-  border-radius: 1.6rem;
+  background-color: #1F1F1F !important;
+  border-radius: 0 !important;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  border: none !important;
+  box-shadow: none !important;
   box-sizing: border-box;
 }
 
 .stylodyna-category-hero__wrapper {
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
+  grid-template-columns: 1.1fr 1fr;
   align-items: center;
-  min-height: 480px;
+  min-height: 290px;
 }
 
 @media screen and (min-width: 990px) {
   .stylodyna-category-hero__wrapper {
-    min-height: 500px;
+    min-height: 310px;
   }
 }
 
@@ -93,44 +119,44 @@
 }
 
 .stylodyna-category-hero__content {
-  padding: 4.0rem 4.4rem;
+  padding: 2.2rem 3.6rem;
   z-index: 2;
 }
 
 @media screen and (max-width: 749px) {
   .stylodyna-category-hero__content {
-    padding: 2.8rem 2.0rem;
+    padding: 1.8rem 1.6rem;
     text-align: center;
   }
 }
 
 .stylodyna-category-hero__eyebrow {
-  color: #C7A24A;
+  color: var(--sd-color-accent-brand, #8A6A43);
   font-family: var(--font-body-family);
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.2rem;
   text-transform: uppercase;
-  margin: 0 0 1.2rem;
+  margin: 0 0 0.6rem;
 }
 
 .stylodyna-category-hero__title {
   color: #FAF9F5;
   font-family: var(--font-heading-family);
-  font-size: clamp(3.2rem, 4.4vw, 5.2rem);
+  font-size: clamp(2.8rem, 3.8vw, 4.4rem);
   font-weight: 400;
-  line-height: 1.12;
+  line-height: 1.15;
   letter-spacing: -0.01rem;
-  margin: 0 0 1.6rem;
+  margin: 0 0 0.8rem;
 }
 
 .stylodyna-category-hero__description {
-  color: #B0B0B0;
+  color: rgba(250, 249, 245, 0.85);
   font-family: var(--font-body-family);
-  font-size: 1.6rem;
+  font-size: 1.55rem;
   line-height: 1.55;
-  margin-bottom: 2.8rem;
-  max-width: 48rem;
+  margin-bottom: 1.6rem;
+  max-width: 44rem;
 }
 
 @media screen and (max-width: 749px) {
@@ -143,55 +169,70 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 1.3rem 3.0rem;
-  background-color: #C7A24A;
-  color: #FFFFFF;
+  gap: 0.8rem;
+  height: 4.8rem;
+  min-height: 4.8rem;
+  padding: 0 2.8rem;
+  background-color: var(--sd-color-accent-brand, #8A6A43) !important;
+  color: #FFFFFF !important;
   font-family: var(--font-body-family);
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.1rem;
   text-decoration: none;
   text-transform: uppercase;
   border-radius: 0.6rem;
   transition: background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(138, 106, 67, 0.25);
 }
 
 .stylodyna-category-hero__btn:hover {
-  background-color: #D6B25A;
-  color: #FFFFFF;
-  box-shadow: 0 6px 20px rgba(199, 162, 74, 0.35);
-  transform: translateY(-2px);
+  background-color: #9E7B4F !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 20px rgba(138, 106, 67, 0.35);
+  transform: translateY(-1px);
+}
+
+.stylodyna-category-hero__btn-icon {
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 200ms ease;
+}
+
+.stylodyna-category-hero__btn:hover .stylodyna-category-hero__btn-icon {
+  transform: translateX(3px);
 }
 
 .stylodyna-category-hero__media {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 380px;
+  min-height: 250px;
   background-color: #1F1F1F;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.2rem 1.6rem 1.2rem 0;
+  padding: 1.0rem 1.6rem 1.0rem 0;
 }
 
 @media screen and (max-width: 749px) {
   .stylodyna-category-hero__media {
-    min-height: 280px;
-    padding: 1.2rem;
+    min-height: 180px;
+    padding: 1.0rem;
   }
 }
 
 .stylodyna-category-hero__image {
   width: 100%;
   height: 100%;
-  max-height: 480px;
+  max-height: 280px;
   object-fit: cover;
   object-position: center;
   border-radius: 1.2rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border: none !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* 3. DEPARTMENT ANNOUNCEMENT STRIP (Exact Page-Width Alignment) */
@@ -368,6 +409,7 @@
 
 /* 5. SHOP BY AUDIENCE */
 .stylodyna-category-children-section {
+  scroll-margin-top: 100px;
   margin-bottom: var(--stylodyna-section-gap-desktop);
 }
 
@@ -503,8 +545,10 @@
 
 .stylodyna-audience-card--editorial {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1.25fr 1fr;
+  height: 440px;
   min-height: 420px;
+  max-height: 480px;
   background-color: #1F1F1F;
   border-radius: 1.6rem;
   overflow: hidden;
@@ -514,10 +558,11 @@
   padding: 0;
 }
 
-@media screen and (max-width: 749px) {
+@media screen and (max-width: 989px) {
   .stylodyna-audience-card--editorial {
     grid-template-columns: 1fr;
-    min-height: auto;
+    height: auto;
+    max-height: none;
   }
 }
 
@@ -525,8 +570,13 @@
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 320px;
+  min-height: 300px;
   overflow: hidden;
+}
+
+.stylodyna-audience-card--editorial .stylodyna-audience-card__image {
+  object-fit: cover;
+  object-position: center 35%;
 }
 
 @media screen and (max-width: 749px) {
@@ -543,7 +593,7 @@
   -webkit-backdrop-filter: none;
   border-radius: 0;
   box-shadow: none;
-  padding: 4.0rem 4.4rem;
+  padding: 3.2rem 3.6rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

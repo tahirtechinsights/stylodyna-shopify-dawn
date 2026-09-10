@@ -1,5 +1,6 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stylodyna-smooth-scroll.js' | asset_url }}" defer="defer"></script>
 
 {%- style -%}
   @media screen and (max-width: 749px) {
@@ -19,10 +20,15 @@
   {%- assign show_image = true -%}
 {%- endif -%}
 
-<div class="collection-hero{% if show_image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
-  {% render 'breadcrumbs' %}
+<div class="collection-hero{% if show_image %} collection-hero--with-image{% endif %}{% if template.suffix == 'decor-family' %} collection-hero--decor-family{% endif %} color-{{ section.settings.color_scheme }} gradient">
+  {%- unless template.suffix == 'decor-family' -%}
+    {% render 'breadcrumbs' %}
+  {%- endunless -%}
   <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     <div class="collection-hero__text-wrapper">
+      {%- if template.suffix == 'decor-family' -%}
+        {% render 'breadcrumbs' %}
+      {%- endif -%}
       {%- if section.settings.eyebrow != blank -%}
         <p class="collection-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
       {%- elsif template.suffix == 'decor-family' -%}
@@ -35,6 +41,64 @@
 
       {%- if section.settings.show_collection_description and collection.description != blank -%}
         <div class="collection-hero__description rte">{{ collection.description }}</div>
+      {%- endif -%}
+
+      {%- if template.suffix == 'decor-family' -%}
+        <div class="collection-hero__action-row">
+          <a href="#featured-products" class="collection-hero__cta">
+            <span>FEATURED PRODUCTS</span>
+            <svg class="collection-hero__cta-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+
+          {%- assign model_subcollections = collection.metafields.custom.subcollections.value -%}
+          {%- if model_subcollections == blank -%}
+            {%- assign handles = "maritime-models,aviation-models,automotive-models,spaceflight-models" | split: "," -%}
+          {%- endif -%}
+
+          <div class="collection-hero__model-cluster" aria-hidden="true">
+            {%- if model_subcollections != blank -%}
+              {%- for sub_item in model_subcollections limit: 4 -%}
+                {%- assign img_src = sub_item.image -%}
+                {%- if img_src == blank and sub_item.products.first != blank -%}
+                  {%- assign img_src = sub_item.products.first.featured_image -%}
+                {%- endif -%}
+                {%- if img_src != blank -%}
+                  <div class="collection-hero__model-cluster-item" style="--cluster-index: {{ forloop.index0 }};">
+                    <img
+                      src="{{ img_src | image_url: width: 160 }}"
+                      alt=""
+                      loading="eager"
+                      width="80"
+                      height="80"
+                    >
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- else -%}
+              {%- for h in handles -%}
+                {%- assign sub_coll = collections[h] -%}
+                {%- assign img_src = sub_coll.image -%}
+                {%- if img_src == blank and sub_coll.products.first != blank -%}
+                  {%- assign img_src = sub_coll.products.first.featured_image -%}
+                {%- endif -%}
+                {%- if img_src != blank -%}
+                  <div class="collection-hero__model-cluster-item" style="--cluster-index: {{ forloop.index0 }};">
+                    <img
+                      src="{{ img_src | image_url: width: 160 }}"
+                      alt=""
+                      loading="eager"
+                      width="80"
+                      height="80"
+                    >
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
       {%- endif -%}
 
       {% render 'child-collection-nav' %}

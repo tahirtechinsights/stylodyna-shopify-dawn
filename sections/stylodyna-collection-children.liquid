@@ -8,6 +8,20 @@
 
 {{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
 
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
 {%- assign child_collections = collection.metafields.custom.subcollections.value -%}
 
 {%- if child_collections != blank and child_collections.size > 0 -%}
@@ -24,7 +38,7 @@
   {%- endfor -%}
 
   {%- if exposed_count > 0 -%}
-    <div class="stylodyna-category-children-section page-width" id="SubCollectionGrid">
+    <div class="stylodyna-category-children-section page-width section-{{ section.id }}-padding" id="SubCollectionGrid">
       <div class="stylodyna-categories__header">
         {%- if section.settings.eyebrow != blank -%}
           <p class="stylodyna-categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
@@ -49,11 +63,21 @@
                 {%- assign target_url = sub_coll.url -%}
                 
                 {%- assign card_image = sub_coll.metafields.custom.hero_banner_image.value -%}
-                {%- if card_image == blank and sub_coll.image != blank -%}
-                  {%- assign card_image = sub_coll.image -%}
+                {%- if card_image == blank and sub_coll.products.first != blank -%}
+                  {%- for media_item in sub_coll.products.first.media -%}
+                    {%- assign alt_lower = media_item.alt | downcase -%}
+                    {%- assign src_lower = media_item | image_url | downcase -%}
+                    {%- if alt_lower contains 'interior' or src_lower contains 'interior' or alt_lower contains 'context' or src_lower contains 'context' -%}
+                      {%- assign card_image = media_item -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
                 {%- endif -%}
                 {%- if card_image == blank and sub_coll.products.first != blank and sub_coll.products.first.featured_image != blank -%}
                   {%- assign card_image = sub_coll.products.first.featured_image -%}
+                {%- endif -%}
+                {%- if card_image == blank and sub_coll.image != blank -%}
+                  {%- assign card_image = sub_coll.image -%}
                 {%- endif -%}
 
                 <a href="{{ target_url }}" class="stylodyna-audience-card{% if exposed_count == 1 %} stylodyna-audience-card--editorial{% endif %}">
@@ -125,6 +149,26 @@
       "type": "richtext",
       "id": "description",
       "label": "Description"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 48
     }
   ],
   "presets": [

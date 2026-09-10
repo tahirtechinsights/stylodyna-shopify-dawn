@@ -1,8 +1,8 @@
 {%- comment -%}
-  StyloDyna Shop by Model Type Section (DECOR-005)
+  StyloDyna Shop by Model Type Section (DECOR-005A Polish)
   Taxonomy Discovery Rail for Decorative Models L2 Landing Page.
   Renders all 4 canonical L3 subcollections (Maritime, Aviation, Automotive, Spaceflight)
-  with customer-facing commercial status (Sale Open vs Sale Closed badges based on runtime product count).
+  with customer-facing availability status (Available Now vs Coming Soon).
 {%- endcomment -%}
 
 {{ 'component-stylodyna-shop-by-categories.css' | asset_url | stylesheet_tag }}
@@ -25,7 +25,7 @@
 {%- assign dynamic_subcollections = collection.metafields.custom.subcollections.value -%}
 
 <div
-  class="stylodyna-shop-by-categories section-{{ section.id }}-padding"
+  class="stylodyna-shop-by-categories stylodyna-shop-by-categories--editorial section-stylodyna-shop-by-model-type section-{{ section.id }}-padding"
   id="ShopByModelType-{{ section.id }}"
   data-enable-autoplay="{{ section.settings.enable_autoplay }}"
   data-autoplay-interval="{{ section.settings.autoplay_interval }}"
@@ -92,10 +92,10 @@
                 <a
                   href="{{ target_url }}"
                   class="stylodyna-category-card stylodyna-category-card--open"
-                  aria-label="{{ card_title | escape }} - Sale Open"
+                  aria-label="{{ card_title | escape }} - Available Now"
                 >
                   <div class="stylodyna-category-card__image-surface">
-                    <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--open">Sale Open</span>
+                    <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--open">Available Now</span>
                     {%- if card_image != blank -%}
                       {{ card_image | image_url: width: 900 | image_tag:
                         loading: 'lazy',
@@ -105,14 +105,9 @@
                         alt: card_title
                       }}
                     {%- else -%}
-                      <img
-                        src="{{ 'sd-decor-hero.webp' | asset_url }}"
-                        alt="{{ card_title | escape }}"
-                        class="stylodyna-category-card__image"
-                        loading="lazy"
-                        width="900"
-                        height="900"
-                      >
+                      <div class="stylodyna-category-card__placeholder">
+                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
                     {%- endif -%}
                   </div>
 
@@ -129,12 +124,10 @@
               {%- else -%}
                 <div
                   class="stylodyna-category-card stylodyna-category-card--closed"
-                  tabindex="0"
-                  role="region"
-                  aria-label="{{ card_title | escape }} - Sale Closed"
+                  aria-label="{{ card_title | escape }} - Coming Soon"
                 >
                   <div class="stylodyna-category-card__image-surface">
-                    <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--closed">Sale Closed</span>
+                    <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--closed">Coming Soon</span>
                     {%- if card_image != blank -%}
                       {{ card_image | image_url: width: 900 | image_tag:
                         loading: 'lazy',
@@ -144,20 +137,14 @@
                         alt: card_title
                       }}
                     {%- else -%}
-                      <img
-                        src="{{ 'sd-decor-hero.webp' | asset_url }}"
-                        alt="{{ card_title | escape }}"
-                        class="stylodyna-category-card__image"
-                        loading="lazy"
-                        width="900"
-                        height="900"
-                      >
+                      <div class="stylodyna-category-card__placeholder">
+                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
                     {%- endif -%}
                   </div>
 
                   <div class="stylodyna-category-card__footer">
                     <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
-                    <span class="stylodyna-category-card__closed-label">Sale Closed</span>
                   </div>
                 </div>
               {%- endif -%}
@@ -186,10 +173,10 @@
                   <a
                     href="{{ target_url }}"
                     class="stylodyna-category-card stylodyna-category-card--open"
-                    aria-label="{{ card_title | escape }} - Sale Open"
+                    aria-label="{{ card_title | escape }} - Available Now"
                   >
                     <div class="stylodyna-category-card__image-surface">
-                      <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--open">Sale Open</span>
+                      <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--open">Available Now</span>
                       {%- if card_image != blank -%}
                         {{ card_image | image_url: width: 900 | image_tag:
                           loading: 'lazy',
@@ -199,14 +186,9 @@
                           alt: card_title
                         }}
                       {%- else -%}
-                        <img
-                          src="{{ 'sd-decor-hero.webp' | asset_url }}"
-                          alt="{{ card_title | escape }}"
-                          class="stylodyna-category-card__image"
-                          loading="lazy"
-                          width="900"
-                          height="900"
-                        >
+                        <div class="stylodyna-category-card__placeholder">
+                          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
                       {%- endif -%}
                     </div>
 
@@ -223,12 +205,10 @@
                 {%- else -%}
                   <div
                     class="stylodyna-category-card stylodyna-category-card--closed"
-                    tabindex="0"
-                    role="region"
-                    aria-label="{{ card_title | escape }} - Sale Closed"
+                    aria-label="{{ card_title | escape }} - Coming Soon"
                   >
                     <div class="stylodyna-category-card__image-surface">
-                      <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--closed">Sale Closed</span>
+                      <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--closed">Coming Soon</span>
                       {%- if card_image != blank -%}
                         {{ card_image | image_url: width: 900 | image_tag:
                           loading: 'lazy',
@@ -238,20 +218,14 @@
                           alt: card_title
                         }}
                       {%- else -%}
-                        <img
-                          src="{{ 'sd-decor-hero.webp' | asset_url }}"
-                          alt="{{ card_title | escape }}"
-                          class="stylodyna-category-card__image"
-                          loading="lazy"
-                          width="900"
-                          height="900"
-                        >
+                        <div class="stylodyna-category-card__placeholder">
+                          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
                       {%- endif -%}
                     </div>
 
                     <div class="stylodyna-category-card__footer">
                       <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
-                      <span class="stylodyna-category-card__closed-label">Sale Closed</span>
                     </div>
                   </div>
                 {%- endif -%}
@@ -292,7 +266,7 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow Text",
-      "default": "DISCOVER TAXONOMY"
+      "default": "EXPLORE MODEL TYPES"
     },
     {
       "type": "text",
@@ -304,7 +278,7 @@
       "type": "richtext",
       "id": "description",
       "label": "Description",
-      "default": "<p>Explore canonical model categories and commercial availability.</p>"
+      "default": "<p>Discover maritime, aviation, automotive and spaceflight collections.</p>"
     },
     {
       "type": "checkbox",

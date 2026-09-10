@@ -6,7 +6,7 @@
 
 {{ 'component-child-collection-nav.css' | asset_url | stylesheet_tag }}
 
-{%- unless template.suffix == 'decor-family' -%}
+{%- unless template.suffix == 'decor-family' or template.suffix == 'decor-type' or collection.metafields.custom.subcollections.value != blank -%}
   {%- assign child_collections = collection.metafields.custom.subcollections.value -%}
 
   {%- if child_collections != blank and child_collections.size > 0 -%}

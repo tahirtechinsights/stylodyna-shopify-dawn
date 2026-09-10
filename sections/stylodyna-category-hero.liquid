@@ -4,37 +4,38 @@
 {%- endcomment -%}
 
 {{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stylodyna-smooth-scroll.js' | asset_url }}" defer="defer"></script>
 
 {%- assign eyebrow_val = collection.metafields.custom.category_eyebrow | default: section.settings.eyebrow -%}
 {%- assign heading_val = collection.metafields.custom.category_heading | default: collection.title | default: section.settings.heading -%}
 {%- assign desc_val = collection.metafields.custom.category_description | default: collection.description | default: section.settings.description -%}
 {%- assign hero_img = collection.metafields.custom.category_hero_image | default: collection.image | default: section.settings.custom_image -%}
 
-<div class="stylodyna-category-hero-section page-width">
-  {%- comment -%} Breadcrumb Hierarchy {%- endcomment -%}
-  <nav class="stylodyna-category-breadcrumbs" aria-label="Breadcrumb">
-    <ol class="stylodyna-category-breadcrumbs__list">
-      <li class="stylodyna-category-breadcrumbs__item">
-        <a href="{{ routes.root_url }}">Home</a>
-      </li>
-      <li class="stylodyna-category-breadcrumbs__separator" aria-hidden="true">/</li>
-      {%- if collection.metafields.custom.parent_collection.value != blank -%}
-        {%- assign parent_coll = collection.metafields.custom.parent_collection.value -%}
-        <li class="stylodyna-category-breadcrumbs__item">
-          <a href="{{ parent_coll.url }}">{{ parent_coll.title | escape }}</a>
-        </li>
-        <li class="stylodyna-category-breadcrumbs__separator" aria-hidden="true">/</li>
-      {%- endif -%}
-      <li class="stylodyna-category-breadcrumbs__item" aria-current="page">
-        <span>{{ collection.title | default: section.settings.heading | escape }}</span>
-      </li>
-    </ol>
-  </nav>
-
+<div class="stylodyna-category-hero-section">
   {%- comment -%} Department Hero Banner Surface {%- endcomment -%}
   <div class="stylodyna-category-hero">
-    <div class="stylodyna-category-hero__wrapper">
+    <div class="stylodyna-category-hero__wrapper page-width">
       <div class="stylodyna-category-hero__content">
+        {%- comment -%} Breadcrumb Hierarchy Integrated inside Dark Hero {%- endcomment -%}
+        <nav class="stylodyna-category-breadcrumbs" aria-label="Breadcrumb">
+          <ol class="stylodyna-category-breadcrumbs__list">
+            <li class="stylodyna-category-breadcrumbs__item">
+              <a href="{{ routes.root_url }}">Home</a>
+            </li>
+            <li class="stylodyna-category-breadcrumbs__separator" aria-hidden="true">/</li>
+            {%- if collection.metafields.custom.parent_collection.value != blank -%}
+              {%- assign parent_coll = collection.metafields.custom.parent_collection.value -%}
+              <li class="stylodyna-category-breadcrumbs__item">
+                <a href="{{ parent_coll.url }}">{{ parent_coll.title | escape }}</a>
+              </li>
+              <li class="stylodyna-category-breadcrumbs__separator" aria-hidden="true">/</li>
+            {%- endif -%}
+            <li class="stylodyna-category-breadcrumbs__item" aria-current="page">
+              <span>{{ collection.title | default: section.settings.heading | escape }}</span>
+            </li>
+          </ol>
+        </nav>
+
         {%- if eyebrow_val != blank -%}
           <p class="stylodyna-category-hero__eyebrow">{{ eyebrow_val | escape }}</p>
         {%- endif -%}
@@ -48,7 +49,11 @@
         {%- endif -%}
         {%- if section.settings.cta_label != blank -%}
           <a href="{{ section.settings.cta_link | default: '#ShopByAudience' }}" class="stylodyna-category-hero__btn">
-            {{ section.settings.cta_label | escape }}
+            <span>{{ section.settings.cta_label | escape }}</span>
+            <svg class="stylodyna-category-hero__btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </a>
         {%- endif -%}
       </div>

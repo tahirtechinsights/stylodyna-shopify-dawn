@@ -49,10 +49,11 @@
         "spaceflight"
       ],
       "settings": {
-        "eyebrow": "DISCOVER TAXONOMY",
+        "presentation_mode": "editorial",
+        "eyebrow": "EXPLORE MODEL TYPES",
         "heading": "Shop by Model Type",
-        "description": "<p>Explore canonical model categories and commercial availability.</p>",
-        "show_nav_buttons": true,
+        "description": "<p>Discover maritime, aviation, automotive and spaceflight collections.</p>",
+        "show_nav_buttons": false,
         "enable_autoplay": false,
         "padding_top": 48,
         "padding_bottom": 48
@@ -69,7 +70,7 @@
       "type": "main-collection-product-grid",
       "settings": {
         "eyebrow": "FEATURED FROM DECORATIVE MODELS",
-        "heading": "Curated Highlights",
+        "heading": "Featured Products",
         "products_per_page": 16,
         "columns_desktop": 4,
         "color_scheme": "scheme-1",

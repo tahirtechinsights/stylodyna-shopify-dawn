@@ -1,6 +1,7 @@
 {%- comment -%}
-  StyloDyna Shop by Categories Section (HOME-005E)
-  Production Baseline: Shopify OS 2.0 9-Category Scalable Carousel Rail + Approved Visual Conformance
+  StyloDyna Shop by Categories Section (HOME-005E / DECOR-007)
+  Production Baseline: Shopify OS 2.0 Scalable Taxonomy Discovery Rail
+  Supports Available Now (Active Shopping) and Coming Soon (Taxonomy Discovery) card states.
 {%- endcomment -%}
 
 {{ 'component-stylodyna-shop-by-categories.css' | asset_url | stylesheet_tag }}
@@ -21,8 +22,8 @@
 {%- endstyle -%}
 
 <div
-  class="stylodyna-shop-by-categories section-{{ section.id }}-padding"
-  id="ShopByCategories-{{ section.id }}"
+  class="stylodyna-shop-by-categories section-{{ section.id }}-padding{% if section.settings.presentation_mode == 'editorial' %} stylodyna-shop-by-categories--editorial{% endif %}"
+  id="{% if section.settings.presentation_mode == 'editorial' %}shop-by-decor-collection{% else %}ShopByCategories-{{ section.id }}{% endif %}"
   data-enable-autoplay="{{ section.settings.enable_autoplay }}"
   data-autoplay-interval="{{ section.settings.autoplay_interval }}"
 >
@@ -64,8 +65,8 @@
         tabindex="0"
       >
         {%- for block in section.blocks -%}
-          {%- assign card_title = block.settings.category_title -%}
           {%- assign target_collection = block.settings.collection -%}
+          {%- assign card_title = target_collection.title | default: block.settings.category_title | default: 'Category' -%}
           
           {%- comment -%} Card Link Priority: custom_link > collection.url > '#' {%- endcomment -%}
           {%- assign target_url = '#' -%}
@@ -75,61 +76,124 @@
             {%- assign target_url = target_collection.url -%}
           {%- endif -%}
 
-          {%- comment -%} Fallback Asset Priority Logic for 9 Default Categories {%- endcomment -%}
+          {%- comment -%} Commercial Status Authority Check {%- endcomment -%}
+          {%- assign is_open = false -%}
+          {%- if target_collection != blank -%}
+            {%- assign exp_status = target_collection.metafields.custom.exposure_status.value | default: target_collection.metafields.custom.exposure_status -%}
+            {%- if exp_status == 'COMMERCE_READY' and target_collection.all_products_count > 0 -%}
+              {%- assign is_open = true -%}
+            {%- elsif target_collection.all_products_count > 0 and exp_status == blank -%}
+              {%- assign is_open = true -%}
+            {%- endif -%}
+          {%- endif -%}
+          {%- if block.settings.is_open_override == true -%}
+            {%- assign is_open = true -%}
+          {%- endif -%}
+
+          {%- comment -%} Image Authority: custom_image > collection.image > first product image > fallback_asset {%- endcomment -%}
+          {%- assign card_image = block.settings.custom_image -%}
+          {%- if card_image == blank and target_collection != blank and target_collection.image != blank -%}
+            {%- assign card_image = target_collection.image -%}
+          {%- endif -%}
+          {%- if card_image == blank and target_collection != blank and target_collection.products.first != blank and target_collection.products.first.featured_image != blank -%}
+            {%- assign card_image = target_collection.products.first.featured_image -%}
+          {%- endif -%}
+
+          {%- comment -%} Fallback Asset Priority Logic for Default Homepage Categories {%- endcomment -%}
           {%- assign fallback_asset = '' -%}
-          {%- case forloop.index -%}
-            {%- when 1 -%}{%- assign fallback_asset = 'sd-category-sofa.webp' -%}
-            {%- when 2 -%}{%- assign fallback_asset = 'sd-category-chair.webp' -%}
-            {%- when 3 -%}{%- assign fallback_asset = 'sd-category-bed.webp' -%}
-            {%- when 4 -%}{%- assign fallback_asset = 'sd-category-dining-table.webp' -%}
-            {%- when 5 -%}{%- assign fallback_asset = 'sd-category-table.webp' -%}
-            {%- when 6 -%}{%- assign fallback_asset = 'sd-category-lamp.webp' -%}
-            {%- when 7 -%}{%- assign fallback_asset = 'sd-category-lifestyle.webp' -%}
-            {%- when 8 -%}{%- assign fallback_asset = 'sd-category-sports-outdoors.webp' -%}
-            {%- when 9 -%}{%- assign fallback_asset = 'sd-category-smart-home.webp' -%}
-          {%- endcase -%}
+          {%- if card_image == blank and target_collection == blank -%}
+            {%- case forloop.index -%}
+              {%- when 1 -%}{%- assign fallback_asset = 'sd-category-sofa.webp' -%}
+              {%- when 2 -%}{%- assign fallback_asset = 'sd-category-chair.webp' -%}
+              {%- when 3 -%}{%- assign fallback_asset = 'sd-category-bed.webp' -%}
+              {%- when 4 -%}{%- assign fallback_asset = 'sd-category-dining-table.webp' -%}
+              {%- when 5 -%}{%- assign fallback_asset = 'sd-category-table.webp' -%}
+              {%- when 6 -%}{%- assign fallback_asset = 'sd-category-lamp.webp' -%}
+              {%- when 7 -%}{%- assign fallback_asset = 'sd-category-lifestyle.webp' -%}
+              {%- when 8 -%}{%- assign fallback_asset = 'sd-category-sports-outdoors.webp' -%}
+              {%- when 9 -%}{%- assign fallback_asset = 'sd-category-smart-home.webp' -%}
+            {%- endcase -%}
+          {%- endif -%}
 
           <li class="stylodyna-category-card__item" {{ block.shopify_attributes }}>
-            <a
-              href="{{ target_url }}"
-              class="stylodyna-category-card"
-              aria-label="{{ block.settings.accessible_label | default: card_title | escape }}"
-            >
-              <div class="stylodyna-category-card__image-surface">
-                {%- if block.settings.custom_image != blank -%}
-                  {{ block.settings.custom_image | image_url: width: 1254 | image_tag:
-                    loading: 'lazy',
-                    class: 'stylodyna-category-card__image',
-                    sizes: '(min-width: 1200px) 240px, (min-width: 750px) 280px, 50vw',
-                    widths: '300, 450, 600, 900, 1254',
-                    alt: card_title
-                  }}
-                {%- elsif fallback_asset != '' -%}
-                  <img
-                    src="{{ fallback_asset | asset_url }}"
-                    alt="{{ card_title | escape }}"
-                    class="stylodyna-category-card__image"
-                    loading="lazy"
-                    width="1254"
-                    height="1254"
-                  >
-                {%- else -%}
-                  <div class="stylodyna-category-card__placeholder">
-                    {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                  </div>
-                {%- endif -%}
-              </div>
+            {%- if is_open -%}
+              <a
+                href="{{ target_url }}"
+                class="stylodyna-category-card stylodyna-category-card--open"
+                aria-label="{{ block.settings.accessible_label | default: card_title | escape }} - Available Now"
+              >
+                <div class="stylodyna-category-card__image-surface">
+                  <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--open">Available Now</span>
+                  {%- if card_image != blank -%}
+                    {{ card_image | image_url: width: 1254 | image_tag:
+                      loading: 'lazy',
+                      class: 'stylodyna-category-card__image',
+                      sizes: '(min-width: 1200px) 240px, (min-width: 750px) 280px, 50vw',
+                      widths: '300, 450, 600, 900, 1254',
+                      alt: card_title
+                    }}
+                  {%- elsif fallback_asset != '' -%}
+                    <img
+                      src="{{ fallback_asset | asset_url }}"
+                      alt="{{ card_title | escape }}"
+                      class="stylodyna-category-card__image"
+                      loading="lazy"
+                      width="1254"
+                      height="1254"
+                    >
+                  {%- else -%}
+                    <div class="stylodyna-category-card__placeholder">
+                      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </div>
 
-              <div class="stylodyna-category-card__footer">
-                <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
-                <span class="stylodyna-category-card__arrow" aria-hidden="true">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </span>
+                <div class="stylodyna-category-card__footer">
+                  <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
+                  <span class="stylodyna-category-card__arrow" aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            {%- else -%}
+              <div
+                class="stylodyna-category-card stylodyna-category-card--closed"
+                aria-label="{{ block.settings.accessible_label | default: card_title | escape }} - Coming Soon"
+              >
+                <div class="stylodyna-category-card__image-surface">
+                  <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--closed">Coming Soon</span>
+                  {%- if card_image != blank -%}
+                    {{ card_image | image_url: width: 1254 | image_tag:
+                      loading: 'lazy',
+                      class: 'stylodyna-category-card__image',
+                      sizes: '(min-width: 1200px) 240px, (min-width: 750px) 280px, 50vw',
+                      widths: '300, 450, 600, 900, 1254',
+                      alt: card_title
+                    }}
+                  {%- elsif fallback_asset != '' -%}
+                    <img
+                      src="{{ fallback_asset | asset_url }}"
+                      alt="{{ card_title | escape }}"
+                      class="stylodyna-category-card__image"
+                      loading="lazy"
+                      width="1254"
+                      height="1254"
+                    >
+                  {%- else -%}
+                    <div class="stylodyna-category-card__placeholder">
+                      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {%- endif -%}
+                </div>
+
+                <div class="stylodyna-category-card__footer">
+                  <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
+                </div>
               </div>
-            </a>
+            {%- endif -%}
           </li>
         {%- endfor -%}
       </ul>
@@ -161,6 +225,22 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "select",
+      "id": "presentation_mode",
+      "label": "Card Presentation Mode",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default (Quiet Luxury Light Ivory)"
+        },
+        {
+          "value": "editorial",
+          "label": "Editorial Dark Cards (Decor L1)"
+        }
+      ],
+      "default": "default"
+    },
     {
       "type": "text",
       "id": "eyebrow",
@@ -232,8 +312,8 @@
         {
           "type": "text",
           "id": "category_title",
-          "label": "Category Title",
-          "default": "Furniture Category"
+          "label": "Category Title Override",
+          "info": "Leave blank to pull title automatically from the Shopify Collection object."
         },
         {
           "type": "collection",
@@ -243,12 +323,19 @@
         {
           "type": "image_picker",
           "id": "custom_image",
-          "label": "Custom Category Image (Overrides Fallback)"
+          "label": "Custom Category Image (Overrides Collection Image)"
         },
         {
           "type": "url",
           "id": "custom_link",
           "label": "Custom Link (Overrides Collection URL)"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_open_override",
+          "label": "Force Available Now Status",
+          "default": false,
+          "info": "Overrides automatic exposure_status / product count check."
         },
         {
           "type": "text",

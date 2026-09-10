@@ -7,6 +7,7 @@
   position: relative;
   background-color: transparent;
   overflow: hidden;
+  scroll-margin-top: 100px;
 }
 
 /* SECTION HEADER — CENTERED COMPOSITION MATCHING HOMEPAGE DESIGN SYSTEM */
@@ -353,7 +354,7 @@
   outline-offset: 2px;
 }
 
-/* STATUS BADGES & SALE CLOSED CARD VARIANTS */
+/* STATUS BADGES & COMING SOON CARD VARIANTS */
 .stylodyna-category-card__status-badge {
   position: absolute;
   top: 1rem;
@@ -370,20 +371,20 @@
 }
 
 .stylodyna-category-card__status-badge--open {
-  background-color: #1F1F1F;
+  background-color: var(--sd-color-accent-brand, #8A6A43);
   color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: none;
 }
 
 .stylodyna-category-card__status-badge--closed {
-  background-color: rgba(240, 238, 233, 0.92);
-  color: #6B6B6B;
+  background-color: #EFECE6;
+  color: #555555;
   border: 1px solid rgba(31, 31, 31, 0.12);
 }
 
 .stylodyna-category-card--closed {
   cursor: default;
-  opacity: 0.85;
+  opacity: 1;
 }
 
 .stylodyna-category-card--closed:hover {
@@ -394,8 +395,8 @@
 }
 
 .stylodyna-category-card--closed .stylodyna-category-card__image {
-  filter: grayscale(40%);
-  opacity: 0.8;
+  filter: none;
+  opacity: 1;
 }
 
 .stylodyna-category-card--closed:hover .stylodyna-category-card__image {
@@ -406,12 +407,241 @@
   color: #1F1F1F;
 }
 
-.stylodyna-category-card__closed-label {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #888888;
-  letter-spacing: 0.04rem;
-  text-transform: uppercase;
+/* SHOP BY MODEL TYPE DECORATIVE MODELS SCOPED REFINEMENT (DECOR-008A) */
+.section-stylodyna-shop-by-model-type {
+  overflow: hidden;
+}
+
+.stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-category-card__image-surface {
+  aspect-ratio: 4 / 3.2;
+  padding: 1.6rem !important;
+  background-color: #1F1F1F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-category-card__image {
+  object-fit: contain !important;
+  object-position: center !important;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+.section-stylodyna-shop-by-model-type .stylodyna-category-card__title {
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+  font-size: 1.6rem;
+  line-height: 1.3;
+}
+
+/* DESKTOP 4-CARD BALANCED GRID (1440px & 1280px & 990px) */
+@media screen and (min-width: 990px) {
+  .section-stylodyna-shop-by-model-type .stylodyna-categories__rail-wrapper {
+    width: 100%;
+  }
+
+  .stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-categories__rail {
+    display: flex;
+    gap: 2.0rem;
+    overflow-x: visible;
+  }
+
+  .stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-category-card__item {
+    flex: 1 1 calc((100% - 3 * 2.0rem) / 4) !important;
+    max-width: calc((100% - 3 * 2.0rem) / 4) !important;
+  }
+}
+
+/* TABLET (750px - 989px, e.g. 768px) */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-categories__rail {
+    gap: 1.6rem;
+  }
+
+  .stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-category-card__item {
+    flex: 0 0 calc((100% - 1.6rem) / 2) !important;
+    max-width: calc((100% - 1.6rem) / 2) !important;
+  }
+}
+
+/* MOBILE (under 750px, e.g. 390px, 375px) */
+@media screen and (max-width: 749px) {
+  .stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-categories__rail {
+    gap: 1.2rem;
+    padding-inline: 0.4rem;
+  }
+
+  .stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-category-card__item {
+    flex: 0 0 78% !important;
+    max-width: 78% !important;
+  }
+
+  .stylodyna-shop-by-categories--editorial.section-stylodyna-shop-by-model-type .stylodyna-category-card__image-surface {
+    aspect-ratio: 4 / 3;
+    padding: 1.2rem !important;
+  }
+
+  .section-stylodyna-shop-by-model-type .stylodyna-category-card__title {
+    font-size: 1.55rem;
+  }
+}
+
+/* ==========================================================================
+   EDITORIAL PRESENTATION MODE (DECOR L1 SCOPED MODIFIER)
+   Image-led full-bleed editorial category cards with dark charcoal footer panel,
+   subtle border, rounded geometry, and 5-card + partial next-card peek discovery cue.
+   ========================================================================== */
+
+.stylodyna-shop-by-categories--editorial .stylodyna-categories__header {
+  margin-bottom: 4.0rem;
+}
+
+/* CARD ITEM RESPONSIVE SIZING FOR EDITORIAL MODE */
+/* Desktop 1440px+: ~5 cards visible + partial peek cue (~5.25 cards total) */
+@media screen and (min-width: 1440px) {
+  .stylodyna-shop-by-categories--editorial .stylodyna-category-card__item {
+    flex: 0 0 calc((100% - 4.5 * 1.8rem) / 5.25);
+    scroll-snap-align: start;
+  }
+}
+
+/* Mid Desktop 1280px - 1439px: ~4.5 cards visible */
+@media screen and (min-width: 1280px) and (max-width: 1439px) {
+  .stylodyna-shop-by-categories--editorial .stylodyna-category-card__item {
+    flex: 0 0 calc((100% - 3.8 * 1.6rem) / 4.4);
+    scroll-snap-align: start;
+  }
+}
+
+/* Desktop Small 990px - 1279px: ~3.4 cards visible */
+@media screen and (min-width: 990px) and (max-width: 1279px) {
+  .stylodyna-shop-by-categories--editorial .stylodyna-category-card__item {
+    flex: 0 0 calc((100% - 2.8 * 1.6rem) / 3.4);
+    scroll-snap-align: start;
+  }
+}
+
+/* Tablet 750px - 989px (e.g. 768px): ~2.35 cards visible */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .stylodyna-shop-by-categories--editorial .stylodyna-category-card__item {
+    flex: 0 0 calc((100% - 1.8 * 1.4rem) / 2.35);
+    scroll-snap-align: start;
+  }
+}
+
+/* Mobile under 750px (e.g. 390px, 375px): ~1.25 cards visible (76% width) */
+@media screen and (max-width: 749px) {
+  .stylodyna-shop-by-categories--editorial .stylodyna-category-card__item {
+    flex: 0 0 76%;
+    scroll-snap-align: start;
+  }
+}
+
+/* EDITORIAL CARD SURFACE & GEOMETRY */
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card {
+  padding: 0;
+  border-radius: 1.6rem;
+  overflow: hidden;
+  background-color: #1F1F1F;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  transition: transform 300ms cubic-bezier(0.25, 1, 0.5, 1), box-shadow 300ms cubic-bezier(0.25, 1, 0.5, 1), border-color 300ms ease;
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card:hover {
+  transform: translateY(-4px);
+  background-color: #1F1F1F;
+  border-color: rgba(138, 106, 67, 0.45);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
+}
+
+/* DOMINANT FULL-BLEED UPPER IMAGE SURFACE */
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card__image-surface {
+  aspect-ratio: 4 / 5;
+  border-radius: 0;
+  padding: 0 !important;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 400ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card:hover .stylodyna-category-card__image {
+  transform: scale(1.04);
+}
+
+/* COMPACT CHARCOAL INFORMATION PANEL AT BOTTOM */
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card__footer {
+  background-color: #1F1F1F;
+  padding: 1.6rem;
+  margin-top: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 5.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.0rem;
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card__title {
+  color: #FAF9F5;
+  font-family: var(--font-heading-family);
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.3;
+  transition: color 200ms ease;
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card:hover .stylodyna-category-card__title {
+  color: var(--sd-color-accent-brand, #8A6A43);
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card__arrow {
+  color: var(--sd-color-accent-brand, #8A6A43);
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card:hover .stylodyna-category-card__arrow {
+  color: #FAF9F5;
+  transform: translateX(4px);
+}
+
+/* RESTRAINED BADGES FOR EDITORIAL MODE */
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card__status-badge--open {
+  background-color: var(--sd-color-accent-brand, #8A6A43);
+  color: #FFFFFF;
+  border: none;
+  font-weight: 700;
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card__status-badge--closed {
+  background-color: rgba(31, 31, 31, 0.75);
+  color: #FAF9F5;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card--closed:hover {
+  transform: none;
+  border-color: rgba(31, 31, 31, 0.08);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.stylodyna-shop-by-categories--editorial .stylodyna-category-card--closed:hover .stylodyna-category-card__title {
+  color: #FAF9F5;
 }
 
 /* ACCESSIBILITY & REDUCED MOTION */

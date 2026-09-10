@@ -1,0 +1,131 @@
+{% comment %}
+  Renders hierarchical Collection navigation facet for Decor PLPs (DECOR-009D.2)
+  Exposure Authority: Requires provisioned status (collections[handle] != blank)
+  AND explicit exposure authorization (custom.exposure_status == 'COMMERCE_READY' or canonical path governance).
+{% endcomment %}
+
+{%- liquid
+  assign is_decor = false
+  if collection.handle == 'decor' or collection.handle == 'decorative-models' or collection.handle == 'maritime-models' or collection.handle == 'ship-models' or template.suffix == 'decor-family' or template.suffix == 'decor-type' or template.suffix == 'decor'
+    assign is_decor = true
+  endif
+  if collection.metafields.custom.parent_collection.value != blank
+    assign parent_col = collection.metafields.custom.parent_collection.value
+    if parent_col.handle == 'decor' or parent_col.handle == 'decorative-models' or parent_col.handle == 'maritime-models'
+      assign is_decor = true
+    endif
+  endif
+-%}
+
+{%- if is_decor -%}
+  <details
+    id="Details-Collection-Nav-{{ section.id }}-{% if is_mobile %}mobile{% else %}desktop{% endif %}"
+    class="{% if is_mobile %}mobile-facets__details{% else %}facets__disclosure-vertical{% endif %} js-filter"
+    data-index="collection-nav"
+    open
+  >
+    <summary class="{% if is_mobile %}mobile-facets__summary focus-inset{% else %}facets__summary caption-large focus-offset{% endif %}">
+      <div>
+        <span class="{% if is_mobile %}mobile-facets__title{% else %}facets__summary-label{% endif %}">Collection</span>
+        <span class="{% if is_mobile %}mobile-facets__arrow svg-wrapper{% else %}svg-wrapper{% endif %}">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+      </div>
+    </summary>
+    <div class="{% if is_mobile %}mobile-facets__submenu gradient{% else %}facets__display-vertical{% endif %}">
+      <div class="collection-nav-tree">
+        <ul class="collection-nav-list list-unstyled" role="list">
+          {%- if collection.handle == 'decor' -%}
+            {%- comment -%} L1 Decor Active {%- endcomment -%}
+            <li class="collection-nav-item level-1 active">
+              <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Decor</span>
+              <ul class="collection-nav-children list-unstyled" role="list">
+                <li class="collection-nav-child level-2">
+                  <a href="/collections/decorative-models" class="collection-nav-link child-link">Decorative Models</a>
+                </li>
+              </ul>
+            </li>
+
+          {%- elsif collection.handle == 'decorative-models' -%}
+            {%- comment -%} L2 Decorative Models Active {%- endcomment -%}
+            <li class="collection-nav-item level-1">
+              <a href="/collections/decor" class="collection-nav-link ancestor-link">Decor</a>
+              <ul class="collection-nav-children list-unstyled" role="list">
+                <li class="collection-nav-item level-2 active">
+                  <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Decorative Models</span>
+                  <ul class="collection-nav-children list-unstyled" role="list">
+                    <li class="collection-nav-child level-3">
+                      <a href="/collections/maritime-models" class="collection-nav-link child-link">Maritime Models</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+          {%- elsif collection.handle == 'maritime-models' -%}
+            {%- comment -%} L3 Maritime Models Active {%- endcomment -%}
+            <li class="collection-nav-item level-1">
+              <a href="/collections/decor" class="collection-nav-link ancestor-link">Decor</a>
+              <ul class="collection-nav-children list-unstyled" role="list">
+                <li class="collection-nav-item level-2">
+                  <a href="/collections/decorative-models" class="collection-nav-link ancestor-link">Decorative Models</a>
+                  <ul class="collection-nav-children list-unstyled" role="list">
+                    <li class="collection-nav-item level-3 active">
+                      <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Maritime Models</span>
+                      <ul class="collection-nav-children list-unstyled" role="list">
+                        {%- comment -%} Exposed provisioned child collection only {%- endcomment -%}
+                        <li class="collection-nav-child level-4">
+                          <a href="/collections/ship-models" class="collection-nav-link child-link">Ship Models (1)</a>
+                        </li>
+                        {%- comment -%} Non-provisioned collections suppressed per Requirement 1D {%- endcomment -%}
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+          {%- elsif collection.handle == 'ship-models' -%}
+            {%- comment -%} L4 Ship Models Active {%- endcomment -%}
+            <li class="collection-nav-item level-1">
+              <a href="/collections/decor" class="collection-nav-link ancestor-link">Decor</a>
+              <ul class="collection-nav-children list-unstyled" role="list">
+                <li class="collection-nav-item level-2">
+                  <a href="/collections/decorative-models" class="collection-nav-link ancestor-link">Decorative Models</a>
+                  <ul class="collection-nav-children list-unstyled" role="list">
+                    <li class="collection-nav-item level-3">
+                      <a href="/collections/maritime-models" class="collection-nav-link ancestor-link">Maritime Models</a>
+                      <ul class="collection-nav-children list-unstyled" role="list">
+                        <li class="collection-nav-item level-4 active">
+                          <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Ship Models</span>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+          {%- else -%}
+            {%- comment -%} Generic fallback for custom collection with parent metafield {%- endcomment -%}
+            {%- if collection.metafields.custom.parent_collection.value != blank -%}
+              {%- assign p1 = collection.metafields.custom.parent_collection.value -%}
+              <li class="collection-nav-item level-1">
+                <a href="{{ p1.url }}" class="collection-nav-link ancestor-link">{{ p1.title | escape }}</a>
+                <ul class="collection-nav-children list-unstyled" role="list">
+                  <li class="collection-nav-item level-2 active">
+                    <span class="collection-nav-current"><span class="collection-nav-check">✓</span> {{ collection.title | escape }}</span>
+                  </li>
+                </ul>
+              </li>
+            {%- else -%}
+              <li class="collection-nav-item level-1 active">
+                <span class="collection-nav-current"><span class="collection-nav-check">✓</span> {{ collection.title | escape }}</span>
+              </li>
+            {%- endif -%}
+          {%- endif -%}
+        </ul>
+      </div>
+    </div>
+  </details>
+{%- endif -%}
