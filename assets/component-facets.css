@@ -1434,55 +1434,98 @@ input.mobile-facets__checkbox {
   flex: none !important;
 }
 
-/* STYLODYNA SHARED PLP PRESENTATION CONTRACT — DECOR CARD (DECOR-010) */
-.collection-plp--decor .card,
-.collection-plp--decor .card-wrapper .card {
-  background-color: #1F1F1F !important;
+/* STYLODYNA SHARED PLP PRODUCT CARD SYSTEM CONTRACT (GLOBAL-PLP-CARD-001B) */
+.collection-plp .card,
+.collection-plp .card-wrapper .card {
+  background-color: var(--sd-color-surface-dark, #1F1F1F) !important;
   border-radius: 0.8rem !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--sd-color-border-inverse-subtle, rgba(255, 255, 255, 0.08)) !important;
   overflow: hidden !important;
 }
 
-.collection-plp--decor .card__inner {
+.collection-plp .card__inner {
   border-top-left-radius: 0.8rem !important;
   border-top-right-radius: 0.8rem !important;
   overflow: hidden !important;
   background-color: #FFFFFF !important;
 }
 
-.collection-plp--decor .card__inner .card__media,
-.collection-plp--decor .card__inner .media {
+.collection-plp .card__inner .card__media,
+.collection-plp .card__inner .media {
   background-color: #FFFFFF !important;
 }
 
-.collection-plp--decor .card__inner .card__media img,
-.collection-plp--decor .card__inner .media img {
+.collection-plp .card__inner .card__media img,
+.collection-plp .card__inner .media img {
   opacity: 1 !important;
   visibility: visible !important;
   object-fit: contain !important;
 }
 
-.collection-plp--decor .card__inner .card__content {
+.collection-plp .card__inner .card__content {
   background: transparent !important;
   background-color: transparent !important;
   padding: 0 !important;
 }
 
-.collection-plp--decor .card > .card__content {
-  background-color: #1F1F1F !important;
+.collection-plp .card > .card__content {
+  background-color: var(--sd-color-surface-dark, #1F1F1F) !important;
   padding: 1.2rem 1.4rem !important;
 }
 
-.collection-plp--decor .card__heading,
-.collection-plp--decor .card__heading a,
-.collection-plp--decor .card-information .caption-with-letter-spacing {
-  color: #FAF9F5 !important;
+.collection-plp .card__heading,
+.collection-plp .card__heading a,
+.collection-plp .card-information .caption-with-letter-spacing {
+  color: var(--sd-color-heading-dark, #FAF9F5) !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
 }
 
-.collection-plp--decor .price,
-.collection-plp--decor .price__regular .price-item,
-.collection-plp--decor .price__sale .price-item {
+.collection-plp .card__heading a {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  word-break: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+.collection-plp .price,
+.collection-plp .price__regular .price-item,
+.collection-plp .price__sale .price-item {
   color: #EBE6DD !important;
+}
+
+.collection-plp .price .price-item--regular,
+.collection-plp .price .price-item--sale {
+  color: #FAF9F5 !important;
+  font-weight: 600 !important;
+}
+
+.collection-plp .price .price-item--regular.price-item--last,
+.collection-plp .price--on-sale .price-item--regular {
+  color: rgba(235, 230, 221, 0.55) !important;
+  text-decoration: line-through !important;
+  font-size: 1.3rem !important;
+  font-weight: 400 !important;
+}
+
+/* STYLODYNA BRAND GOLD SALE BADGE NORMALIZATION */
+.collection-plp .card .badge,
+.collection-plp .card .badge--bottom-left,
+.collection-plp .card-information .badge {
+  background-color: var(--sd-color-accent-brand, #8A6A43) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 0.3rem !important;
+  font-family: var(--font-body-family) !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0.4rem 0.8rem !important;
+  box-shadow: none !important;
 }
 
 /* STYLODYNA DECOR COLLECTION NAVIGATION HIGH-CONTRAST STATES (DECOR-009D.1) */
