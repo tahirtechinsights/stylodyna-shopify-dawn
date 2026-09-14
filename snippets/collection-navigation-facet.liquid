@@ -1,5 +1,6 @@
 {% comment %}
   Renders hierarchical Collection navigation facet for Decor PLPs (DECOR-009D.2)
+  and global top-level Collection navigation for generic PLPs (GLOBAL-PLP-FACET-001).
   Exposure Authority: Requires provisioned status (collections[handle] != blank)
   AND explicit exposure authorization (custom.exposure_status == 'COMMERCE_READY' or canonical path governance).
 {% endcomment %}
@@ -17,24 +18,35 @@
   endif
 -%}
 
-{%- if is_decor -%}
-  <details
-    id="Details-Collection-Nav-{{ section.id }}-{% if is_mobile %}mobile{% else %}desktop{% endif %}"
-    class="{% if is_mobile %}mobile-facets__details{% else %}facets__disclosure-vertical{% endif %} js-filter"
-    data-index="collection-nav"
-    open
-  >
-    <summary class="{% if is_mobile %}mobile-facets__summary focus-inset{% else %}facets__summary caption-large focus-offset{% endif %}">
-      <div>
-        <span class="{% if is_mobile %}mobile-facets__title{% else %}facets__summary-label{% endif %}">Collection</span>
-        <span class="{% if is_mobile %}mobile-facets__arrow svg-wrapper{% else %}svg-wrapper{% endif %}">
-          {{- 'icon-caret.svg' | inline_asset_content -}}
-        </span>
-      </div>
-    </summary>
-    <div class="{% if is_mobile %}mobile-facets__submenu gradient{% else %}facets__display-vertical{% endif %}">
-      <div class="collection-nav-tree">
-        <ul class="collection-nav-list list-unstyled" role="list">
+<details
+  id="Details-Collection-Nav-{{ section.id }}-{% if is_mobile %}mobile{% else %}desktop{% endif %}"
+  class="{% if is_mobile %}mobile-facets__details{% else %}facets__disclosure-vertical{% endif %} js-filter"
+  data-index="collection-nav"
+  open
+>
+  <summary class="{% if is_mobile %}mobile-facets__summary focus-inset{% else %}facets__summary caption-large focus-offset{% endif %}">
+    <div>
+      <span class="{% if is_mobile %}mobile-facets__title{% else %}facets__summary-label{% endif %}">Collection</span>
+      <span class="{% if is_mobile %}mobile-facets__arrow svg-wrapper{% else %}svg-wrapper{% endif %}">
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </span>
+    </div>
+  </summary>
+  <div class="{% if is_mobile %}mobile-facets__submenu gradient{% else %}facets__display-vertical{% endif %}">
+    {%- if is_mobile -%}
+      <button
+        class="mobile-facets__close-button link link--text focus-inset"
+        aria-expanded="true"
+        type="button"
+      >
+        {{- 'icon-arrow.svg' | inline_asset_content -}}
+        <span>Collection</span>
+      </button>
+    {%- endif -%}
+    <div class="collection-nav-tree">
+      <ul class="collection-nav-list list-unstyled" role="list">
+        {%- if is_decor -%}
+          {%- comment -%} EXISTING DECOR HIERARCHICAL NAV (DECOR-009D) {%- endcomment -%}
           {%- if collection.handle == 'decor' -%}
             {%- comment -%} L1 Decor Active {%- endcomment -%}
             <li class="collection-nav-item level-1 active">
@@ -77,7 +89,6 @@
                         <li class="collection-nav-child level-4">
                           <a href="/collections/ship-models" class="collection-nav-link child-link">Ship Models (1)</a>
                         </li>
-                        {%- comment -%} Non-provisioned collections suppressed per Requirement 1D {%- endcomment -%}
                       </ul>
                     </li>
                   </ul>
@@ -124,8 +135,81 @@
               </li>
             {%- endif -%}
           {%- endif -%}
-        </ul>
-      </div>
+
+        {%- else -%}
+          {%- comment -%} GLOBAL / GENERIC COLLECTION NAV (GLOBAL-PLP-FACET-001) {%- endcomment -%}
+          {%- liquid
+            assign global_links_rendered = 0
+          -%}
+
+          {%- if linklists['main-menu'].links.size > 0 -%}
+            {%- for link in linklists['main-menu'].links -%}
+              {%- liquid
+                assign is_col_link = false
+                assign target_col = blank
+                assign col_handle = blank
+
+                if link.type == 'collection_link' and link.object != blank
+                  assign is_col_link = true
+                  assign target_col = link.object
+                  assign col_handle = target_col.handle
+                elsif link.url contains '/collections/'
+                  assign url_parts = link.url | split: '/collections/'
+                  assign raw_handle = url_parts[1] | split: '?' | first | split: '/' | first
+                  if raw_handle != blank and raw_handle != 'all'
+                    assign check_col = collections[raw_handle]
+                    if check_col != blank
+                      assign is_col_link = true
+                      assign target_col = check_col
+                      assign col_handle = raw_handle
+                    endif
+                  endif
+                endif
+              -%}
+
+              {%- if is_col_link and col_handle != blank and col_handle != 'all' -%}
+                {%- liquid
+                  assign is_exposed = false
+                  assign exp_status = target_col.metafields.custom.exposure_status.value | default: target_col.metafields.custom.exposure_status
+                  if exp_status == 'COMMERCE_READY' or exp_status == blank or collections[col_handle] != blank
+                    if link.url != '/' and link.url != blank
+                      assign is_exposed = true
+                    endif
+                  endif
+                -%}
+
+                {%- if is_exposed -%}
+                  {%- assign global_links_rendered = global_links_rendered | plus: 1 -%}
+                  <li class="collection-nav-item level-1{% if collection.handle == col_handle %} active{% endif %}">
+                    {%- if collection.handle == col_handle -%}
+                      <span class="collection-nav-current"><span class="collection-nav-check">✓</span> {{ link.title | escape }}</span>
+                    {%- else -%}
+                      <a href="{{ link.url }}" class="collection-nav-link child-link">{{ link.title | escape }}</a>
+                    {%- endif -%}
+                  </li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- if global_links_rendered == 0 -%}
+            {%- assign fallback_handles = 'decor,lifestyle,women,womens-handbags' | split: ',' -%}
+            {%- for fh in fallback_handles -%}
+              {%- assign fcol = collections[fh] -%}
+              {%- if fcol != blank -%}
+                <li class="collection-nav-item level-1{% if collection.handle == fh %} active{% endif %}">
+                  {%- if collection.handle == fh -%}
+                    <span class="collection-nav-current"><span class="collection-nav-check">✓</span> {{ fcol.title | escape }}</span>
+                  {%- else -%}
+                    <a href="{{ fcol.url }}" class="collection-nav-link child-link">{{ fcol.title | escape }}</a>
+                  {%- endif -%}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+        {%- endif -%}
+      </ul>
     </div>
-  </details>
-{%- endif -%}
+  </div>
+</details>
