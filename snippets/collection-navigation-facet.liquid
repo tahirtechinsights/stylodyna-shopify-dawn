@@ -137,7 +137,7 @@
           {%- endif -%}
 
         {%- else -%}
-          {%- comment -%} GLOBAL / GENERIC COLLECTION NAV (GLOBAL-PLP-FACET-001) {%- endcomment -%}
+          {%- comment -%} GLOBAL / GENERIC COLLECTION NAV (GLOBAL-PLP-FACET-001B) {%- endcomment -%}
           {%- liquid
             assign global_links_rendered = 0
           -%}
@@ -171,8 +171,14 @@
                 {%- liquid
                   assign is_exposed = false
                   assign exp_status = target_col.metafields.custom.exposure_status.value | default: target_col.metafields.custom.exposure_status
-                  if exp_status == 'COMMERCE_READY' or exp_status == blank or collections[col_handle] != blank
-                    if link.url != '/' and link.url != blank
+
+                  # EXPOSURE AUTHORITY CONTRACT:
+                  # main-menu = ordering/discovery only
+                  # collections[col_handle] != blank = provisioning validation
+                  # exp_status == 'COMMERCE_READY' (or canonical path governance) = exposure authority
+                  # collection.handle == col_handle = active-state determination
+                  if collections[col_handle] != blank and link.url != '/' and link.url != blank
+                    if exp_status == 'COMMERCE_READY' or col_handle == 'decor' or col_handle == 'lifestyle'
                       assign is_exposed = true
                     endif
                   endif
@@ -188,22 +194,6 @@
                     {%- endif -%}
                   </li>
                 {%- endif -%}
-              {%- endif -%}
-            {%- endfor -%}
-          {%- endif -%}
-
-          {%- if global_links_rendered == 0 -%}
-            {%- assign fallback_handles = 'decor,lifestyle,women,womens-handbags' | split: ',' -%}
-            {%- for fh in fallback_handles -%}
-              {%- assign fcol = collections[fh] -%}
-              {%- if fcol != blank -%}
-                <li class="collection-nav-item level-1{% if collection.handle == fh %} active{% endif %}">
-                  {%- if collection.handle == fh -%}
-                    <span class="collection-nav-current"><span class="collection-nav-check">✓</span> {{ fcol.title | escape }}</span>
-                  {%- else -%}
-                    <a href="{{ fcol.url }}" class="collection-nav-link child-link">{{ fcol.title | escape }}</a>
-                  {%- endif -%}
-                </li>
               {%- endif -%}
             {%- endfor -%}
           {%- endif -%}
