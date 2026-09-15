@@ -1,0 +1,114 @@
+{
+  "name": "Decor Department Landing",
+  "wrapper": "div.stylodyna-category-landing-wrapper",
+  "sections": {
+    "hero": {
+      "type": "stylodyna-category-hero",
+      "settings": {
+        "eyebrow": "DECOR DEPARTMENT",
+        "heading": "Decor",
+        "description": "<p>Curated decorative objects designed to bring character, detail and considered style to contemporary spaces.</p>",
+        "cta_label": "EXPLORE DECOR COLLECTIONS",
+        "cta_link": "#shop-by-decor-collection",
+        "fallback_asset": "sd-decor-hero.webp"
+      }
+    },
+    "shop_by_decor_category": {
+      "type": "stylodyna-shop-by-categories",
+      "settings": {
+        "presentation_mode": "editorial",
+        "eyebrow": "EXPLORE DECOR",
+        "heading": "Shop by Decor Collection",
+        "description": "<p>Explore decorative collections for every layer of the home.</p>",
+        "show_nav_buttons": true,
+        "enable_autoplay": true,
+        "autoplay_interval": 7,
+        "padding_top": 48,
+        "padding_bottom": 48
+      },
+      "blocks": {
+        "decorative_models": {
+          "type": "category",
+          "settings": {
+            "category_title": "Decorative Models",
+            "collection": "decorative-models"
+          }
+        },
+        "decorative_objects": {
+          "type": "category",
+          "settings": {
+            "category_title": "Decorative Objects",
+            "collection": "decorative-objects"
+          }
+        },
+        "vases_planters": {
+          "type": "category",
+          "settings": {
+            "category_title": "Vases & Planters",
+            "collection": "vases-planters"
+          }
+        },
+        "wall_decor": {
+          "type": "category",
+          "settings": {
+            "category_title": "Wall Decor",
+            "collection": "wall-decor"
+          }
+        },
+        "tabletop_decor": {
+          "type": "category",
+          "settings": {
+            "category_title": "Tabletop Decor",
+            "collection": "tabletop-decor"
+          }
+        },
+        "lighting_decor": {
+          "type": "category",
+          "settings": {
+            "category_title": "Lighting Decor",
+            "collection": "lighting-decor"
+          }
+        },
+        "textiles_soft_decor": {
+          "type": "category",
+          "settings": {
+            "category_title": "Textiles & Soft Decor",
+            "collection": "textiles-soft-decor"
+          }
+        },
+        "seasonal_occasion_decor": {
+          "type": "category",
+          "settings": {
+            "category_title": "Seasonal & Occasion Decor",
+            "collection": "seasonal-occasion-decor"
+          }
+        }
+      },
+      "block_order": [
+        "decorative_models",
+        "decorative_objects",
+        "vases_planters",
+        "wall_decor",
+        "tabletop_decor",
+        "lighting_decor",
+        "textiles_soft_decor",
+        "seasonal_occasion_decor"
+      ]
+    },
+    "featured_products": {
+      "type": "stylodyna-featured-collections",
+      "settings": {
+        "eyebrow": "FEATURED DECOR",
+        "heading": "Curated Highlights",
+        "description": "",
+        "collection": "decor",
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "shop_by_decor_category",
+    "featured_products"
+  ]
+}

@@ -1,0 +1,391 @@
+{%- comment -%}
+  StyloDyna Women Audience Hero Section (CAT-UI-003D-R4F Integrated 2-Column Hero + 5-Slide Editorial Carousel)
+  Editorial Audience Hero for Women Level-2 Landing Page
+{%- endcomment -%}
+
+{{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
+
+<div class="stylodyna-women-hero page-width" data-stylodyna-women-hero-carousel>
+  {%- comment -%} Breadcrumb above the integrated panel {%- endcomment -%}
+  <nav class="stylodyna-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="stylodyna-breadcrumbs__list" role="list">
+      <li class="stylodyna-breadcrumbs__item">
+        <a href="{{ routes.root_url }}" class="stylodyna-breadcrumbs__link">Home</a>
+      </li>
+      <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+      <li class="stylodyna-breadcrumbs__item">
+        <a href="/collections/lifestyle" class="stylodyna-breadcrumbs__link">Lifestyle</a>
+      </li>
+      <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+      {%- if collection.handle == 'womens-handbags' -%}
+        <li class="stylodyna-breadcrumbs__item">
+          <a href="/collections/women" class="stylodyna-breadcrumbs__link">Women</a>
+        </li>
+        <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+        <li class="stylodyna-breadcrumbs__item stylodyna-breadcrumbs__item--current" aria-current="page">
+          <span>Women's Handbags</span>
+        </li>
+      {%- else -%}
+        <li class="stylodyna-breadcrumbs__item stylodyna-breadcrumbs__item--current" aria-current="page">
+          <span>Women</span>
+        </li>
+      {%- endif -%}
+    </ol>
+  </nav>
+
+  {%- comment -%} Integrated 2-Column Hero Surface Panel {%- endcomment -%}
+  <div class="stylodyna-women-hero__inner">
+    {%- comment -%} Left Static Content Column (42% Desktop) {%- endcomment -%}
+    <div class="stylodyna-women-hero__content">
+      <p class="stylodyna-women-hero__eyebrow">
+        {{ section.settings.eyebrow | default: "WOMEN'S LIFESTYLE" | escape }}
+      </p>
+
+      <h1 class="stylodyna-women-hero__heading">
+        {{ section.settings.heading | default: "Designed for Her" | escape }}
+      </h1>
+
+      <p class="stylodyna-women-hero__body">
+        {{ section.settings.body_text | default: "Curated accessories and everyday essentials for modern routines and refined personal style." | escape }}
+      </p>
+
+      {%- if section.settings.cta_label != blank -%}
+        <div class="stylodyna-women-hero__cta-wrapper">
+          <a href="{{ section.settings.cta_link | default: '/collections/womens-handbags' }}" class="stylodyna-women-hero__cta button button--primary">
+            {{ section.settings.cta_label | escape }}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Right Dynamic Image Carousel Column (58% Desktop) {%- endcomment -%}
+    <div class="stylodyna-women-hero__media stylodyna-women-hero__carousel" aria-roledescription="carousel" aria-label="Women Lifestyle Featured Imagery">
+      {%- assign slides_count = section.blocks.size -%}
+      {%- if slides_count == 0 -%}
+        {%- assign slides_count = 5 -%}
+      {%- endif -%}
+
+      <div class="stylodyna-women-hero__slides">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <div
+              class="stylodyna-women-hero__slide {% if forloop.first %}is-active{% endif %}"
+              data-hero-slide-index="{{ forloop.index0 }}"
+              role="group"
+              aria-roledescription="slide"
+              aria-label="Slide {{ forloop.index }} of {{ section.blocks.size }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.image != blank -%}
+                {%- if forloop.first -%}
+                  {%- assign slide_loading = 'eager' -%}
+                {%- else -%}
+                  {%- assign slide_loading = 'lazy' -%}
+                {%- endif -%}
+                {%- assign slide_alt = block.settings.alt_text | default: 'Women Lifestyle' -%}
+                {{ block.settings.image | image_url: width: 1200 | image_tag:
+                  loading: slide_loading,
+                  class: 'stylodyna-women-hero__img',
+                  sizes: '(min-width: 990px) 58vw, 100vw',
+                  widths: '400, 600, 900, 1200',
+                  alt: slide_alt
+                }}
+              {%- else -%}
+                {%- case forloop.index -%}
+                  {%- when 1 -%}
+                    <img src="{{ 'sd-lifestyle-women.webp' | asset_url }}" alt="Women Lifestyle Collection" class="stylodyna-women-hero__img" loading="eager" width="900" height="1000">
+                  {%- when 2 -%}
+                    <img src="{{ 'sd-lifestyle-womens-handbags.webp' | asset_url }}" alt="Handbags Collection" class="stylodyna-women-hero__img" loading="lazy" width="900" height="1000">
+                  {%- when 3 -%}
+                    <img src="{{ 'sd-lifestyle-womens-accessories.webp' | asset_url }}" alt="Womens Accessories" class="stylodyna-women-hero__img" loading="lazy" width="900" height="1000">
+                  {%- when 4 -%}
+                    <img src="{{ 'sd-lifestyle-womens-undergarments.webp' | asset_url }}" alt="Everyday Essentials" class="stylodyna-women-hero__img" loading="lazy" width="900" height="1000">
+                  {%- else -%}
+                    <img src="{{ 'sd-review-product-handbag.webp' | asset_url }}" alt="Featured Handbag Editorial" class="stylodyna-women-hero__img" loading="lazy" width="900" height="1000">
+                {%- endcase -%}
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} 5 Default Editorial Slides from Approved Theme Assets {%- endcomment -%}
+          <div class="stylodyna-women-hero__slide is-active" data-hero-slide-index="0" role="group" aria-roledescription="slide" aria-label="Slide 1 of 5">
+            <img src="{{ 'sd-lifestyle-women.webp' | asset_url }}" alt="Women Lifestyle Collection" class="stylodyna-women-hero__img" loading="eager" width="900" height="1000">
+          </div>
+          <div class="stylodyna-women-hero__slide" data-hero-slide-index="1" role="group" aria-roledescription="slide" aria-label="Slide 2 of 5">
+            <img src="{{ 'sd-lifestyle-womens-handbags.webp' | asset_url }}" alt="Handbags Collection" class="stylodyna-women-hero__img" loading="lazy" width="900" height="1000">
+          </div>
+          <div class="stylodyna-women-hero__slide" data-hero-slide-index="2" role="group" aria-roledescription="slide" aria-label="Slide 3 of 5">
+            <img src="{{ 'sd-lifestyle-womens-accessories.webp' | asset_url }}" alt="Womens Accessories" class="stylodyna-women-hero__img" loading="lazy" width="900" height="1000">
+          </div>
+          <div class="stylodyna-women-hero__slide" data-hero-slide-index="3" role="group" aria-roledescription="slide" aria-label="Slide 4 of 5">
+            <img src="{{ 'sd-lifestyle-womens-undergarments.webp' | asset_url }}" alt="Everyday Essentials" class="stylodyna-women-hero__img" loading="lazy" width="900" height="1000">
+          </div>
+          <div class="stylodyna-women-hero__slide" data-hero-slide-index="4" role="group" aria-roledescription="slide" aria-label="Slide 5 of 5">
+            <img src="{{ 'sd-review-product-handbag.webp' | asset_url }}" alt="Featured Handbag Editorial" class="stylodyna-women-hero__img" loading="lazy" width="900" height="1000">
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Carousel Controls & Dots (rendered when slides >= 2) {%- endcomment -%}
+      {%- if slides_count >= 2 -%}
+        <div class="stylodyna-women-hero__controls">
+          <button type="button" class="stylodyna-women-hero__control stylodyna-women-hero__control--prev" data-hero-carousel-prev aria-label="Previous hero image">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button type="button" class="stylodyna-women-hero__control stylodyna-women-hero__control--next" data-hero-carousel-next aria-label="Next hero image">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div class="stylodyna-women-hero__dots" role="tablist" aria-label="Hero image slides">
+          {%- for i in (1..slides_count) -%}
+            <button
+              type="button"
+              class="stylodyna-women-hero__dot {% if forloop.first %}is-active{% endif %}"
+              data-hero-dot-index="{{ forloop.index0 }}"
+              role="tab"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              aria-label="Go to hero image {{ forloop.index }}"
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var heroCarousel = document.querySelector('[data-stylodyna-women-hero-carousel]');
+    if (!heroCarousel) return;
+
+    var slides = heroCarousel.querySelectorAll('.stylodyna-women-hero__slide');
+    var dots = heroCarousel.querySelectorAll('[data-hero-dot-index]');
+    var prevBtn = heroCarousel.querySelector('[data-hero-carousel-prev]');
+    var nextBtn = heroCarousel.querySelector('[data-hero-carousel-next]');
+
+    if (slides.length <= 1) return;
+
+    var currentIndex = 0;
+    var timer = null;
+    var interval = 5000;
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function goToSlide(index) {
+      if (index < 0) {
+        index = slides.length - 1;
+      } else if (index >= slides.length) {
+        index = 0;
+      }
+
+      slides.forEach(function(slide, idx) {
+        if (idx === index) {
+          slide.classList.add('is-active');
+        } else {
+          slide.classList.remove('is-active');
+        }
+      });
+
+      dots.forEach(function(dot, idx) {
+        if (idx === index) {
+          dot.classList.add('is-active');
+          dot.setAttribute('aria-selected', 'true');
+        } else {
+          dot.classList.remove('is-active');
+          dot.setAttribute('aria-selected', 'false');
+        }
+      });
+
+      currentIndex = index;
+    }
+
+    function startAutoplay() {
+      if (prefersReducedMotion) return;
+      stopAutoplay();
+      timer = setInterval(function() {
+        goToSlide(currentIndex + 1);
+      }, interval);
+    }
+
+    function stopAutoplay() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        goToSlide(currentIndex - 1);
+        startAutoplay();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        goToSlide(currentIndex + 1);
+        startAutoplay();
+      });
+    }
+
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetIndex = parseInt(this.getAttribute('data-hero-dot-index'), 10);
+        if (!isNaN(targetIndex)) {
+          goToSlide(targetIndex);
+          startAutoplay();
+        }
+      });
+    });
+
+    var mediaZone = heroCarousel.querySelector('.stylodyna-women-hero__media');
+    if (mediaZone) {
+      mediaZone.addEventListener('mouseenter', stopAutoplay);
+      mediaZone.addEventListener('mouseleave', startAutoplay);
+      mediaZone.addEventListener('focusin', stopAutoplay);
+      mediaZone.addEventListener('focusout', startAutoplay);
+
+      // Touch Swipe
+      var startX = 0;
+      mediaZone.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+          startX = e.touches[0].clientX;
+        }
+      }, { passive: true });
+
+      mediaZone.addEventListener('touchend', function(e) {
+        if (e.changedTouches.length === 1) {
+          var diffX = e.changedTouches[0].clientX - startX;
+          if (Math.abs(diffX) > 40) {
+            if (diffX < 0) {
+              goToSlide(currentIndex + 1);
+            } else {
+              goToSlide(currentIndex - 1);
+            }
+            startAutoplay();
+          }
+        }
+      }, { passive: true });
+    }
+
+    // Keyboard navigation
+    heroCarousel.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') {
+        goToSlide(currentIndex - 1);
+        startAutoplay();
+      } else if (e.key === 'ArrowRight') {
+        goToSlide(currentIndex + 1);
+        startAutoplay();
+      }
+    });
+
+    startAutoplay();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Women Audience Hero",
+  "tag": "section",
+  "class": "section-stylodyna-women-hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "WOMEN'S LIFESTYLE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Hero Heading",
+      "default": "Designed for Her"
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body Copy",
+      "default": "Curated accessories and everyday essentials for modern routines and refined personal style."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Button Label",
+      "default": "EXPLORE HANDBAGS"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link Target"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Hero Image Slide",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Editorial Slide Image"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Image Alt Text",
+          "default": "Women Lifestyle"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Women Audience Hero",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "alt_text": "Women Lifestyle Collection"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "alt_text": "Handbags Collection"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "alt_text": "Womens Accessories"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "alt_text": "Everyday Essentials"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "alt_text": "Featured Handbag Editorial"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

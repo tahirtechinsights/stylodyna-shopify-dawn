@@ -11,21 +11,33 @@ This master index provides the central sitemap and reference index for all techn
 - **Active Governance Standard**: [ADR-001](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/decisions/ADR-001-independent-theme-evolution.md) (Accepted)
 - **Current Development Status**:
   - **WEB-001**: Storefront Development Documentation & Git Governance Baseline — **COMPLETE**
-  - **NEXT TASK**: `HOME-004 — Why Choose StyloDyna` (Pending Implementation)
+  - **HOME-004**: Why Choose StyloDyna (Design-Reference Integration & Redesign) — **COMPLETE**
+  - **HEADER-001**: Global Header, 35px Utility Bar, Inline Expand Menu, Mobile Disclosure Panel & Floating WhatsApp System — **COMPLETED (Production Baseline: HEADER-001H, Audit: HEADER-001J, Rejected: HEADER-001I [Rolled Back], Reference Integrity: PASS, Recovery: COMPLETE, Human Acceptance: PASS)**
+  - **HOME-005**: Shop by Categories Carousel & Rail Experience — **COMPLETED (Production Baseline: Shopify OS 2.0 9-Category Scalable Carousel Rail, References Registered: 21, WebP Derivatives: 9, Reference Integrity: PASS, Recovery: COMPLETE, Human Acceptance: PASS)**
+  - **CAT-UI-001**: Category Hierarchy, Routing & Reusable Page Architecture Standard — **COMPLETED (Document: CAT-UI-001, Decision: ADR-006, Closure: CAT-UI-001-CLOSURE, Taxonomy Depth: 3 Levels, Metafield Contract: 9 Fields)**
+  - **CAT-UI-002**: Lifestyle Department Landing Page — **COMPLETED (Production Baseline: Type-A Department Landing Standard, Product: SD-PROD-000031 / Mokobara Tote, Customer Identities: 5/5 Locked, WebP Derivatives: 24, References Registered: 41, Specifications: CAT-UI-002A through CAT-UI-002N, Human Visual Acceptance: APPROVED)**
+  - **CAT-UI-003**: Women's Handbags & Level-2 Audience Experience — **COMPLETED (CAT-UI-003A Architecture: COMPLETE, CAT-UI-003B Resources: COMPLETE, CAT-UI-003C Handbags PLP & Visual Bag Type Filter: COMPLETE [124px desktop / 108px tablet / 86px mobile 36px gap, Data Contract: PIM bag_type -> Shopify product.type -> filter.p.product_type, Real Product: SD-PROD-000031 / Mokobara Tote, Operational Dependency: Apps -> Search & Discovery -> Filters -> Add filter -> Product type -> Save], CAT-UI-003D Women Level-2 Audience Landing: COMPLETE [Type-B Audience Hub /templates/collection.women.json, Pink Privacy Ticker, Privacy Journey, Subcategory Cards & Showcase Rows], Specifications: CAT-UI-003A/B/C/D, Human Acceptance: APPROVED)**
+  - **FOOTER-001**: Global Footer Refinement — **COMPLETED (Production Baseline: Charcoal #1F1F1F Dark Surface, Gold Monogram + Wordmark Lockup, Dual Email, 5 Governed Social Channels with LinkedIn, Clean Navigation Fallbacks with FAQs, 7-Method Payment Fallback Contract, 3-Zone Desktop Lower Footer, Human Acceptance: APPROVED)**
 
 ---
 
 ## 2. Documentation Sitemap
+
+### Design References (`docs/design-references/`)
+- [`homepage/HOME-004/README.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/homepage/HOME-004/README.md) — Visual Reference Architecture & Adaptation Matrix for HOME-004
+- [`header/HEADER-001/README.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/design-references/header/HEADER-001/README.md) — Conceptual Design Architecture for Two-Tier Header Communication System
 
 ### Architecture (`docs/architecture/`)
 - [`STOREFRONT-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/STOREFRONT-ARCHITECTURE.md) — High-Level Data Flow, PIM Authority vs Storefront Layer
 - [`HOMEPAGE-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/HOMEPAGE-ARCHITECTURE.md) — Homepage Section Order & Component Specifications
 - [`PRODUCT-PAGE-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/PRODUCT-PAGE-ARCHITECTURE.md) — PDP Media Gallery, Variant Selection & Form Logic
 - [`COLLECTION-PAGE-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/COLLECTION-PAGE-ARCHITECTURE.md) — PLP Grid, Faceted Filters & Sorting Infrastructure
+- [`CAT-UI-003-womens-handbags-collection-standard.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/CAT-UI-003-womens-handbags-collection-standard.md) — Women's Handbags Collection Experience & Type-C PLP Architecture Standard
 - [`THEME-DATA-ARCHITECTURE.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/architecture/THEME-DATA-ARCHITECTURE.md) — OS 2.0 Data Binding, Metafields & Liquid Schema Rules
 
 ### Engineering Standards (`docs/standards/`)
-- [`DESIGN-SYSTEM.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/DESIGN-SYSTEM.md) — Visual Direction, Color Tokens (`#FCFBF8`, `#2E2E2E`, `#8A6A43`), Typography & Spacing
+- [`DECOR-TAXONOMY.md`](standards/DECOR-TAXONOMY.md) — StyloDyna Decor Department Canonical Taxonomy Specification (45 Nodes, 8 L2 Families, 30 L3 Categories, 6 L4 Leaves, 3-State Governance Matrix)
+- [`DESIGN-SYSTEM.md`](standards/DESIGN-SYSTEM.md) — StyloDyna Design System v2 Master Specification (Canonical Visual, UI Surface & Asset Governance Authority)
 - [`LIQUID-SECTION-STANDARD.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/LIQUID-SECTION-STANDARD.md) — OS 2.0 Schema Rules, 3-Tier Image Fallbacks & Zero Hardcoding
 - [`CSS-STANDARD.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/CSS-STANDARD.md) — Section BEM Scoping, Design Custom Properties & CLS Prevention
 - [`RESPONSIVE-STANDARD.md`](file:///e:/StyloDyna/Store%20Website/Project/stylodyna-shopify-dawn/docs/standards/RESPONSIVE-STANDARD.md) — Breakpoints (Desktop >=1200px / 1520px container, Tablet, Mobile), 44px Touch Targets

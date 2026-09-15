@@ -1,0 +1,239 @@
+{%- comment -%}
+  StyloDyna Visual Bag Type Filter Component (CAT-UI-003C)
+  Editorial Visual Filter Strip for Women's Handbags PLP
+  Binds to Shopify Collection Filtering Protocol with Query String Preservation
+{%- endcomment -%}
+
+{{ 'component-stylodyna-bag-type-filter.css' | asset_url | stylesheet_tag }}
+
+<div class="stylodyna-bag-type-filter-section page-width">
+  <div class="stylodyna-bag-type-filter" role="region" aria-label="Shop by Bag Type">
+    <div class="stylodyna-bag-type-filter__header">
+      <h2 class="stylodyna-bag-type-filter__heading">
+        {{ section.settings.heading | default: "Shop by Bag Type" | escape }}
+      </h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="stylodyna-bag-type-filter__subheading">
+          {{ section.settings.subheading | escape }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="stylodyna-bag-type-filter__rail" data-bag-type-rail>
+      {%- comment -%} ALL HANDBAGS ITEM (Resets Type Filter) {%- endcomment -%}
+      <a
+        href="{{ collection.url }}"
+        class="stylodyna-bag-type-filter__item is-active"
+        data-filter-value=""
+        aria-current="true"
+        aria-label="All Handbags ({{ collection.all_products_count }})"
+      >
+        <div class="stylodyna-bag-type-filter__image-wrapper">
+          <div class="stylodyna-bag-type-filter__all-icon" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+              <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+              <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+            </svg>
+          </div>
+        </div>
+        <span class="stylodyna-bag-type-filter__label">All Handbags</span>
+      </a>
+
+      {%- comment -%} DYNAMIC TYPE BLOCKS (Renders only valid catalog types unless show_coming_soon enabled) {%- endcomment -%}
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- comment -%} Skip coming soon / 0-count items unless explicitly allowed by setting {%- endcomment -%}
+          {%- if block.settings.count == 0 and section.settings.show_coming_soon_types == false -%}
+            {%- continue -%}
+          {%- endif -%}
+
+          {%- assign filter_val = block.settings.filter_value | default: block.settings.title -%}
+          {%- assign target_url = collection.url | append: '?filter.p.product_type=' | append: filter_val -%}
+
+          <a
+            href="{{ target_url }}"
+            class="stylodyna-bag-type-filter__item {% if block.settings.count == 0 %}is-disabled{% endif %}"
+            data-filter-value="{{ filter_val | escape }}"
+            aria-label="{{ block.settings.title | escape }} {% if block.settings.count > 0 %}({{ block.settings.count }}){% else %}(Coming Soon){% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="stylodyna-bag-type-filter__image-wrapper">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 280 | image_tag:
+                  loading: 'lazy',
+                  class: 'stylodyna-bag-type-filter__img',
+                  alt: block.settings.title
+                }}
+              {%- elsif block.settings.fallback_asset != blank -%}
+                <img
+                  src="{{ block.settings.fallback_asset | asset_url }}"
+                  alt="{{ block.settings.title | escape }}"
+                  class="stylodyna-bag-type-filter__img"
+                  loading="lazy"
+                  width="140"
+                  height="140"
+                >
+              {%- else -%}
+                <div class="stylodyna-bag-type-filter__placeholder-icon" aria-hidden="true">
+                  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                </div>
+              {%- endif -%}
+            </div>
+            <span class="stylodyna-bag-type-filter__label">{{ block.settings.title | escape }}</span>
+            {%- if block.settings.count == 0 -%}
+              <span class="stylodyna-bag-type-filter__badge">SOON</span>
+            {%- endif -%}
+          </a>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    function initBagTypeFilter() {
+      var rail = document.querySelector('[data-bag-type-rail]');
+      if (!rail) return;
+
+      var currentParams = new URLSearchParams(window.location.search);
+      var activeType = currentParams.get('filter.p.product_type') || currentParams.get('filter.p.m.custom.bag_type');
+
+      var items = rail.querySelectorAll('.stylodyna-bag-type-filter__item');
+      items.forEach(function(item) {
+        var filterVal = item.getAttribute('data-filter-value');
+
+        // Reconstruct visual selected state from URL search params
+        if ((!activeType && filterVal === '') || (activeType && activeType.toLowerCase() === (filterVal || '').toLowerCase())) {
+          item.classList.add('is-active');
+          item.setAttribute('aria-current', 'true');
+        } else {
+          item.classList.remove('is-active');
+          item.removeAttribute('aria-current');
+        }
+
+        // On click: preserve all unrelated URL parameters (sort_by, price, availability, view)
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          var params = new URLSearchParams(window.location.search);
+          params.delete('page');
+
+          if (!filterVal) {
+            params.delete('filter.p.product_type');
+            params.delete('filter.p.m.custom.bag_type');
+          } else {
+            params.set('filter.p.product_type', filterVal);
+          }
+
+          var newQuery = params.toString();
+          var newUrl = window.location.pathname + (newQuery ? '?' + newQuery : '');
+          window.location.href = newUrl;
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initBagTypeFilter);
+    } else {
+      initBagTypeFilter();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Bag Type Visual Filter",
+  "tag": "section",
+  "class": "section-stylodyna-bag-type-filter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Bag Type"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find the silhouette that fits your everyday."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_coming_soon_types",
+      "label": "Show Coming Soon Types (0 Count)",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "type_item",
+      "name": "Bag Type Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Type Label",
+          "default": "Totes"
+        },
+        {
+          "type": "text",
+          "id": "filter_value",
+          "label": "Shopify Filter Value (product.type)",
+          "default": "Tote"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Visual Asset"
+        },
+        {
+          "type": "text",
+          "id": "fallback_asset",
+          "label": "Fallback Asset Name",
+          "default": "sd-lifestyle-womens-handbags.webp"
+        },
+        {
+          "type": "number",
+          "id": "count",
+          "label": "Product Count",
+          "default": 1
+        },
+        {
+          "type": "select",
+          "id": "state",
+          "label": "Availability State",
+          "options": [
+            { "value": "active", "label": "Active / In Stock" },
+            { "value": "coming_soon", "label": "Coming Soon" }
+          ],
+          "default": "active"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bag Type Visual Filter",
+      "blocks": [
+        {
+          "type": "type_item",
+          "settings": {
+            "title": "Totes",
+            "filter_value": "Tote",
+            "fallback_asset": "sd-lifestyle-womens-handbags.webp",
+            "count": 1,
+            "state": "active"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

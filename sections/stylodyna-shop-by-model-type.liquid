@@ -1,0 +1,392 @@
+{%- comment -%}
+  StyloDyna Shop by Model Type Section (DECOR-005A Polish)
+  Taxonomy Discovery Rail for Decorative Models L2 Landing Page.
+  Renders all 4 canonical L3 subcollections (Maritime, Aviation, Automotive, Spaceflight)
+  with customer-facing availability status (Available Now vs Coming Soon).
+{%- endcomment -%}
+
+{{ 'component-stylodyna-shop-by-categories.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'stylodyna-shop-by-categories.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- assign dynamic_subcollections = collection.metafields.custom.subcollections.value -%}
+
+<div
+  class="stylodyna-shop-by-categories stylodyna-shop-by-categories--editorial section-stylodyna-shop-by-model-type section-{{ section.id }}-padding"
+  id="ShopByModelType-{{ section.id }}"
+  data-enable-autoplay="{{ section.settings.enable_autoplay }}"
+  data-autoplay-interval="{{ section.settings.autoplay_interval }}"
+>
+  <div class="page-width">
+    {%- comment -%} Centered Section Header {%- endcomment -%}
+    <div class="stylodyna-categories__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="stylodyna-categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="stylodyna-categories__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="stylodyna-categories__description rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Horizontal Taxonomy Rail & Lateral Controls {%- endcomment -%}
+    <div class="stylodyna-categories__rail-wrapper">
+      {%- if section.settings.show_nav_buttons -%}
+        <button
+          type="button"
+          class="stylodyna-categories__nav-btn stylodyna-categories__nav-btn--prev"
+          aria-label="Previous model categories"
+          disabled
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+      {%- endif -%}
+
+      <ul
+        class="stylodyna-categories__rail"
+        role="list"
+        aria-label="{{ section.settings.heading | default: 'Shop by Model Type' }}"
+        tabindex="0"
+      >
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- assign target_collection = block.settings.collection -%}
+            {%- assign card_title = block.settings.title | default: target_collection.title | default: 'Model Category' -%}
+            {%- assign target_url = target_collection.url | default: '#' -%}
+            {%- assign has_products = false -%}
+            {%- if target_collection != blank and target_collection.all_products_count > 0 -%}
+              {%- assign has_products = true -%}
+            {%- elsif block.settings.is_open -%}
+              {%- assign has_products = true -%}
+            {%- endif -%}
+
+            {%- assign card_image = block.settings.image -%}
+            {%- if card_image == blank and target_collection != blank and target_collection.image != blank -%}
+              {%- assign card_image = target_collection.image -%}
+            {%- endif -%}
+            {%- if card_image == blank and target_collection != blank and target_collection.products.first != blank and target_collection.products.first.featured_image != blank -%}
+              {%- assign card_image = target_collection.products.first.featured_image -%}
+            {%- endif -%}
+
+            <li class="stylodyna-category-card__item" {{ block.shopify_attributes }}>
+              {%- if has_products -%}
+                <a
+                  href="{{ target_url }}"
+                  class="stylodyna-category-card stylodyna-category-card--open"
+                  aria-label="{{ card_title | escape }} - Available Now"
+                >
+                  <div class="stylodyna-category-card__image-surface">
+                    <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--open">Available Now</span>
+                    {%- if card_image != blank -%}
+                      {{ card_image | image_url: width: 900 | image_tag:
+                        loading: 'lazy',
+                        class: 'stylodyna-category-card__image',
+                        sizes: '(min-width: 1200px) 280px, (min-width: 750px) 25vw, 75vw',
+                        widths: '300, 450, 600, 900',
+                        alt: card_title
+                      }}
+                    {%- else -%}
+                      <div class="stylodyna-category-card__placeholder">
+                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="stylodyna-category-card__footer">
+                    <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
+                    <span class="stylodyna-category-card__arrow" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              {%- else -%}
+                <div
+                  class="stylodyna-category-card stylodyna-category-card--closed"
+                  aria-label="{{ card_title | escape }} - Coming Soon"
+                >
+                  <div class="stylodyna-category-card__image-surface">
+                    <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--closed">Coming Soon</span>
+                    {%- if card_image != blank -%}
+                      {{ card_image | image_url: width: 900 | image_tag:
+                        loading: 'lazy',
+                        class: 'stylodyna-category-card__image',
+                        sizes: '(min-width: 1200px) 280px, (min-width: 750px) 25vw, 75vw',
+                        widths: '300, 450, 600, 900',
+                        alt: card_title
+                      }}
+                    {%- else -%}
+                      <div class="stylodyna-category-card__placeholder">
+                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div class="stylodyna-category-card__footer">
+                    <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
+                  </div>
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- elsif dynamic_subcollections != blank and dynamic_subcollections.size > 0 -%}
+          {%- for sub_coll in dynamic_subcollections -%}
+            {%- if sub_coll != blank -%}
+              {%- assign card_title = sub_coll.title -%}
+              {%- assign target_url = sub_coll.url -%}
+              {%- assign has_products = false -%}
+              {%- if sub_coll.all_products_count > 0 -%}
+                {%- assign has_products = true -%}
+              {%- endif -%}
+
+              {%- assign card_image = sub_coll.image -%}
+              {%- if card_image == blank and sub_coll.metafields.custom.hero_banner_image.value != blank -%}
+                {%- assign card_image = sub_coll.metafields.custom.hero_banner_image.value -%}
+              {%- endif -%}
+              {%- if card_image == blank and sub_coll.products.first != blank and sub_coll.products.first.featured_image != blank -%}
+                {%- assign card_image = sub_coll.products.first.featured_image -%}
+              {%- endif -%}
+
+              <li class="stylodyna-category-card__item">
+                {%- if has_products -%}
+                  <a
+                    href="{{ target_url }}"
+                    class="stylodyna-category-card stylodyna-category-card--open"
+                    aria-label="{{ card_title | escape }} - Available Now"
+                  >
+                    <div class="stylodyna-category-card__image-surface">
+                      <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--open">Available Now</span>
+                      {%- if card_image != blank -%}
+                        {{ card_image | image_url: width: 900 | image_tag:
+                          loading: 'lazy',
+                          class: 'stylodyna-category-card__image',
+                          sizes: '(min-width: 1200px) 280px, (min-width: 750px) 25vw, 75vw',
+                          widths: '300, 450, 600, 900',
+                          alt: card_title
+                        }}
+                      {%- else -%}
+                        <div class="stylodyna-category-card__placeholder">
+                          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="stylodyna-category-card__footer">
+                      <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
+                      <span class="stylodyna-category-card__arrow" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </span>
+                    </div>
+                  </a>
+                {%- else -%}
+                  <div
+                    class="stylodyna-category-card stylodyna-category-card--closed"
+                    aria-label="{{ card_title | escape }} - Coming Soon"
+                  >
+                    <div class="stylodyna-category-card__image-surface">
+                      <span class="stylodyna-category-card__status-badge stylodyna-category-card__status-badge--closed">Coming Soon</span>
+                      {%- if card_image != blank -%}
+                        {{ card_image | image_url: width: 900 | image_tag:
+                          loading: 'lazy',
+                          class: 'stylodyna-category-card__image',
+                          sizes: '(min-width: 1200px) 280px, (min-width: 750px) 25vw, 75vw',
+                          widths: '300, 450, 600, 900',
+                          alt: card_title
+                        }}
+                      {%- else -%}
+                        <div class="stylodyna-category-card__placeholder">
+                          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <div class="stylodyna-category-card__footer">
+                      <h3 class="stylodyna-category-card__title">{{ card_title | escape }}</h3>
+                    </div>
+                  </div>
+                {%- endif -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </ul>
+
+      {%- if section.settings.show_nav_buttons -%}
+        <button
+          type="button"
+          class="stylodyna-categories__nav-btn stylodyna-categories__nav-btn--next"
+          aria-label="Next model categories"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Centered Pagination / Progress Dots {%- endcomment -%}
+    <div class="stylodyna-categories__pagination" role="tablist" aria-label="Model category slides"></div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by Model Type",
+  "tag": "section",
+  "class": "section-stylodyna-shop-by-model-type",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "EXPLORE MODEL TYPES"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Model Type"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Discover maritime, aviation, automotive and spaceflight collections.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav_buttons",
+      "label": "Show Desktop Arrow Controls",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable Intelligent Autoplay (Desktop)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Autoplay Dwell Interval",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "model_type",
+      "name": "Model Category Block",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Target Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_open",
+          "label": "Force Sale Open Status",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Model Type",
+      "blocks": [
+        {
+          "type": "model_type",
+          "settings": {
+            "title": "Maritime Models",
+            "collection": "maritime-models"
+          }
+        },
+        {
+          "type": "model_type",
+          "settings": {
+            "title": "Aviation Models",
+            "collection": "aviation-models"
+          }
+        },
+        {
+          "type": "model_type",
+          "settings": {
+            "title": "Automotive Models",
+            "collection": "automotive-models"
+          }
+        },
+        {
+          "type": "model_type",
+          "settings": {
+            "title": "Spaceflight Models",
+            "collection": "spaceflight-models"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

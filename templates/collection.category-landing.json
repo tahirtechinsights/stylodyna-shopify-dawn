@@ -1,0 +1,307 @@
+{
+  "name": "Type-A Department Landing",
+  "sections": {
+    "hero": {
+      "type": "stylodyna-category-hero",
+      "settings": {
+        "eyebrow": "LIFESTYLE DEPARTMENT",
+        "heading": "Lifestyle",
+        "description": "<p>Curated fashion, accessories, and everyday essentials designed for modern comfort and timeless sophistication.</p>",
+        "cta_label": "EXPLORE COLLECTION",
+        "cta_link": "/collections/lifestyle",
+        "fallback_asset": "sd-lifestyle-hero.webp"
+      }
+    },
+    "announcement": {
+      "type": "stylodyna-department-announcement",
+      "settings": {
+        "enabled": true,
+        "visual_style": "charcoal",
+        "eyebrow": "DEPARTMENT NOTICE",
+        "message": "New Lifestyle arrivals are now available.",
+        "link_label": "Explore Arrivals",
+        "link": "/collections/lifestyle"
+      }
+    },
+    "trust_strip": {
+      "type": "stylodyna-trust-strip",
+      "settings": {},
+      "blocks": {
+        "t_1": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Nationwide Shipping",
+            "description": "Reliable delivery across Pakistan"
+          }
+        },
+        "t_2": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Secure Payments",
+            "description": "Safe and trusted checkout"
+          }
+        },
+        "t_3": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Customer Assistance",
+            "description": "Dedicated support for your orders"
+          }
+        },
+        "t_4": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Quality Assurance",
+            "description": "Carefully inspected prior to dispatch"
+          }
+        }
+      },
+      "block_order": [
+        "t_1",
+        "t_2",
+        "t_3",
+        "t_4"
+      ]
+    },
+    "children": {
+      "type": "stylodyna-category-children",
+      "settings": {
+        "eyebrow": "CURATED COLLECTIONS",
+        "heading": "Shop by Audience",
+        "description": "<p>Discover tailored selections designed specifically for your lifestyle needs.</p>"
+      },
+      "blocks": {
+        "audience_women": {
+          "type": "audience_card",
+          "settings": {
+            "title": "Women",
+            "subtitle": "CURATED FASHION & ACCESSORIES",
+            "fallback_asset": "sd-lifestyle-women.webp",
+            "cta_text": "Explore Collection"
+          }
+        },
+        "audience_men": {
+          "type": "audience_card",
+          "settings": {
+            "title": "Men",
+            "subtitle": "ESSENTIAL BAGS & WALLETS",
+            "fallback_asset": "sd-lifestyle-men.webp",
+            "cta_text": "Explore Collection"
+          }
+        }
+      },
+      "block_order": [
+        "audience_women",
+        "audience_men"
+      ]
+    },
+    "category_carousel": {
+      "type": "stylodyna-category-carousel",
+      "settings": {
+        "eyebrow": "EXPLORE BY CATEGORY",
+        "heading": "Explore Our Categories",
+        "description": "<p>Browse specialized product lines tailored for modern living.</p>",
+        "show_nav_buttons": true
+      },
+      "blocks": {
+        "cat_1": {
+          "type": "category_card",
+          "settings": {
+            "title": "Women's Handbags",
+            "fallback_asset": "sd-lifestyle-womens-handbags.webp"
+          }
+        },
+        "cat_2": {
+          "type": "category_card",
+          "settings": {
+            "title": "Women's Accessories",
+            "fallback_asset": "sd-lifestyle-womens-accessories.webp"
+          }
+        },
+        "cat_3": {
+          "type": "category_card",
+          "settings": {
+            "title": "Women's Undergarments",
+            "fallback_asset": "sd-lifestyle-womens-undergarments.webp"
+          }
+        },
+        "cat_4": {
+          "type": "category_card",
+          "settings": {
+            "title": "Men's Bags",
+            "fallback_asset": "sd-lifestyle-mens-bags.webp"
+          }
+        },
+        "cat_5": {
+          "type": "category_card",
+          "settings": {
+            "title": "Men's Wallets",
+            "fallback_asset": "sd-lifestyle-mens-wallets.webp"
+          }
+        },
+        "cat_6": {
+          "type": "category_card",
+          "settings": {
+            "title": "Men's Belts",
+            "fallback_asset": "sd-lifestyle-mens-belts.webp"
+          }
+        },
+        "cat_7": {
+          "type": "category_card",
+          "settings": {
+            "title": "Men's Accessories",
+            "fallback_asset": "sd-lifestyle-mens-accessories.webp"
+          }
+        },
+        "cat_8": {
+          "type": "category_card",
+          "settings": {
+            "title": "Men's Undergarments",
+            "fallback_asset": "sd-lifestyle-mens-undergarments.webp"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6",
+        "cat_7",
+        "cat_8"
+      ]
+    },
+    "featured_products": {
+      "type": "stylodyna-featured-collections",
+      "settings": {
+        "eyebrow": "FEATURED LIFESTYLE",
+        "heading": "New & Noteworthy",
+        "description": "<p>Discover fresh arrivals and thoughtfully selected pieces for modern everyday style.</p>",
+        "collection": "lifestyle",
+        "products_to_show": 4
+      }
+    },
+    "benefits": {
+      "type": "stylodyna-category-benefits",
+      "settings": {
+        "eyebrow": "STYLODYNA ADVANTAGE",
+        "heading": "Why Choose Our Lifestyle Collection",
+        "description": "<p>Experience modern aesthetic harmony and thoughtful functional design in every curated piece.</p>"
+      },
+      "blocks": {
+        "b_1": {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Quality Materials",
+            "description": "Carefully selected materials chosen for comfort, durability and everyday use."
+          }
+        },
+        "b_2": {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Refined Design",
+            "description": "Thoughtfully designed pieces balancing contemporary style with practical function."
+          }
+        },
+        "b_3": {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Everyday Versatility",
+            "description": "Curated essentials designed to complement different occasions, routines and personal styles."
+          }
+        },
+        "b_4": {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Thoughtfully Selected",
+            "description": "A considered collection focused on quality, usefulness and modern lifestyle needs."
+          }
+        }
+      },
+      "block_order": [
+        "b_1",
+        "b_2",
+        "b_3",
+        "b_4"
+      ]
+    },
+    "reviews": {
+      "type": "stylodyna-category-reviews",
+      "settings": {
+        "eyebrow": "CUSTOMER FEEDBACK",
+        "heading": "Our Clients Review",
+        "description": "<p>Read feedback and experiences shared by our community.</p>"
+      },
+      "blocks": {
+        "r_1": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "The quality feels excellent and the design is beautifully refined. It works effortlessly with my everyday style.",
+            "author_name": "Ayesha Khan",
+            "author_city": "Lahore, Pakistan",
+            "avatar_asset": "sd-cust-001-avatar.webp",
+            "product_asset": "sd-review-product-handbag.webp"
+          }
+        },
+        "r_2": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "Beautiful detailing with a polished finish. The watch feels thoughtfully selected and easy to style.",
+            "author_name": "Hira Malik",
+            "author_city": "Islamabad, Pakistan",
+            "avatar_asset": "sd-cust-002-avatar.webp",
+            "product_asset": "sd-review-product-watch.webp"
+          }
+        },
+        "r_3": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "Clean design, practical size and a premium finish. Exactly the everyday piece I was looking for.",
+            "author_name": "Sana Ahmed",
+            "author_city": "Karachi, Pakistan",
+            "avatar_asset": "sd-cust-003-avatar.webp",
+            "product_asset": "sd-review-product-wallet.webp"
+          }
+        },
+        "r_4": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "Versatile and comfortable for daily use. The craftsmanship is evident from the first touch.",
+            "author_name": "Mahnoor Ali",
+            "author_city": "Peshawar, Pakistan",
+            "avatar_asset": "sd-cust-004-avatar.webp",
+            "product_asset": "sd-review-product-sunglasses.webp"
+          }
+        },
+        "r_5": {
+          "type": "review_card",
+          "settings": {
+            "review_text": "Minimalist aesthetic with high-grade utility. Fits my routine perfectly.",
+            "author_name": "Hamza Raza",
+            "author_city": "Rawalpindi, Pakistan",
+            "avatar_asset": "sd-cust-005-avatar.webp",
+            "product_asset": "sd-review-product-belt.webp"
+          }
+        }
+      },
+      "block_order": [
+        "r_1",
+        "r_2",
+        "r_3",
+        "r_4",
+        "r_5"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "announcement",
+    "trust_strip",
+    "children",
+    "category_carousel",
+    "featured_products",
+    "benefits",
+    "reviews"
+  ]
+}

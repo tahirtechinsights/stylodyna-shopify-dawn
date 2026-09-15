@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "customer_id": "SD-CUST-002",
+  "display_name": "Hira Malik",
+  "identity_type": "FICTIONAL_BRAND_PERSONA",
+  "status": "IDENTITY_LOCKED",
+  "identity_lock": true,
+  "department_scope": [
+    "Lifestyle"
+  ],
+  "persona": null,
+  "identity_features": {
+    "face": null,
+    "hair": null,
+    "clothing": null,
+    "environment": null,
+    "photography": null,
+    "personality_signal": null
+  },
+  "master_asset": {
+    "expected_filename": "sd-cust-002-master.png",
+    "present": true,
+    "sha256": "001805a419e224e2ca3745c89fe675c153f5ec89e04e3a32b5c296769891103d",
+    "width_px": 1254,
+    "height_px": 1254,
+    "format": "PNG",
+    "file_size_bytes": 2415025,
+    "human_approved": true
+  },
+  "governance_notes": [
+    "Do not infer unresolved identity attributes.",
+    "Replace no approved master without explicit human approval.",
+    "Complete this record from the authoritative approved prompt and generated master."
+  ]
+}

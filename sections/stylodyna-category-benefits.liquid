@@ -1,0 +1,134 @@
+{%- comment -%}
+  StyloDyna Category Benefits Section (CAT-UI-002)
+  Reusable Type-A Department Benefits & Value Propositions with HOME-004 Quiet Luxury styling
+{%- endcomment -%}
+
+{{ 'section-stylodyna-why-choose.css' | asset_url | stylesheet_tag }}
+{{ 'component-stylodyna-category-landing.css' | asset_url | stylesheet_tag }}
+
+<div class="stylodyna-why-choose section-{{ section.id }}-padding">
+  <div class="page-width">
+    <div class="stylodyna-categories__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="stylodyna-categories__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="stylodyna-categories__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <div class="stylodyna-categories__description rte">
+          {{ section.settings.description }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="stylodyna-why-choose__grid">
+      {%- for block in section.blocks -%}
+        <div class="stylodyna-why-choose__card" {{ block.shopify_attributes }}>
+          <div class="stylodyna-why-choose__icon" aria-hidden="true">
+            {%- if block.settings.custom_icon_svg != blank -%}
+              {{ block.settings.custom_icon_svg }}
+            {%- else -%}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            {%- endif -%}
+          </div>
+
+          <h3 class="stylodyna-why-choose__card-title">{{ block.settings.title | escape }}</h3>
+          <p class="stylodyna-why-choose__card-description">{{ block.settings.description | escape }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Category Benefits Grid",
+  "tag": "section",
+  "class": "section-stylodyna-category-benefits",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "STYLODYNA ADVANTAGE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why Choose Our Lifestyle Collection"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Experience modern aesthetic harmony and thoughtful functional design in every curated piece.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit_card",
+      "name": "Benefit Card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Benefit Title",
+          "default": "Quality Materials"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Benefit Description",
+          "default": "Carefully selected materials chosen for comfort, durability and everyday use."
+        },
+        {
+          "type": "html",
+          "id": "custom_icon_svg",
+          "label": "Custom Icon SVG"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Benefits Grid",
+      "blocks": [
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Quality Materials",
+            "description": "Carefully selected materials chosen for comfort, durability and everyday use."
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Refined Design",
+            "description": "Thoughtfully designed pieces balancing contemporary style with practical function."
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Everyday Versatility",
+            "description": "Curated essentials designed to complement different occasions, routines and personal styles."
+          }
+        },
+        {
+          "type": "benefit_card",
+          "settings": {
+            "title": "Thoughtfully Selected",
+            "description": "A considered collection focused on quality, usefulness and modern lifestyle needs."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

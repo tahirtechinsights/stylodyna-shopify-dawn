@@ -1,0 +1,251 @@
+{%- comment -%}
+  StyloDyna Reusable Featured Products for Her Component (CAT-UI-003D-R5B Editorial Balance Finalization)
+  Compact Category Identity Tile Left + Fixed Substantial Product Card + Quiet Editorial Future Rows
+{%- endcomment -%}
+
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-stylodyna-featured-product-rows.css' | asset_url | stylesheet_tag }}
+
+<div class="stylodyna-featured-rows page-width">
+  <div class="stylodyna-featured-rows__header">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="stylodyna-featured-rows__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="stylodyna-featured-rows__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.cta_label != blank -%}
+      <a href="{{ section.settings.cta_link | default: '/collections/womens-handbags' }}" class="stylodyna-featured-rows__cta">
+        {{ section.settings.cta_label | escape }}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    {%- endif -%}
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+    {%- for block in section.blocks -%}
+      {%- assign is_active = false -%}
+      {%- if block.settings.state == 'active' -%}
+        {%- assign is_active = true -%}
+      {%- endif -%}
+
+      {%- if is_active -%}
+        {%- comment -%} ACTIVE MERCHANDISING ROW (Handbags) {%- endcomment -%}
+        <div class="stylodyna-featured-row stylodyna-featured-row--active" {{ block.shopify_attributes }}>
+          {%- comment -%} Left Category Identity Tile {%- endcomment -%}
+          <div class="stylodyna-featured-row__tile">
+            <div class="stylodyna-featured-row__tile-top">
+              <h3 class="stylodyna-featured-row__tile-title">{{ block.settings.title | escape }}</h3>
+              <span class="stylodyna-featured-row__tile-badge stylodyna-featured-row__tile-badge--active">
+                {{ block.settings.badge_text | default: 'SHOP NOW' | escape }}
+              </span>
+            </div>
+
+            {%- assign tile_url = block.settings.custom_link -%}
+            {%- if tile_url == blank and block.settings.collection != blank -%}
+              {%- assign tile_url = block.settings.collection.url -%}
+            {%- endif -%}
+            <a href="{{ tile_url | default: '/collections/womens-handbags' }}" class="stylodyna-featured-row__tile-link">
+              Explore Collection
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          </div>
+
+          {%- comment -%} Right Product Rail {%- endcomment -%}
+          <div class="stylodyna-featured-row__rail">
+            {%- assign target_collection = block.settings.collection -%}
+            {%- if target_collection == blank -%}
+              {%- assign target_collection = collections['womens-handbags'] -%}
+            {%- endif -%}
+
+            {%- if target_collection != blank and target_collection.products.size > 0 -%}
+              {%- assign product_count = target_collection.products.size -%}
+              <div class="stylodyna-featured-row__rail-wrapper">
+                <ul class="stylodyna-featured-row__grid" role="list">
+                  {%- assign product_limit = block.settings.product_limit | default: 4 -%}
+                  {%- for product in target_collection.products limit: product_limit -%}
+                    <li class="stylodyna-featured-row__grid-item">
+                      {% render 'card-product',
+                        card_product: product,
+                        media_aspect_ratio: 'adapt',
+                        show_secondary_image: true,
+                        show_vendor: true,
+                        show_rating: false,
+                        lazy_load: false,
+                        section_id: section.id
+                      %}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+
+                {%- comment -%} Nav controls rendered ONLY when product_count > 1 {%- endcomment -%}
+                {%- if product_count > 1 -%}
+                  <div class="stylodyna-featured-row__controls">
+                    <button type="button" class="stylodyna-featured-row__nav-btn" aria-label="Previous Products">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button type="button" class="stylodyna-featured-row__nav-btn" aria-label="Next Products">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+
+      {%- else -%}
+        {%- comment -%} QUIET EDITORIAL FUTURE-STATE ROW (Accessories / Undergarments) {%- endcomment -%}
+        <div class="stylodyna-featured-row stylodyna-featured-row--quiet" {{ block.shopify_attributes }}>
+          <div class="stylodyna-featured-row__quiet-container">
+            <div class="stylodyna-featured-row__quiet-left">
+              <h3 class="stylodyna-featured-row__quiet-title">{{ block.settings.title | escape }}</h3>
+              <span class="stylodyna-featured-row__quiet-badge">COMING SOON</span>
+            </div>
+            <div class="stylodyna-featured-row__quiet-right">
+              <span class="stylodyna-featured-row__quiet-status" aria-disabled="true">
+                In Development
+              </span>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Featured Products Rows",
+  "tag": "section",
+  "class": "section-stylodyna-featured-product-rows",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "CURATED SELECTION"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Featured for Her"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Section CTA Label",
+      "default": "Explore All"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Section CTA Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_row",
+      "name": "Category Product Row",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Row Title",
+          "default": "Category"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Shopify Collection"
+        },
+        {
+          "type": "url",
+          "id": "custom_link",
+          "label": "Custom Category Link"
+        },
+        {
+          "type": "select",
+          "id": "state",
+          "label": "Row Availability State",
+          "options": [
+            {
+              "value": "active",
+              "label": "Active (Show Products)"
+            },
+            {
+              "value": "coming_soon",
+              "label": "Coming Soon"
+            }
+          ],
+          "default": "active"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Tile Badge Text",
+          "default": "SHOP NOW"
+        },
+        {
+          "type": "range",
+          "id": "product_limit",
+          "label": "Products to Show",
+          "min": 1,
+          "max": 8,
+          "step": 1,
+          "default": 4
+        },
+        {
+          "type": "textarea",
+          "id": "coming_soon_text",
+          "label": "Coming Soon Customer Text",
+          "default": "Collection coming soon."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products Rows",
+      "blocks": [
+        {
+          "type": "product_row",
+          "settings": {
+            "title": "Handbags",
+            "state": "active",
+            "badge_text": "SHOP NOW"
+          }
+        },
+        {
+          "type": "product_row",
+          "settings": {
+            "title": "Accessories",
+            "state": "coming_soon",
+            "badge_text": "COMING SOON",
+            "coming_soon_text": "Accessories collection coming soon."
+          }
+        },
+        {
+          "type": "product_row",
+          "settings": {
+            "title": "Undergarments",
+            "state": "coming_soon",
+            "badge_text": "COMING SOON",
+            "coming_soon_text": "Private essentials, thoughtfully selected — coming soon."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

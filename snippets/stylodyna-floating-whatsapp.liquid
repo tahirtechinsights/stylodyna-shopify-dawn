@@ -1,0 +1,42 @@
+{% comment %} StyloDyna Global Floating WhatsApp CTA & Shared Support Popover (HEADER-001F) {% endcomment %}
+{%- assign raw_whatsapp_num = section.settings.whatsapp_number | default: '923271777879' | strip | replace: '+', '' | replace: ' ', '' | replace: '-', '' | replace: '(', '' | replace: ')', '' -%}
+{%- assign raw_whatsapp_msg = section.settings.whatsapp_message | default: "Hello StyloDyna! I'm interested in a product and would like some assistance." -%}
+{%- assign encoded_whatsapp_msg = raw_whatsapp_msg | url_encode -%}
+{%- capture whatsapp_url -%}https://wa.me/{{ raw_whatsapp_num }}?text={{ encoded_whatsapp_msg }}{%- endcapture -%}
+
+<div class="stylodyna-floating-whatsapp" id="StylodynaFloatingWhatsapp" data-stylodyna-floating-whatsapp>
+  
+  <!-- Floating WhatsApp Action Button (Direct Action on Click) -->
+  <a href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" class="stylodyna-floating-whatsapp__trigger" id="StylodynaFloatingWhatsappTrigger" aria-label="Chat with StyloDyna on WhatsApp" aria-haspopup="true" aria-expanded="false">
+    {% render 'icon-stylodyna-whatsapp' %}
+  </a>
+
+  <!-- Shared Desktop Customer Assistance Popover -->
+  <div class="stylodyna-floating-whatsapp__popover stylodyna-utility-bar__desktop-only" id="StylodynaFloatingWhatsappPopover" role="dialog" aria-label="WhatsApp Support Panel" aria-modal="false">
+    <div class="stylodyna-floating-whatsapp__popover-header">
+      <div class="stylodyna-floating-whatsapp__popover-brand">
+        <span class="stylodyna-floating-whatsapp__brand-icon">
+          {% render 'icon-stylodyna-whatsapp' %}
+        </span>
+        <span class="stylodyna-floating-whatsapp__popover-title">WhatsApp StyloDyna</span>
+      </div>
+      <button type="button" class="stylodyna-floating-whatsapp__close-btn" id="StylodynaFloatingWhatsappClose" data-whatsapp-close aria-label="Close WhatsApp support panel">&times;</button>
+    </div>
+
+    <p class="stylodyna-floating-whatsapp__popover-desc">Need help choosing a product?<br>Our team is ready to assist.</p>
+    
+    <div class="stylodyna-floating-whatsapp__qr-box">
+      <img src="{{ 'stylodyna-whatsapp-qr.svg' | asset_url }}" width="128" height="128" alt="QR code to chat with StyloDyna on WhatsApp" loading="lazy" class="stylodyna-floating-whatsapp__qr-img">
+    </div>
+    
+    <span class="stylodyna-floating-whatsapp__scan-text">Scan to chat on WhatsApp</span>
+    
+    <div class="stylodyna-floating-whatsapp__divider"></div>
+    
+    <a href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" class="stylodyna-floating-whatsapp__action">
+      <span>Continue on WhatsApp Web</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+
+</div>

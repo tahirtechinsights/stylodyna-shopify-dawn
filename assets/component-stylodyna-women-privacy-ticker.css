@@ -1,0 +1,112 @@
+/*
+  StyloDyna Women Privacy Trust Ticker Component Stylesheet (CAT-UI-003D-R7E Reverse Motion & Density)
+  Solid StyloDyna Pink Surface (#E86786) + Black Typography (#000000) + White Outline Icons (#FFFFFF)
+  Continuous Left-to-Right Reverse Motion (Opposite to Black General Trust Ticker)
+*/
+
+.stylodyna-women-privacy-ticker-section {
+  margin-bottom: 1.0rem;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-women-privacy-ticker-section {
+    margin-bottom: 0.8rem;
+  }
+}
+
+.stylodyna-women-privacy-ticker {
+  width: 100%;
+  background-color: #E86786;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1.2rem;
+  padding: 1.2rem 0;
+  min-height: 46px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(232, 103, 134, 0.15);
+  box-sizing: border-box;
+  outline: none;
+}
+
+.stylodyna-women-privacy-ticker__track {
+  display: flex;
+  width: max-content;
+  animation: stylodyna-women-privacy-ticker-reverse-scroll 32s linear infinite;
+}
+
+.stylodyna-women-privacy-ticker:hover .stylodyna-women-privacy-ticker__track,
+.stylodyna-women-privacy-ticker:focus .stylodyna-women-privacy-ticker__track,
+.stylodyna-women-privacy-ticker:focus-within .stylodyna-women-privacy-ticker__track {
+  animation-play-state: paused;
+}
+
+.stylodyna-women-privacy-ticker__group {
+  display: flex;
+  align-items: center;
+  gap: 2.8rem;
+  padding-right: 2.8rem;
+  white-space: nowrap;
+}
+
+.stylodyna-women-privacy-ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.stylodyna-women-privacy-ticker__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #FFFFFF;
+}
+
+.stylodyna-women-privacy-ticker__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stylodyna-women-privacy-ticker__title {
+  font-family: var(--font-heading-family);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #000000;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.stylodyna-women-privacy-ticker__text {
+  font-family: var(--font-body-family);
+  font-size: 1.15rem;
+  color: #000000;
+  line-height: 1.25;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.stylodyna-women-privacy-ticker__separator {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+@keyframes stylodyna-women-privacy-ticker-reverse-scroll {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stylodyna-women-privacy-ticker__track {
+    animation: none;
+    overflow-x: auto;
+    width: 100%;
+  }
+}

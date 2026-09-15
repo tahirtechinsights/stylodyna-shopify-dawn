@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0.0",
+  "customer_id": "SD-CUST-001",
+  "display_name": "Ayesha Khan",
+  "identity_type": "FICTIONAL_BRAND_PERSONA",
+  "status": "IDENTITY_LOCKED",
+  "identity_lock": true,
+  "department_scope": [
+    "Lifestyle"
+  ],
+  "persona": null,
+  "identity_features": {
+    "face": null,
+    "hair": null,
+    "clothing": null,
+    "environment": null,
+    "photography": null,
+    "personality_signal": null
+  },
+  "master_asset": {
+    "expected_filename": "sd-cust-001-master.png",
+    "present": true,
+    "sha256": "4e41970b9301d60eedda77f5a47a3a89715532bafe73345f955b08553c2aa989",
+    "width_px": 1536,
+    "height_px": 1024,
+    "format": "PNG",
+    "file_size_bytes": 2241163,
+    "human_approved": true
+  },
+  "governance_notes": [
+    "Do not infer unresolved identity attributes.",
+    "Replace no approved master without explicit human approval.",
+    "Complete this record from the authoritative approved prompt and generated master."
+  ]
+}

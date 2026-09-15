@@ -1,0 +1,201 @@
+{
+  "name": "Women's Audience Landing Page",
+  "sections": {
+    "women_hero": {
+      "type": "stylodyna-women-hero",
+      "settings": {
+        "eyebrow": "WOMEN'S LIFESTYLE",
+        "heading": "Designed for Her",
+        "body_text": "Curated accessories and everyday essentials for modern routines and refined personal style.",
+        "cta_label": "EXPLORE HANDBAGS"
+      }
+    },
+    "shop_by_category": {
+      "type": "stylodyna-women-category-cards",
+      "settings": {
+        "eyebrow": "SHOP BY CATEGORY",
+        "heading": "Explore Our Women's Collection",
+        "description": "<p>Select a category to browse our refined collection of lifestyle essentials.</p>"
+      },
+      "blocks": {
+        "c_handbags": {
+          "type": "category_card",
+          "settings": {
+            "title": "Women's Handbags",
+            "state": "active",
+            "custom_link": "/collections/womens-handbags",
+            "fallback_asset": "sd-lifestyle-womens-handbags.webp"
+          }
+        },
+        "c_accessories": {
+          "type": "category_card",
+          "settings": {
+            "title": "Women's Accessories",
+            "state": "coming_soon",
+            "fallback_asset": "sd-lifestyle-womens-accessories.webp"
+          }
+        },
+        "c_undergarments": {
+          "type": "category_card",
+          "settings": {
+            "title": "Women's Undergarments",
+            "state": "coming_soon",
+            "fallback_asset": "sd-lifestyle-womens-undergarments.webp"
+          }
+        }
+      },
+      "block_order": [
+        "c_handbags",
+        "c_accessories",
+        "c_undergarments"
+      ]
+    },
+    "privacy_journey": {
+      "type": "stylodyna-privacy-journey",
+      "settings": {
+        "eyebrow": "WOMEN'S UNDERGARMENTS PRIVACY JOURNEY",
+        "heading": "Your Privacy, Our Priority",
+        "panel_heading": "Complete Privacy. Complete Peace of Mind.",
+        "panel_description": "Your order is packed with care in our company-sealed outer box. No visible product or category details appear on the outer packaging — designed for discreet delivery."
+      },
+      "blocks": {
+        "step_1": {
+          "type": "journey_step",
+          "settings": {
+            "step_number": "01",
+            "icon": "order",
+            "title": "DISCREET ORDER",
+            "description": "Order handled privately and discreetly from checkout to processing."
+          }
+        },
+        "step_2": {
+          "type": "journey_step",
+          "settings": {
+            "step_number": "02",
+            "icon": "package",
+            "title": "PRIVATE PACKAGING",
+            "description": "Items packed without visible external product or category disclosure."
+          }
+        },
+        "step_3": {
+          "type": "journey_step",
+          "settings": {
+            "step_number": "03",
+            "icon": "delivery",
+            "title": "SEALED DELIVERY",
+            "description": "Dispatched in sealed outer company packaging so external handlers cannot identify parcel contents."
+          }
+        },
+        "step_4": {
+          "type": "journey_step",
+          "settings": {
+            "step_number": "04",
+            "icon": "invoice",
+            "title": "INVOICE PRIVACY",
+            "description": "Order details communicated privately with the customer via designated support channels."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ]
+    },
+    "featured_products": {
+      "type": "stylodyna-featured-product-rows",
+      "settings": {
+        "eyebrow": "CURATED SELECTION",
+        "heading": "Featured for Her",
+        "cta_label": "Explore All"
+      },
+      "blocks": {
+        "r_handbags": {
+          "type": "product_row",
+          "settings": {
+            "title": "Handbags",
+            "collection": "womens-handbags",
+            "state": "active",
+            "badge_text": "SHOP NOW"
+          }
+        },
+        "r_accessories": {
+          "type": "product_row",
+          "settings": {
+            "title": "Accessories",
+            "state": "coming_soon",
+            "badge_text": "COMING SOON",
+            "coming_soon_text": "Accessories collection coming soon."
+          }
+        },
+        "r_undergarments": {
+          "type": "product_row",
+          "settings": {
+            "title": "Undergarments",
+            "state": "coming_soon",
+            "badge_text": "COMING SOON",
+            "coming_soon_text": "Private essentials, thoughtfully selected — coming soon."
+          }
+        }
+      },
+      "block_order": [
+        "r_handbags",
+        "r_accessories",
+        "r_undergarments"
+      ]
+    },
+    "women_privacy_ticker": {
+      "type": "stylodyna-women-privacy-ticker",
+      "settings": {}
+    },
+    "trust_strip": {
+      "type": "stylodyna-trust-strip",
+      "settings": {},
+      "blocks": {
+        "t_1": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Nationwide Shipping",
+            "description": "Reliable delivery across Pakistan"
+          }
+        },
+        "t_2": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Secure Payments",
+            "description": "Safe and trusted checkout"
+          }
+        },
+        "t_3": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Customer Assistance",
+            "description": "Dedicated support for your orders"
+          }
+        },
+        "t_4": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Quality Assurance",
+            "description": "Carefully inspected prior to dispatch"
+          }
+        }
+      },
+      "block_order": [
+        "t_1",
+        "t_2",
+        "t_3",
+        "t_4"
+      ]
+    }
+  },
+  "order": [
+    "women_hero",
+    "women_privacy_ticker",
+    "trust_strip",
+    "shop_by_category",
+    "privacy_journey",
+    "featured_products"
+  ]
+}

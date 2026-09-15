@@ -1,0 +1,316 @@
+/*
+  StyloDyna Reusable Featured Products Rows Component Stylesheet (CAT-UI-003D-R5B)
+  Category Tile Left (230px) + Substantial Product Card Rail Right (290px)
+  Quiet Editorial Future Rows + Conditional Rail Controls
+*/
+
+.stylodyna-featured-rows {
+  padding-top: 3.2rem;
+  padding-bottom: 4.8rem;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-featured-rows {
+    padding-top: 2.4rem;
+    padding-bottom: 3.6rem;
+  }
+}
+
+/* SECTION HEADER */
+.stylodyna-featured-rows__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid #EAE6DE;
+}
+
+.stylodyna-featured-rows__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #C7A24A;
+  font-weight: 600;
+  margin: 0 0 0.6rem;
+}
+
+.stylodyna-featured-rows__title {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.8rem, 3.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #1F1F1F;
+  margin: 0;
+}
+
+.stylodyna-featured-rows__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #1F1F1F;
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.stylodyna-featured-rows__cta:hover {
+  color: #C7A24A;
+}
+
+/* ACTIVE MERCHANDISING ROW (HANDBAGS) */
+.stylodyna-featured-row--active {
+  display: flex;
+  gap: 2.0rem;
+  margin-bottom: 3.6rem;
+  align-items: stretch;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-featured-row--active {
+    flex-direction: column;
+    gap: 1.6rem;
+    margin-bottom: 2.8rem;
+  }
+}
+
+/* CATEGORY TILE (LEFT) — 230px WIDE x 390px-400px TALL DESKTOP */
+.stylodyna-featured-row__tile {
+  flex: 0 0 230px;
+  width: 230px;
+  background-color: #1F1F1F;
+  color: #FAF9F5;
+  border-radius: 1.4rem;
+  padding: 2.0rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(199, 162, 74, 0.25);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  min-height: 390px;
+  max-height: 400px;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-featured-row__tile {
+    flex: none;
+    width: 100%;
+    min-height: auto;
+    max-height: none;
+    padding: 1.8rem 1.6rem;
+  }
+}
+
+.stylodyna-featured-row__tile-top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.stylodyna-featured-row__tile-title {
+  font-family: var(--font-heading-family);
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: inherit;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.stylodyna-featured-row__tile-badge {
+  display: inline-block;
+  padding: 0.35rem 0.8rem;
+  border-radius: 0.4rem;
+  font-family: var(--font-body-family);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  align-self: flex-start;
+}
+
+.stylodyna-featured-row__tile-badge--active {
+  background-color: #C7A24A;
+  color: #1F1F1F;
+}
+
+.stylodyna-featured-row__tile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FAF9F5;
+  font-family: var(--font-body-family);
+  font-size: 1.25rem;
+  font-weight: 500;
+  text-decoration: none;
+  margin-top: 1.2rem;
+  transition: color 200ms ease;
+}
+
+.stylodyna-featured-row__tile-link:hover {
+  color: #C7A24A;
+}
+
+/* PRODUCT RAIL (RIGHT) */
+.stylodyna-featured-row__rail {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  flex-grow: 1;
+}
+
+.stylodyna-featured-row__rail-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.stylodyna-featured-row__grid {
+  display: flex;
+  gap: 1.6rem;
+  list-style: none !important;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.stylodyna-featured-row__grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* FIXED SUBSTANTIAL PRODUCT CARD SIZING (290px DESKTOP x 390-400px TALL) */
+.stylodyna-featured-row__grid-item {
+  list-style: none !important;
+  flex: 0 0 290px;
+  width: 290px;
+  max-width: 290px;
+  scroll-snap-align: start;
+}
+
+.stylodyna-featured-row__grid-item .card-wrapper {
+  border-radius: 1.2rem;
+  overflow: hidden;
+  border: 1px solid #EAE6DE;
+  background-color: #FFFFFF;
+  height: 100%;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stylodyna-featured-row__grid-item .card__media {
+  max-height: 250px;
+}
+
+.stylodyna-featured-row__grid-item .card__content {
+  padding: 1.2rem 1.4rem !important;
+}
+
+.stylodyna-featured-row__grid-item .card__heading {
+  font-size: 1.4rem;
+  line-height: 1.3;
+  margin-bottom: 0.4rem;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-featured-row__grid-item {
+    flex: 0 0 78vw;
+    width: 78vw;
+    max-width: 280px;
+  }
+}
+
+/* MINIMAL CIRCULAR NAV CONTROLS */
+.stylodyna-featured-row__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  position: absolute;
+  right: 0;
+  top: -3.6rem;
+}
+
+.stylodyna-featured-row__nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  border: 1px solid #EAE6DE;
+  background-color: #FFFFFF;
+  color: #1F1F1F;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.stylodyna-featured-row__nav-btn:hover {
+  background-color: #1F1F1F;
+  color: #FFFFFF;
+  border-color: #1F1F1F;
+}
+
+/* QUIET EDITORIAL FUTURE-STATE ROWS (ACCESSORIES & UNDERGARMENTS) */
+.stylodyna-featured-row--quiet {
+  margin-bottom: 1.4rem;
+}
+
+.stylodyna-featured-row__quiet-container {
+  width: 100%;
+  background-color: #FAF9F5;
+  border: 1px solid #EAE6DE;
+  border-radius: 1.2rem;
+  padding: 1.6rem 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+}
+
+.stylodyna-featured-row__quiet-left {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.stylodyna-featured-row__quiet-title {
+  font-family: var(--font-heading-family);
+  font-size: 1.9rem;
+  font-weight: 500;
+  color: #1F1F1F;
+  margin: 0;
+}
+
+.stylodyna-featured-row__quiet-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.4rem;
+  background-color: #EAE6DE;
+  color: #666666;
+  font-family: var(--font-body-family);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.stylodyna-featured-row__quiet-status {
+  font-family: var(--font-body-family);
+  font-size: 1.3rem;
+  color: #888888;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 640px) {
+  .stylodyna-featured-row__quiet-container {
+    padding: 1.4rem 1.6rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+}

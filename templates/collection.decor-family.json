@@ -1,0 +1,98 @@
+{
+  "name": "Decor Family Landing",
+  "wrapper": "div.stylodyna-category-landing-wrapper",
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "shop_by_model_type": {
+      "type": "stylodyna-shop-by-model-type",
+      "blocks": {
+        "maritime": {
+          "type": "model_type",
+          "settings": {
+            "title": "Maritime Models",
+            "collection": "maritime-models"
+          }
+        },
+        "aviation": {
+          "type": "model_type",
+          "settings": {
+            "title": "Aviation Models",
+            "collection": "aviation-models"
+          }
+        },
+        "automotive": {
+          "type": "model_type",
+          "settings": {
+            "title": "Automotive Models",
+            "collection": "automotive-models"
+          }
+        },
+        "spaceflight": {
+          "type": "model_type",
+          "settings": {
+            "title": "Spaceflight Models",
+            "collection": "spaceflight-models"
+          }
+        }
+      },
+      "block_order": [
+        "maritime",
+        "aviation",
+        "automotive",
+        "spaceflight"
+      ],
+      "settings": {
+        "presentation_mode": "editorial",
+        "eyebrow": "EXPLORE MODEL TYPES",
+        "heading": "Shop by Model Type",
+        "description": "<p>Discover maritime, aviation, automotive and spaceflight collections.</p>",
+        "show_nav_buttons": false,
+        "enable_autoplay": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "top_selling_model": {
+      "type": "stylodyna-collection-children",
+      "settings": {
+        "eyebrow": "FEATURED MODEL CATEGORY",
+        "heading": "Top Selling Model"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "eyebrow": "FEATURED FROM DECORATIVE MODELS",
+        "heading": "Featured Products",
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "shop_by_model_type",
+    "top_selling_model",
+    "product-grid"
+  ]
+}

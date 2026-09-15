@@ -1,0 +1,238 @@
+/*
+  StyloDyna Visual Bag Type Filter Component Stylesheet (CAT-UI-003C)
+  Editorial Circular Type Filter System for Women's Handbags PLP
+  Strict Namespace: .stylodyna-bag-type-filter
+*/
+
+.stylodyna-bag-type-filter-section {
+  padding-top: 2.4rem;
+  padding-bottom: 1.8rem;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-bag-type-filter-section {
+    padding-top: 1.8rem;
+    padding-bottom: 1.4rem;
+  }
+}
+
+.stylodyna-bag-type-filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.stylodyna-bag-type-filter__header {
+  margin-bottom: 2.4rem;
+  max-width: 54rem;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-bag-type-filter__header {
+    margin-bottom: 1.8rem;
+  }
+}
+
+.stylodyna-bag-type-filter__heading {
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.2rem, 3vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: #1F1F1F;
+  margin: 0 0 0.8rem;
+  letter-spacing: -0.01em;
+}
+
+.stylodyna-bag-type-filter__subheading {
+  font-family: var(--font-body-family);
+  font-size: 1.45rem;
+  color: #666666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* HORIZONTAL CIRCULAR TYPE RAIL: 36PX DESKTOP GAP */
+.stylodyna-bag-type-filter__rail {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3.6rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-bag-type-filter__rail {
+    gap: 2.8rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-bag-type-filter__rail {
+    justify-content: safe center;
+    gap: 2.0rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+    padding-bottom: 0.8rem;
+    scrollbar-width: none;
+  }
+
+  .stylodyna-bag-type-filter__rail::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* CIRCULAR TYPE ITEM */
+.stylodyna-bag-type-filter__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #1F1F1F;
+  flex: 0 0 auto;
+  min-width: 104px;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: transform 200ms ease;
+  outline: none;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-bag-type-filter__item {
+    min-width: 86px;
+  }
+}
+
+.stylodyna-bag-type-filter__item:hover {
+  transform: translateY(-3px);
+}
+
+.stylodyna-bag-type-filter__item:focus-visible {
+  outline: 2px solid #C7A24A;
+  outline-offset: 4px;
+  border-radius: 0.8rem;
+}
+
+/* CIRCULAR IMAGE CONTAINER: 124PX DESKTOP TARGET, 108PX TABLET, 86PX MOBILE */
+.stylodyna-bag-type-filter__image-wrapper {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  background-color: #FAF9F5;
+  border: 1px solid #EAE6DE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 1.0rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+}
+
+@media screen and (max-width: 989px) {
+  .stylodyna-bag-type-filter__image-wrapper {
+    width: 108px;
+    height: 108px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-bag-type-filter__image-wrapper {
+    width: 86px;
+    height: 86px;
+  }
+}
+
+.stylodyna-bag-type-filter__item:hover .stylodyna-bag-type-filter__image-wrapper {
+  border-color: #C7A24A;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* SELECTED STATE: SUBTLE STYLODYNA BLACK/GOLD INTERACTION LANGUAGE */
+.stylodyna-bag-type-filter__item.is-active .stylodyna-bag-type-filter__image-wrapper {
+  border-color: #1F1F1F;
+  box-shadow: 0 0 0 2px #C7A24A, 0 6px 20px rgba(0, 0, 0, 0.12);
+  background-color: #FFFFFF;
+}
+
+.stylodyna-bag-type-filter__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.stylodyna-bag-type-filter__all-icon,
+.stylodyna-bag-type-filter__placeholder-icon {
+  color: #1F1F1F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stylodyna-bag-type-filter__all-icon svg,
+.stylodyna-bag-type-filter__placeholder-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-bag-type-filter__all-icon svg,
+  .stylodyna-bag-type-filter__placeholder-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.stylodyna-bag-type-filter__item.is-active .stylodyna-bag-type-filter__all-icon {
+  color: #C7A24A;
+}
+
+/* TYPE LABELS */
+.stylodyna-bag-type-filter__label {
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #333333;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.stylodyna-bag-type-filter__item.is-active .stylodyna-bag-type-filter__label {
+  font-weight: 700;
+  color: #1F1F1F;
+}
+
+.stylodyna-bag-type-filter__count {
+  display: none !important;
+}
+
+.stylodyna-bag-type-filter__badge {
+  font-family: var(--font-body-family);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #999999;
+  background-color: #F0EDE6;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1.0rem;
+  margin-top: 0.3rem;
+}
+
+.stylodyna-bag-type-filter__item.is-disabled {
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stylodyna-bag-type-filter__item {
+    transition: none !important;
+  }
+}

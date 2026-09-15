@@ -1,0 +1,118 @@
+{%- comment -%}
+  StyloDyna Compact Collection Intro & Breadcrumbs (CAT-UI-003C-R2)
+  Type-C Product Listing Collection Header & Subcategory Discovery Layer
+{%- endcomment -%}
+
+{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+
+<div class="stylodyna-collection-intro page-width">
+  {%- comment -%} Semantic Breadcrumbs {%- endcomment -%}
+  <nav class="stylodyna-breadcrumbs" aria-label="Breadcrumb">
+    <ol class="stylodyna-breadcrumbs__list" role="list">
+      <li class="stylodyna-breadcrumbs__item">
+        <a href="{{ routes.root_url }}" class="stylodyna-breadcrumbs__link">Home</a>
+      </li>
+      <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+      {%- if collection.metafields.custom.parent_collection.value != blank -%}
+        {%- assign grand_parent = collection.metafields.custom.parent_collection.value.metafields.custom.parent_collection.value -%}
+        {%- if grand_parent != blank -%}
+          <li class="stylodyna-breadcrumbs__item">
+            <a href="{{ grand_parent.url }}" class="stylodyna-breadcrumbs__link">{{ grand_parent.title | escape }}</a>
+          </li>
+          <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+        {%- endif -%}
+        <li class="stylodyna-breadcrumbs__item">
+          <a href="{{ collection.metafields.custom.parent_collection.value.url }}" class="stylodyna-breadcrumbs__link">{{ collection.metafields.custom.parent_collection.value.title | escape }}</a>
+        </li>
+        <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+      {%- else -%}
+        {%- if collection.handle == 'womens-handbags' -%}
+          <li class="stylodyna-breadcrumbs__item">
+            <a href="/collections/lifestyle" class="stylodyna-breadcrumbs__link">Lifestyle</a>
+          </li>
+          <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+          <li class="stylodyna-breadcrumbs__item">
+            <a href="/collections/women" class="stylodyna-breadcrumbs__link">Women</a>
+          </li>
+          <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+        {%- elsif collection.handle == 'women' -%}
+          <li class="stylodyna-breadcrumbs__item">
+            <a href="/collections/lifestyle" class="stylodyna-breadcrumbs__link">Lifestyle</a>
+          </li>
+          <li class="stylodyna-breadcrumbs__separator" aria-hidden="true">/</li>
+        {%- endif -%}
+      {%- endif -%}
+      <li class="stylodyna-breadcrumbs__item stylodyna-breadcrumbs__item--current" aria-current="page">
+        <span>{{ collection.title | escape }}</span>
+      </li>
+    </ol>
+  </nav>
+
+  {%- comment -%} Compact Collection Header {%- endcomment -%}
+  <div class="stylodyna-collection-intro__header">
+    {%- if section.settings.show_eyebrow -%}
+      <p class="stylodyna-collection-intro__eyebrow">
+        {{ collection.metafields.custom.category_eyebrow.value | default: section.settings.eyebrow | escape }}
+      </p>
+    {%- endif -%}
+    <h1 class="stylodyna-collection-intro__title">
+      {{ collection.title | escape }}
+    </h1>
+
+    <div class="stylodyna-collection-intro__description rte">
+      {%- if collection.description != blank -%}
+        {{ collection.description }}
+      {%- else -%}
+        <p>{{ section.settings.default_description | escape }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} Product-Type Discovery Chips (Restrained Active Bag Type Facets) {%- endcomment -%}
+  {%- if section.settings.show_discovery_chips -%}
+    <div class="stylodyna-discovery-chips" role="region" aria-label="Product Type Facets">
+      <div class="stylodyna-discovery-chips__track">
+        <a href="{{ collection.url }}" class="stylodyna-discovery-chip stylodyna-discovery-chip--active" aria-current="page">
+          All Handbags <span class="stylodyna-discovery-chip__count">({{ collection.products_count }})</span>
+        </a>
+        <a href="{{ collection.url }}?filter.p.product_type=Tote" class="stylodyna-discovery-chip">
+          Totes <span class="stylodyna-discovery-chip__count">({{ collection.products_count }})</span>
+        </a>
+      </div>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection Intro & Nav",
+  "tag": "section",
+  "class": "section-stylodyna-collection-intro",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_eyebrow",
+      "label": "Show Eyebrow",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Default Eyebrow",
+      "default": "WOMEN'S LIFESTYLE"
+    },
+    {
+      "type": "textarea",
+      "id": "default_description",
+      "label": "Default Description",
+      "default": "Discover thoughtfully selected handbags designed for modern everyday routines, from workdays to weekends."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_discovery_chips",
+      "label": "Show Product Type Discovery Chips",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

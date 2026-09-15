@@ -1,4 +1,4 @@
-/* StyloDyna Why Choose Section Styles */
+/* StyloDyna Why Choose Section Styles — Editorial 2x2 Grid + Visual Composition */
 
 .stylodyna-why-choose {
   background-color: #FCFBF8;
@@ -26,13 +26,19 @@
   }
 }
 
-/* Centered Section Header (760px Max Width) */
-.stylodyna-why-choose__header {
-  text-align: center;
-  max-width: 76rem;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 8rem; /* 80px from header to cards */
+/* Split Main Container (Desktop 48% / 52%) */
+.stylodyna-why-choose__split-container {
+  display: grid;
+  grid-template-columns: 46% 1fr;
+  gap: 6.4rem;
+  align-items: start;
+}
+
+/* Left Editorial Column */
+.stylodyna-why-choose__left-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .stylodyna-why-choose__eyebrow {
@@ -41,93 +47,173 @@
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: 0.18em;
-  margin: 0 0 1.6rem;
+  margin: 0 0 1.8rem;
   text-transform: uppercase;
 }
 
 .stylodyna-why-choose__heading {
   color: #2E2E2E;
   font-family: var(--font-heading-family);
-  font-size: clamp(3.2rem, 4vw, 5.2rem);
+  font-size: clamp(3.2rem, 3.8vw, 4.8rem);
   font-weight: 400;
   line-height: 1.15;
-  margin: 0 0 2rem;
+  margin: 0 0 2.2rem;
   letter-spacing: -0.01rem;
 }
 
 .stylodyna-why-choose__description {
   color: #666666;
   font-family: var(--font-body-family);
-  font-size: 1.75rem;
-  line-height: 1.7;
-  margin: 0 auto;
+  font-size: 1.7rem;
+  line-height: 1.65;
+  margin-bottom: 2.8rem;
+  max-width: 52rem;
 }
 
 .stylodyna-why-choose__description p {
   margin: 0;
 }
 
-/* Grid Layout: Desktop 4 Equal Columns with Subtle Vertical Dividers */
-.stylodyna-why-choose__grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
+/* Optional CTA Button */
+.stylodyna-why-choose__button-wrapper {
+  margin-bottom: 3.6rem;
 }
 
-/* Card Column & Divider Styling */
+.stylodyna-why-choose__button.button {
+  align-items: center;
+  background-color: #1F1F1F;
+  border: 1px solid #1F1F1F;
+  border-radius: 0.3rem;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 1.2rem;
+  font-family: var(--font-body-family);
+  font-size: 1.35rem;
+  font-weight: 600;
+  height: 5rem;
+  justify-content: center;
+  letter-spacing: 0.1em;
+  padding: 0 3.2rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 250ms ease, border-color 250ms ease, transform 250ms ease;
+}
+
+.stylodyna-why-choose__button.button:hover {
+  background-color: #000000;
+  border-color: #000000;
+  transform: translateY(-0.2rem);
+}
+
+.stylodyna-why-choose__btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 250ms ease;
+}
+
+.stylodyna-why-choose__button:hover .stylodyna-why-choose__btn-arrow {
+  transform: translateX(0.4rem);
+}
+
+.stylodyna-why-choose__button:focus-visible {
+  outline: 2px solid #1F1F1F;
+  outline-offset: 4px;
+}
+
+/* Left Column Lifestyle Media Visual */
+.stylodyna-why-choose__visual-wrapper {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--why-choose-radius, 6px);
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(46, 46, 46, 0.04);
+}
+
+.stylodyna-why-choose__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stylodyna-why-choose__visual-wrapper:hover .stylodyna-why-choose__image {
+  transform: scale(1.02);
+}
+
+/* Right Column 2x2 Trust Grid */
+.stylodyna-why-choose__right-col {
+  width: 100%;
+}
+
+.stylodyna-why-choose__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+}
+
+/* Trust Card Design (Rounded Modern Editorial Cards) */
 .stylodyna-why-choose__card {
+  background-color: #F7F5F0;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  border-radius: 0.8rem;
+  padding: 3.2rem 2.8rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   height: 100%;
-  padding: 0 3.2rem;
-  position: relative;
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
-  transition: transform 300ms ease, opacity 300ms ease;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1), border-color 300ms ease;
 }
 
-.stylodyna-why-choose__card:first-child {
-  padding-left: 0;
+.stylodyna-why-choose__card:hover {
+  transform: translateY(-0.3rem);
+  border-color: rgba(138, 106, 67, 0.2);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.04);
 }
 
-.stylodyna-why-choose__card:last-child {
-  border-right: none;
-  padding-right: 0;
+/* Header Meta inside Card (Number + Icon) */
+.stylodyna-why-choose__card-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.4rem;
 }
 
-/* Small Card Number Badge (01, 02, 03, 04) */
 .stylodyna-why-choose__number {
   color: #8A6A43;
   font-family: var(--font-body-family);
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  margin-bottom: 1.6rem;
   text-transform: uppercase;
 }
 
-/* Soft Ivory Circular Icon Container (88px diameter) */
 .stylodyna-why-choose__icon-container {
-  width: 8.8rem;
-  height: 8.8rem;
+  width: 5.6rem;
+  height: 5.6rem;
   border-radius: 50%;
-  background-color: #F7F5F0;
+  background-color: #FCFBF8;
+  border: 1px solid rgba(0, 0, 0, 0.05);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2.8rem;
   flex-shrink: 0;
   transition: background-color 250ms ease, transform 250ms ease;
 }
 
 .stylodyna-why-choose__card:hover .stylodyna-why-choose__icon-container {
-  background-color: #EFE8DD;
-  transform: translateY(-0.2rem);
+  background-color: #FFFFFF;
+  transform: scale(1.05);
 }
 
 .stylodyna-why-choose__icon {
-  width: 3.4rem;
-  height: 3.4rem;
+  width: 2.6rem;
+  height: 2.6rem;
   color: #8A6A43;
   display: flex;
   align-items: center;
@@ -135,8 +221,8 @@
 }
 
 .stylodyna-why-choose__icon svg {
-  width: 3.4rem;
-  height: 3.4rem;
+  width: 2.6rem;
+  height: 2.6rem;
   stroke: #8A6A43;
   stroke-width: 2;
   stroke-linecap: round;
@@ -148,7 +234,7 @@
 .stylodyna-why-choose__card-title {
   color: #2E2E2E;
   font-family: var(--font-heading-family);
-  font-size: 2.2rem;
+  font-size: 2.1rem;
   font-weight: 500;
   line-height: 1.25;
   margin: 0 0 1.2rem;
@@ -157,98 +243,35 @@
 .stylodyna-why-choose__card-body {
   color: #666666;
   font-family: var(--font-body-family);
-  font-size: 1.55rem;
-  line-height: 1.8;
+  font-size: 1.5rem;
+  line-height: 1.65;
   margin: 0;
 }
 
-/* Optional Entrance Animations */
-.stylodyna-why-choose--animated .stylodyna-why-choose__card {
-  opacity: 0;
-  transform: translateY(2rem);
-  animation: whyChooseFadeUp 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.stylodyna-why-choose--animated .stylodyna-why-choose__card:nth-child(1) { animation-delay: 100ms; }
-.stylodyna-why-choose--animated .stylodyna-why-choose__card:nth-child(2) { animation-delay: 200ms; }
-.stylodyna-why-choose--animated .stylodyna-why-choose__card:nth-child(3) { animation-delay: 300ms; }
-.stylodyna-why-choose--animated .stylodyna-why-choose__card:nth-child(4) { animation-delay: 400ms; }
-
-@keyframes whyChooseFadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .stylodyna-why-choose--animated .stylodyna-why-choose__card {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
-}
-
-/* Tablet & Mobile Layout Queries */
+/* Tablet Layout (750px - 1199px) */
 @media screen and (max-width: 1199px) {
-  .stylodyna-why-choose__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 4.8rem 0;
+  .stylodyna-why-choose__split-container {
+    grid-template-columns: 1fr;
+    gap: 4.8rem;
   }
 
-  .stylodyna-why-choose__card {
-    padding: 0 2.4rem;
-    border-right: none;
-    border-bottom: none;
+  .stylodyna-why-choose__left-col {
+    max-width: 100%;
   }
 
-  .stylodyna-why-choose__card:nth-child(odd) {
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
-    padding-left: 0;
+  .stylodyna-why-choose__description {
+    max-width: 100%;
   }
 
-  .stylodyna-why-choose__card:nth-child(even) {
-    padding-right: 0;
-  }
-
-  .stylodyna-why-choose__card:nth-child(1),
-  .stylodyna-why-choose__card:nth-child(2) {
-    padding-bottom: 4rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  .stylodyna-why-choose__visual-wrapper {
+    aspect-ratio: 16 / 9;
   }
 }
 
+/* Mobile Layout (< 750px) */
 @media screen and (max-width: 749px) {
-  .stylodyna-why-choose__header {
-    margin-bottom: 4.8rem;
-  }
-
-  .stylodyna-why-choose__grid {
-    grid-template-columns: 1fr;
+  .stylodyna-why-choose__split-container {
     gap: 3.6rem;
-  }
-
-  .stylodyna-why-choose__card {
-    padding: 0 0 3.6rem 0 !important;
-    border-right: none !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-  }
-
-  .stylodyna-why-choose__card:last-child {
-    border-bottom: none !important;
-    padding-bottom: 0 !important;
-  }
-
-  .stylodyna-why-choose__icon-container {
-    width: 7.6rem;
-    height: 7.6rem;
-    margin-bottom: 2.2rem;
-  }
-
-  .stylodyna-why-choose__icon,
-  .stylodyna-why-choose__icon svg {
-    width: 3rem;
-    height: 3rem;
   }
 
   .stylodyna-why-choose__heading {
@@ -257,5 +280,29 @@
 
   .stylodyna-why-choose__description {
     font-size: 1.55rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .stylodyna-why-choose__button-wrapper {
+    width: 100%;
+    margin-bottom: 2.8rem;
+  }
+
+  .stylodyna-why-choose__button.button {
+    width: 100%;
+  }
+
+  .stylodyna-why-choose__visual-wrapper {
+    aspect-ratio: 4 / 3;
+    margin-bottom: 1.2rem;
+  }
+
+  .stylodyna-why-choose__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .stylodyna-why-choose__card {
+    padding: 2.8rem 2.2rem;
   }
 }

@@ -28,6 +28,12 @@
   endif
 -%}
 
+{%- capture req_header_str -%}{{- content_for_header -}}{%- endcapture -%}
+{%- assign current_query_string = '' -%}
+{%- if req_header_str contains 'pageurl":"' -%}
+  {%- assign current_query_string = req_header_str | split: 'pageurl":"' | last | split: '"' | first | replace: '\/', '/' | replace: '\u0026', '&' -%}
+{%- endif -%}
+
 <div
   class="facets-container{% if filter_type == 'drawer' %} facets-container-drawer{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
   data-collection-id="{{ results.id }}"
@@ -40,9 +46,25 @@
         id="FacetFiltersForm"
         class="{% if filter_type == 'horizontal' %}facets__form{% else %}facets__form-vertical{% endif %}"
       >
-        {%- if results.terms -%}
-          <input type="hidden" name="q" value="{{ results.terms | escape }}">
-          <input name="options[prefix]" type="hidden" value="last">
+        {%- if filter_type == 'horizontal' -%}
+          <div class="facets__search-box">
+            <label for="CollectionSearchInput" class="visually-hidden">Search {{ results.title | escape }}</label>
+            <div class="facets__search-input-wrapper">
+              <svg class="facets__search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input
+                type="search"
+                name="q"
+                id="CollectionSearchInput"
+                class="facets__search-input"
+                placeholder="Search {{ results.title | default: 'products' | escape }}…"
+                value="{{ results.terms | escape }}"
+                autocomplete="off"
+              >
+            </div>
+          </div>
         {%- endif -%}
 
         {% if enable_filtering %}
@@ -62,21 +84,33 @@
             {%- if filter_type == 'vertical' -%}
               <div class="active-facets active-facets-desktop">
                 <div class="active-facets-vertical-filter">
-                  {%- unless results.filters == empty -%}
-                    <h2
-                      class="facets__heading facets__heading--vertical caption-large text-body"
-                      id="verticalTitle"
-                      tabindex="-1"
-                    >
-                      {{ 'products.facets.filter_by_label' | t }}
-                    </h2>
-                  {%- endunless -%}
+                  <h2
+                    class="facets__heading facets__heading--vertical caption-large text-body"
+                    id="verticalTitle"
+                    tabindex="-1"
+                  >
+                    Filters
+                  </h2>
                   <facet-remove class="active-facets__button-wrapper">
-                    <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
+                    <a href="{{ results.url | default: results_url }}" class="active-facets__button-remove underlined-link">
                       <span>{{ 'products.facets.clear_all' | t }}</span>
                     </a>
                   </facet-remove>
                 </div>
+                {%- if current_query_string contains 'filter.p.product_type=' -%}
+                  {%- assign active_type_val = current_query_string | split: 'filter.p.product_type=' | last | split: '&' | first | url_decode -%}
+                  <facet-remove>
+                    <a href="{{ results.url | default: results_url }}" class="active-facets__button active-facets__button--light">
+                      <span class="active-facets__button-inner button button--tertiary">
+                        Type: {{ active_type_val | escape }}
+                        <span class="svg-wrapper">
+                          {{- 'icon-close-small.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="visually-hidden">Clear filter</span>
+                      </span>
+                    </a>
+                  </facet-remove>
+                {%- endif -%}
                 {%- for filter in results.filters -%}
                   {%- for value in filter.active_values -%}
                     <facet-remove>
@@ -113,6 +147,9 @@
             {%- endif -%}
 
             <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
+
+            {% render 'collection-navigation-facet', is_mobile: false %}
+
             {% comment %} Filters for both horizontal and vertical filter {% endcomment %}
             {%- for filter in results.filters -%}
               {% liquid
@@ -134,7 +171,7 @@
                     id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
                     class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
                     data-index="{{ forloop.index }}"
-                    {% if filter_type == 'vertical' and forloop.index == 1 %}
+                    {% if filter_type == 'vertical' %}
                       open
                     {% endif %}
                   >
@@ -305,7 +342,7 @@
                     id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
                     class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
                     data-index="{{ forloop.index }}"
-                    {% if filter_type == 'vertical' and forloop.index == 1 %}
+                    {% if filter_type == 'vertical' %}
                       open
                     {% endif %}
                   >
@@ -445,7 +482,7 @@
   {%- endif -%}
   {% comment %}  Drawer and mobile filter {% endcomment %}
   <menu-drawer
-    class="mobile-facets__wrapper{% if filter_type == 'horizontal' or filter_type == 'vertical' %} medium-hide large-up-hide{% endif %}"
+    class="mobile-facets__wrapper{% if filter_type == 'horizontal' %} medium-hide large-up-hide{% elsif filter_type == 'vertical' %} large-up-hide{% endif %}"
     data-breakpoint="mobile"
   >
     <details class="mobile-facets__disclosure disclosure-has-popup">
@@ -513,6 +550,8 @@
               class="mobile-facets__main has-submenu gradient"
             >
               {%- if enable_filtering -%}
+                {% render 'collection-navigation-facet', is_mobile: true %}
+
                 {%- for filter in results.filters -%}
                   {% liquid
                     assign presentation = filter.presentation | default: default_presentation
@@ -533,8 +572,8 @@
                         <summary class="mobile-facets__summary focus-inset">
                           <div>
                             <span>{{ filter.label | escape }}</span>
-                            <span class="mobile-facets__arrow">
-                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            <span class="mobile-facets__arrow svg-wrapper">
+                              {{- 'icon-caret.svg' | inline_asset_content -}}
                             </span>
                           </div>
                         </summary>
@@ -675,8 +714,8 @@
                         <summary class="mobile-facets__summary focus-inset">
                           <div>
                             <span>{{ filter.label | escape }}</span>
-                            <span class="mobile-facets__arrow">
-                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            <span class="mobile-facets__arrow svg-wrapper">
+                              {{- 'icon-caret.svg' | inline_asset_content -}}
                             </span>
                           </div>
                         </summary>

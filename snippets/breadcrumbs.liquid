@@ -1,0 +1,185 @@
+{% comment %}
+  Renders breadcrumb navigation trail for collection and product templates
+  deriving hierarchy dynamically from Shopify collection and product metafields.
+{% endcomment %}
+
+{{ 'component-breadcrumbs.css' | asset_url | stylesheet_tag }}
+
+{%- unless template == 'index' or template == 'cart' or template == '404' -%}
+  <nav class="breadcrumbs page-width" aria-label="breadcrumbs">
+    <ol class="breadcrumbs__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a class="breadcrumbs__link" href="/" itemprop="item">
+          <span itemprop="name">Home</span>
+        </a>
+        <meta itemprop="position" content="1" />
+        <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+      </li>
+
+      {%- if template contains 'collection' and collection.handle != blank -%}
+        {%- assign c_leaf = collection -%}
+        {%- assign p1 = c_leaf.metafields.custom.parent_collection.value -%}
+        {%- assign p2 = p1.metafields.custom.parent_collection.value -%}
+        {%- assign p3 = p2.metafields.custom.parent_collection.value -%}
+        {%- assign p4 = p3.metafields.custom.parent_collection.value -%}
+        {%- assign p5 = p4.metafields.custom.parent_collection.value -%}
+
+        {%- assign pos = 2 -%}
+
+        {%- if p5 != blank -%}
+          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a class="breadcrumbs__link" href="{{ p5.url }}" itemprop="item">
+              <span itemprop="name">{{ p5.title | escape }}</span>
+            </a>
+            <meta itemprop="position" content="{{ pos }}" />
+            <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+          </li>
+          {%- assign pos = pos | plus: 1 -%}
+        {%- endif -%}
+
+        {%- if p4 != blank -%}
+          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a class="breadcrumbs__link" href="{{ p4.url }}" itemprop="item">
+              <span itemprop="name">{{ p4.title | escape }}</span>
+            </a>
+            <meta itemprop="position" content="{{ pos }}" />
+            <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+          </li>
+          {%- assign pos = pos | plus: 1 -%}
+        {%- endif -%}
+
+        {%- if p3 != blank -%}
+          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a class="breadcrumbs__link" href="{{ p3.url }}" itemprop="item">
+              <span itemprop="name">{{ p3.title | escape }}</span>
+            </a>
+            <meta itemprop="position" content="{{ pos }}" />
+            <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+          </li>
+          {%- assign pos = pos | plus: 1 -%}
+        {%- endif -%}
+
+        {%- if p2 != blank -%}
+          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a class="breadcrumbs__link" href="{{ p2.url }}" itemprop="item">
+              <span itemprop="name">{{ p2.title | escape }}</span>
+            </a>
+            <meta itemprop="position" content="{{ pos }}" />
+            <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+          </li>
+          {%- assign pos = pos | plus: 1 -%}
+        {%- endif -%}
+
+        {%- if p1 != blank -%}
+          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a class="breadcrumbs__link" href="{{ p1.url }}" itemprop="item">
+              <span itemprop="name">{{ p1.title | escape }}</span>
+            </a>
+            <meta itemprop="position" content="{{ pos }}" />
+            <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+          </li>
+          {%- assign pos = pos | plus: 1 -%}
+        {%- endif -%}
+
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span class="breadcrumbs__current" itemprop="name">{{ c_leaf.title | escape }}</span>
+          <meta itemprop="item" content="{{ shop.url }}{{ c_leaf.url }}" />
+          <meta itemprop="position" content="{{ pos }}" />
+        </li>
+
+      {%- elsif template contains 'product' -%}
+        {%- assign target_col = product.metafields.custom.primary_merchandising_collection.value -%}
+        {%- if target_col == blank and product.collections.first -%}
+          {%- assign target_col = product.collections.first -%}
+        {%- endif -%}
+
+        {%- if target_col != blank -%}
+          {%- assign p1 = target_col.metafields.custom.parent_collection.value -%}
+          {%- assign p2 = p1.metafields.custom.parent_collection.value -%}
+          {%- assign p3 = p2.metafields.custom.parent_collection.value -%}
+          {%- assign p4 = p3.metafields.custom.parent_collection.value -%}
+          {%- assign p5 = p4.metafields.custom.parent_collection.value -%}
+
+          {%- assign pos = 2 -%}
+
+          {%- if p5 != blank -%}
+            <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a class="breadcrumbs__link" href="{{ p5.url }}" itemprop="item">
+                <span itemprop="name">{{ p5.title | escape }}</span>
+              </a>
+              <meta itemprop="position" content="{{ pos }}" />
+              <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+            </li>
+            {%- assign pos = pos | plus: 1 -%}
+          {%- endif -%}
+
+          {%- if p4 != blank -%}
+            <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a class="breadcrumbs__link" href="{{ p4.url }}" itemprop="item">
+                <span itemprop="name">{{ p4.title | escape }}</span>
+              </a>
+              <meta itemprop="position" content="{{ pos }}" />
+              <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+            </li>
+            {%- assign pos = pos | plus: 1 -%}
+          {%- endif -%}
+
+          {%- if p3 != blank -%}
+            <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a class="breadcrumbs__link" href="{{ p3.url }}" itemprop="item">
+                <span itemprop="name">{{ p3.title | escape }}</span>
+              </a>
+              <meta itemprop="position" content="{{ pos }}" />
+              <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+            </li>
+            {%- assign pos = pos | plus: 1 -%}
+          {%- endif -%}
+
+          {%- if p2 != blank -%}
+            <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a class="breadcrumbs__link" href="{{ p2.url }}" itemprop="item">
+                <span itemprop="name">{{ p2.title | escape }}</span>
+              </a>
+              <meta itemprop="position" content="{{ pos }}" />
+              <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+            </li>
+            {%- assign pos = pos | plus: 1 -%}
+          {%- endif -%}
+
+          {%- if p1 != blank -%}
+            <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <a class="breadcrumbs__link" href="{{ p1.url }}" itemprop="item">
+                <span itemprop="name">{{ p1.title | escape }}</span>
+              </a>
+              <meta itemprop="position" content="{{ pos }}" />
+              <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+            </li>
+            {%- assign pos = pos | plus: 1 -%}
+          {%- endif -%}
+
+          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a class="breadcrumbs__link" href="{{ target_col.url }}" itemprop="item">
+              <span itemprop="name">{{ target_col.title | escape }}</span>
+            </a>
+            <meta itemprop="position" content="{{ pos }}" />
+            <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
+          </li>
+          {%- assign pos = pos | plus: 1 -%}
+
+          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span class="breadcrumbs__current" itemprop="name">{{ product.title | escape }}</span>
+            <meta itemprop="item" content="{{ shop.url }}{{ product.url }}" />
+            <meta itemprop="position" content="{{ pos }}" />
+          </li>
+
+        {%- else -%}
+          <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span class="breadcrumbs__current" itemprop="name">{{ product.title | escape }}</span>
+            <meta itemprop="item" content="{{ shop.url }}{{ product.url }}" />
+            <meta itemprop="position" content="2" />
+          </li>
+        {%- endif -%}
+      {%- endif -%}
+    </ol>
+  </nav>
+{%- endunless -%}

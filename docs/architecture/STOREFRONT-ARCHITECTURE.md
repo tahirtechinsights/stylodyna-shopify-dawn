@@ -35,11 +35,23 @@ Customer Experience (Editorial Commerce Interface)
 - **Theme Standard**: The StyloDyna Liquid theme is strictly a **presentation and customer interaction layer**. The theme must **NOT** become the product information system of record. Hardcoded product details, manual spec sheets inside section settings, or non-canonical product data structures within section schemas are prohibited.
 
 ### 2. Shopify Online Store 2.0 Standards
-- **JSON Templates**: All page templates (`templates/*.json`) utilize Online Store 2.0 JSON structures enabling merchants to dynamically reorder, add, and configure sections without code modifications.
+- **JSON Templates**: All page templates (`templates/*.json`) utilize Online Store 2.0 JSON structures enabling merchants to dynamically reorder, add, and configure sections
+
+### 3. Storefront Component Architecture
+- **Section Group Header**: Controlled by `sections/header-group.json`.
+- **Two-Tier Header Communication System**:
+  - **Tier 1 (Utility Bar)**: Dark Charcoal (`#1F1F1F`) contact bar rendering persistent support details (`tel:`, `mailto:`, WhatsApp URL).
+  - **Tier 2 (Dynamic Announcement Bar)**: Soft Ivory (`#F7F5F0`) carousel rendering customer-facing trust and delivery announcements with controlled 6-second rotation.
+- **Main Header & Transparent Navigation**: Sticky header engine calculates position without offset jump.
 - **Section Scoping**: Each section is self-contained with its dedicated Liquid template in `sections/` and a corresponding modular CSS file in `assets/`.
 - **Merchant Editor Configuration**: Every visual component exposes structured settings, blocks, presets, and sensible defaults within the section `{% schema %}`.
 
-### 3. Modular Styling & Performance Pipeline
+### 4. Design References Framework
+- Frontend design tasks may incorporate visual inspiration assets stored in `docs/design-references/<domain>/<TASK-ID>/`.
+- Each reference directory contains visual image artifacts, a `README.md` adaptation matrix documenting elements to adopt, elements not to copy, and StyloDyna-specific design system mappings.
+- Reference images are strictly development documentation and must **NEVER** be committed to Shopify production `/assets`.
+
+### 5. Modular Styling & Performance Pipeline
 - Design tokens (`--stylo-warm-ivory`, `--stylo-charcoal`, `--stylo-brass`, etc.) are centralized in root stylesheets and section tokens.
 - Native Liquid filters (`image_tag`, `image_url`, `asset_url`) are leveraged to output optimized, responsive WebP image markup with `srcset` and lazy loading below the fold.
 - JavaScript is strictly minimized to essential interactive features (e.g. hero carousel rotation, mobile menu toggles, drawer state management) without external dependencies.
