@@ -24,6 +24,16 @@
         {%- assign p4 = p3.metafields.custom.parent_collection.value -%}
         {%- assign p5 = p4.metafields.custom.parent_collection.value -%}
 
+        {%- comment -%} Defensive Fallback for APV Handles when Metafields are unpopulated {%- endcomment -%}
+        {%- if p1 == blank -%}
+          {%- if c_leaf.handle == 'artificial-plants-vases' -%}
+            {%- assign p1 = collections['decor'] -%}
+          {%- elsif c_leaf.handle == 'artificial-plants' or c_leaf.handle == 'planters' or c_leaf.handle == 'vases' or c_leaf.handle == 'decorative-pots' -%}
+            {%- assign p1 = collections['artificial-plants-vases'] -%}
+            {%- assign p2 = collections['decor'] -%}
+          {%- endif -%}
+        {%- endif -%}
+
         {%- assign pos = 2 -%}
 
         {%- if p5 != blank -%}
@@ -99,6 +109,16 @@
           {%- assign p3 = p2.metafields.custom.parent_collection.value -%}
           {%- assign p4 = p3.metafields.custom.parent_collection.value -%}
           {%- assign p5 = p4.metafields.custom.parent_collection.value -%}
+
+          {%- comment -%} Defensive Fallback for APV Product Breadcrumbs when Metafields are unpopulated {%- endcomment -%}
+          {%- if p1 == blank -%}
+            {%- if target_col.handle == 'artificial-plants' or target_col.handle == 'planters' or target_col.handle == 'vases' or target_col.handle == 'decorative-pots' -%}
+              {%- assign p1 = collections['artificial-plants-vases'] -%}
+              {%- assign p2 = collections['decor'] -%}
+            {%- elsif target_col.handle == 'artificial-plants-vases' -%}
+              {%- assign p1 = collections['decor'] -%}
+            {%- endif -%}
+          {%- endif -%}
 
           {%- assign pos = 2 -%}
 

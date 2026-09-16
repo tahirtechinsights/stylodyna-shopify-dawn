@@ -41,11 +41,11 @@
             "collection": "decorative-objects"
           }
         },
-        "vases_planters": {
+        "artificial_plants_vases": {
           "type": "category",
           "settings": {
-            "category_title": "Vases & Planters",
-            "collection": "vases-planters"
+            "category_title": "Artificial Plants & Vases",
+            "collection": "artificial-plants-vases"
           }
         },
         "wall_decor": {
@@ -87,7 +87,7 @@
       "block_order": [
         "decorative_models",
         "decorative_objects",
-        "vases_planters",
+        "artificial_plants_vases",
         "wall_decor",
         "tabletop_decor",
         "lighting_decor",

@@ -1,0 +1,229 @@
+/* StyloDyna L2 Merchandising Featured Products Section Styles (DECOR-L2-MERCH-001) */
+
+.stylodyna-l2-featured {
+  position: relative;
+  width: 100%;
+  background-color: var(--sd-color-surface-light, #FAF9F5);
+}
+
+/* Header Container: Flex row with left title block and right View All link */
+.stylodyna-l2-featured__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+}
+
+.stylodyna-l2-featured__header-left {
+  max-width: 68rem;
+}
+
+.stylodyna-l2-featured__eyebrow {
+  color: var(--sd-color-accent-brand, #8A6A43);
+  font-family: var(--font-body-family);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  margin: 0 0 0.8rem;
+}
+
+.stylodyna-l2-featured__heading {
+  color: var(--sd-color-heading, #1F1F1F);
+  font-family: var(--font-heading-family);
+  font-size: clamp(2.8rem, 3.5vw, 4.0rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01rem;
+  margin: 0 0 0.8rem;
+}
+
+.stylodyna-l2-featured__description {
+  color: var(--sd-color-text-muted, rgba(31, 31, 31, 0.7));
+  font-family: var(--font-body-family);
+  font-size: 1.5rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.stylodyna-l2-featured__description p {
+  margin: 0;
+}
+
+/* View All Link */
+.stylodyna-l2-featured__header-right {
+  align-self: flex-end;
+  margin-bottom: 0.4rem;
+}
+
+.stylodyna-l2-featured__view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--sd-color-heading, #1F1F1F);
+  font-family: var(--font-body-family);
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.05rem;
+  transition: color 200ms ease, transform 200ms ease;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.2rem;
+}
+
+.stylodyna-l2-featured__view-all:hover {
+  color: var(--sd-color-accent-brand, #8A6A43);
+}
+
+.stylodyna-l2-featured__view-all-icon {
+  transition: transform 200ms ease;
+}
+
+.stylodyna-l2-featured__view-all:hover .stylodyna-l2-featured__view-all-icon {
+  transform: translateX(4px);
+}
+
+/* 3-Column Desktop Grid Contract (3 columns x max 3 rows = max 9 products) */
+.stylodyna-l2-featured__grid {
+  display: grid !important;
+  width: 100% !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 2.4rem !important;
+  justify-content: start !important;
+  align-items: stretch !important;
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .stylodyna-l2-featured__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 2.0rem !important;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-l2-featured__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.2rem !important;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .stylodyna-l2-featured__grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.6rem !important;
+  }
+}
+
+.stylodyna-l2-featured__grid-item {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+.stylodyna-l2-featured__grid .card-wrapper {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Refined Merchandising Card Frame & Dark Surface Foreground High-Contrast Styling */
+.stylodyna-l2-featured__grid .card {
+  background-color: var(--sd-color-surface-dark, #1F1F1F) !important;
+  border-radius: 0.8rem !important;
+  border: 1px solid var(--sd-color-border-inverse-subtle, rgba(255, 255, 255, 0.08)) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  height: 100% !important;
+}
+
+.stylodyna-l2-featured__grid .card__inner {
+  position: relative !important;
+  aspect-ratio: 4 / 5 !important;
+  background-color: #FFFFFF !important;
+  overflow: hidden !important;
+}
+
+.stylodyna-l2-featured__grid .card__inner .card__media,
+.stylodyna-l2-featured__grid .card__inner .media {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #FFFFFF !important;
+}
+
+.stylodyna-l2-featured__grid .card__inner .card__media img,
+.stylodyna-l2-featured__grid .card__inner .media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  transition: transform 400ms cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.stylodyna-l2-featured__grid .card:hover .card__inner .card__media img,
+.stylodyna-l2-featured__grid .card:hover .card__inner .media img {
+  transform: scale(1.04) !important;
+}
+
+.stylodyna-l2-featured__grid .card > .card__content {
+  background-color: var(--sd-color-surface-dark, #1F1F1F) !important;
+  padding: 1.4rem 1.6rem !important;
+  flex-grow: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.stylodyna-l2-featured__grid .card__heading,
+.stylodyna-l2-featured__grid .card__heading a,
+.stylodyna-l2-featured__grid .card-information .caption-with-letter-spacing {
+  color: var(--sd-color-heading-dark, #FAF9F5) !important;
+  font-size: 1.6rem !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin: 0 0 0.6rem 0 !important;
+  text-decoration: none !important;
+}
+
+.stylodyna-l2-featured__grid .card__heading a:hover {
+  color: var(--sd-color-accent-brand, #8A6A43) !important;
+}
+
+.stylodyna-l2-featured__grid .price,
+.stylodyna-l2-featured__grid .price__regular .price-item,
+.stylodyna-l2-featured__grid .price__sale .price-item {
+  color: #FAF9F5 !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+}
+
+.stylodyna-l2-featured__grid .price .price-item--regular.price-item--last,
+.stylodyna-l2-featured__grid .price--on-sale .price-item--regular {
+  color: rgba(235, 230, 221, 0.55) !important;
+  text-decoration: line-through !important;
+  font-size: 1.3rem !important;
+  font-weight: 400 !important;
+}
+
+.stylodyna-l2-featured__empty {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: rgba(31, 31, 31, 0.03);
+  border-radius: 0.8rem;
+}
+
+.stylodyna-l2-featured__empty-text {
+  color: var(--sd-color-text-muted, rgba(31, 31, 31, 0.6));
+  font-size: 1.5rem;
+  margin: 0;
+}

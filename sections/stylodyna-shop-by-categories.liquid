@@ -22,7 +22,7 @@
 {%- endstyle -%}
 
 <div
-  class="stylodyna-shop-by-categories section-{{ section.id }}-padding{% if section.settings.presentation_mode == 'editorial' %} stylodyna-shop-by-categories--editorial{% endif %}"
+  class="stylodyna-shop-by-categories section-{{ section.id }}-padding{% if collection.handle == 'artificial-plants-vases' %} stylodyna-shop-by-categories--apv{% endif %}{% if section.settings.presentation_mode == 'editorial' %} stylodyna-shop-by-categories--editorial{% endif %}"
   id="{% if section.settings.presentation_mode == 'editorial' %}shop-by-decor-collection{% else %}ShopByCategories-{{ section.id }}{% endif %}"
   data-enable-autoplay="{{ section.settings.enable_autoplay }}"
   data-autoplay-interval="{{ section.settings.autoplay_interval }}"

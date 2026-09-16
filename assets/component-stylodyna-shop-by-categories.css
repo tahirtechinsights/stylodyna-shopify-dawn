@@ -661,3 +661,10 @@
     transform: none;
   }
 }
+
+/* APV L2 SPECIFIC CATEGORY CARD GROUP CENTERING (APV-L2-UI-003) */
+@media screen and (min-width: 990px) {
+  .stylodyna-shop-by-categories--apv .stylodyna-categories__rail {
+    justify-content: center;
+  }
+}

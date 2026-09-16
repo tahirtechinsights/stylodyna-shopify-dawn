@@ -7,12 +7,12 @@
 
 {%- liquid
   assign is_decor = false
-  if collection.handle == 'decor' or collection.handle == 'decorative-models' or collection.handle == 'maritime-models' or collection.handle == 'ship-models' or template.suffix == 'decor-family' or template.suffix == 'decor-type' or template.suffix == 'decor'
+  if collection.handle == 'decor' or collection.handle == 'decorative-models' or collection.handle == 'maritime-models' or collection.handle == 'ship-models' or collection.handle == 'artificial-plants-vases' or collection.handle == 'artificial-plants' or collection.handle == 'planters' or collection.handle == 'vases' or collection.handle == 'decorative-pots' or template.suffix == 'decor-family' or template.suffix == 'decor-type' or template.suffix == 'decor' or template.suffix == 'decor-apv' or template.suffix == 'artificial-plants-vases'
     assign is_decor = true
   endif
   if collection.metafields.custom.parent_collection.value != blank
     assign parent_col = collection.metafields.custom.parent_collection.value
-    if parent_col.handle == 'decor' or parent_col.handle == 'decorative-models' or parent_col.handle == 'maritime-models'
+    if parent_col.handle == 'decor' or parent_col.handle == 'decorative-models' or parent_col.handle == 'maritime-models' or parent_col.handle == 'artificial-plants-vases'
       assign is_decor = true
     endif
   endif
@@ -46,7 +46,7 @@
     <div class="collection-nav-tree">
       <ul class="collection-nav-list list-unstyled" role="list">
         {%- if is_decor -%}
-          {%- comment -%} EXISTING DECOR HIERARCHICAL NAV (DECOR-009D) {%- endcomment -%}
+          {%- comment -%} DECOR HIERARCHICAL NAV (PIM CHECKPOINT 987b8f8) {%- endcomment -%}
           {%- if collection.handle == 'decor' -%}
             {%- comment -%} L1 Decor Active {%- endcomment -%}
             <li class="collection-nav-item level-1 active">
@@ -54,6 +54,9 @@
               <ul class="collection-nav-children list-unstyled" role="list">
                 <li class="collection-nav-child level-2">
                   <a href="/collections/decorative-models" class="collection-nav-link child-link">Decorative Models</a>
+                </li>
+                <li class="collection-nav-child level-2">
+                  <a href="/collections/artificial-plants-vases" class="collection-nav-link child-link">Artificial Plants & Vases</a>
                 </li>
               </ul>
             </li>
@@ -71,6 +74,9 @@
                     </li>
                   </ul>
                 </li>
+                <li class="collection-nav-child level-2">
+                  <a href="/collections/artificial-plants-vases" class="collection-nav-link child-link">Artificial Plants & Vases</a>
+                </li>
               </ul>
             </li>
 
@@ -85,13 +91,15 @@
                     <li class="collection-nav-item level-3 active">
                       <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Maritime Models</span>
                       <ul class="collection-nav-children list-unstyled" role="list">
-                        {%- comment -%} Exposed provisioned child collection only {%- endcomment -%}
                         <li class="collection-nav-child level-4">
                           <a href="/collections/ship-models" class="collection-nav-link child-link">Ship Models (1)</a>
                         </li>
                       </ul>
                     </li>
                   </ul>
+                </li>
+                <li class="collection-nav-child level-2">
+                  <a href="/collections/artificial-plants-vases" class="collection-nav-link child-link">Artificial Plants & Vases</a>
                 </li>
               </ul>
             </li>
@@ -111,6 +119,81 @@
                           <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Ship Models</span>
                         </li>
                       </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li class="collection-nav-child level-2">
+                  <a href="/collections/artificial-plants-vases" class="collection-nav-link child-link">Artificial Plants & Vases</a>
+                </li>
+              </ul>
+            </li>
+
+          {%- elsif collection.handle == 'artificial-plants-vases' -%}
+            {%- comment -%} L2 Artificial Plants & Vases Active {%- endcomment -%}
+            <li class="collection-nav-item level-1">
+              <a href="/collections/decor" class="collection-nav-link ancestor-link">Decor</a>
+              <ul class="collection-nav-children list-unstyled" role="list">
+                <li class="collection-nav-child level-2">
+                  <a href="/collections/decorative-models" class="collection-nav-link child-link">Decorative Models</a>
+                </li>
+                <li class="collection-nav-item level-2 active">
+                  <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Artificial Plants & Vases</span>
+                  <ul class="collection-nav-children list-unstyled" role="list">
+                    <li class="collection-nav-child level-3">
+                      <a href="/collections/artificial-plants" class="collection-nav-link child-link">Artificial Plants (1)</a>
+                    </li>
+                    <li class="collection-nav-child level-3">
+                      <a href="/collections/planters" class="collection-nav-link child-link">Planters</a>
+                    </li>
+                    <li class="collection-nav-child level-3">
+                      <a href="/collections/vases" class="collection-nav-link child-link">Vases</a>
+                    </li>
+                    <li class="collection-nav-child level-3">
+                      <a href="/collections/decorative-pots" class="collection-nav-link child-link">Decorative Pots</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+          {%- elsif collection.handle == 'artificial-plants' or collection.handle == 'planters' or collection.handle == 'vases' or collection.handle == 'decorative-pots' -%}
+            {%- comment -%} L3 APV Child Collection Active {%- endcomment -%}
+            <li class="collection-nav-item level-1">
+              <a href="/collections/decor" class="collection-nav-link ancestor-link">Decor</a>
+              <ul class="collection-nav-children list-unstyled" role="list">
+                <li class="collection-nav-child level-2">
+                  <a href="/collections/decorative-models" class="collection-nav-link child-link">Decorative Models</a>
+                </li>
+                <li class="collection-nav-item level-2">
+                  <a href="/collections/artificial-plants-vases" class="collection-nav-link ancestor-link">Artificial Plants & Vases</a>
+                  <ul class="collection-nav-children list-unstyled" role="list">
+                    <li class="collection-nav-child level-3{% if collection.handle == 'artificial-plants' %} active{% endif %}">
+                      {%- if collection.handle == 'artificial-plants' -%}
+                        <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Artificial Plants</span>
+                      {%- else -%}
+                        <a href="/collections/artificial-plants" class="collection-nav-link child-link">Artificial Plants (1)</a>
+                      {%- endif -%}
+                    </li>
+                    <li class="collection-nav-child level-3{% if collection.handle == 'planters' %} active{% endif %}">
+                      {%- if collection.handle == 'planters' -%}
+                        <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Planters</span>
+                      {%- else -%}
+                        <a href="/collections/planters" class="collection-nav-link child-link">Planters</a>
+                      {%- endif -%}
+                    </li>
+                    <li class="collection-nav-child level-3{% if collection.handle == 'vases' %} active{% endif %}">
+                      {%- if collection.handle == 'vases' -%}
+                        <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Vases</span>
+                      {%- else -%}
+                        <a href="/collections/vases" class="collection-nav-link child-link">Vases</a>
+                      {%- endif -%}
+                    </li>
+                    <li class="collection-nav-child level-3{% if collection.handle == 'decorative-pots' %} active{% endif %}">
+                      {%- if collection.handle == 'decorative-pots' -%}
+                        <span class="collection-nav-current"><span class="collection-nav-check">✓</span> Decorative Pots</span>
+                      {%- else -%}
+                        <a href="/collections/decorative-pots" class="collection-nav-link child-link">Decorative Pots</a>
+                      {%- endif -%}
                     </li>
                   </ul>
                 </li>

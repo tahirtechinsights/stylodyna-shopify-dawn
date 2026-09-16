@@ -2,12 +2,15 @@
   "name": "Decor Family Landing",
   "wrapper": "div.stylodyna-category-landing-wrapper",
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
+    "hero": {
+      "type": "stylodyna-category-hero",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false,
-        "color_scheme": "scheme-1"
+        "eyebrow": "DECORATIVE MODELS DEPARTMENT",
+        "heading": "Decorative Models",
+        "description": "<p>Precision maritime, aviation, automotive and spaceflight display models for collectors and interiors.</p>",
+        "cta_label": "EXPLORE MODEL TYPES",
+        "cta_link": "#shop-by-decor-collection",
+        "fallback_asset": "sd-decor-hero.webp"
       }
     },
     "shop_by_model_type": {
@@ -66,33 +69,26 @@
         "heading": "Top Selling Model"
       }
     },
-    "product-grid": {
-      "type": "main-collection-product-grid",
+    "featured_products": {
+      "type": "stylodyna-l2-featured-products",
       "settings": {
         "eyebrow": "FEATURED FROM DECORATIVE MODELS",
         "heading": "Featured Products",
-        "products_per_page": 16,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
+        "description": "<p>Handcrafted display scale models engineered with architectural precision.</p>",
+        "collection": "decorative-models",
+        "products_to_show": 9,
+        "show_view_all": true,
+        "view_all_label": "View all",
         "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "enable_filtering": true,
-        "filter_type": "horizontal",
-        "enable_sorting": true,
-        "columns_mobile": "2",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 48
       }
     }
   },
   "order": [
-    "banner",
+    "hero",
     "shop_by_model_type",
     "top_selling_model",
-    "product-grid"
+    "featured_products"
   ]
 }
