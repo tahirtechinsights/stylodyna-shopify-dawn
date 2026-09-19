@@ -1,0 +1,55 @@
+{% comment %}
+  StyloDyna Department Extension Hook
+  Provides additive, specialized PDP UX without forking the universal renderer.
+{% endcomment %}
+
+{%- if product.metafields.custom.dimension_diagram.value != blank -%}
+  <details class="stylodyna-pdp-accordion stylodyna-pdp-ext--dimension-diagram">
+    <summary class="stylodyna-pdp-accordion__summary">
+      <div class="stylodyna-pdp-accordion__title-group">
+        <span class="stylodyna-pdp-accordion__svg-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </span>
+        <span class="stylodyna-pdp-accordion__title">Dimension Diagram</span>
+      </div>
+      <span class="stylodyna-pdp-accordion__icon">+</span>
+    </summary>
+    <div class="stylodyna-pdp-accordion__content rte">
+      <img src="{{ product.metafields.custom.dimension_diagram.value | image_url: width: 800 }}" alt="{{ product.title }} Dimension Diagram" loading="lazy" width="800" height="600" />
+    </div>
+  </details>
+{%- endif -%}
+
+{%- if product.metafields.custom.size_guide.value != blank -%}
+  <details class="stylodyna-pdp-accordion stylodyna-pdp-ext--size-guide">
+    <summary class="stylodyna-pdp-accordion__summary">
+      <div class="stylodyna-pdp-accordion__title-group">
+        <span class="stylodyna-pdp-accordion__svg-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16.54 7.3a2 2 0 0 1-2.83 0L12 5.58a2 2 0 0 0-2.83 0L3.46 11.3a2 2 0 0 0 0 2.83l5.66 5.66a2 2 0 0 0 2.83 0l5.71-5.71a2 2 0 0 0 0-2.83l-1.72-1.71 3.84-3.84a2 2 0 0 0 0-2.83L17.55 3.46a2 2 0 0 0-2.83 0z"/></svg>
+        </span>
+        <span class="stylodyna-pdp-accordion__title">Size & Fit Guide</span>
+      </div>
+      <span class="stylodyna-pdp-accordion__icon">+</span>
+    </summary>
+    <div class="stylodyna-pdp-accordion__content rte">
+      {{ product.metafields.custom.size_guide.value }}
+    </div>
+  </details>
+{%- endif -%}
+
+{%- if product.metafields.custom.assembly_instructions.value != blank -%}
+  <details class="stylodyna-pdp-accordion stylodyna-pdp-ext--assembly">
+    <summary class="stylodyna-pdp-accordion__summary">
+      <div class="stylodyna-pdp-accordion__title-group">
+        <span class="stylodyna-pdp-accordion__svg-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </span>
+        <span class="stylodyna-pdp-accordion__title">Assembly & Installation</span>
+      </div>
+      <span class="stylodyna-pdp-accordion__icon">+</span>
+    </summary>
+    <div class="stylodyna-pdp-accordion__content rte">
+      {{ product.metafields.custom.assembly_instructions.value }}
+    </div>
+  </details>
+{%- endif -%}

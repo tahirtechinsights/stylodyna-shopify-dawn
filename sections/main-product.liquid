@@ -15,6 +15,7 @@
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {{ 'component-stylodyna-pdp.css' | asset_url | stylesheet_tag }}
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -40,6 +41,7 @@
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'stylodyna-pdp-gallery.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
@@ -74,8 +76,8 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
+    {% render 'breadcrumbs' %}
     <div class="page-width">
-      {% render 'breadcrumbs' %}
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
           {% render 'product-media-gallery', variant_images: variant_images %}
@@ -108,13 +110,26 @@
                     </a>
                   </div>
                 {%- when 'price' -%}
-                  <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                    {%- render 'price',
-                      product: product,
-                      use_variant: true,
-                      show_badges: true,
-                      price_class: 'price--large'
-                    -%}
+                  <div id="price-{{ section.id }}" class="stylodyna-pdp-price-row" role="status" {{ block.shopify_attributes }}>
+                    <div class="stylodyna-pdp-price-wrapper">
+                      {%- render 'price',
+                        product: product,
+                        use_variant: true,
+                        show_badges: true,
+                        price_class: 'price--large'
+                      -%}
+                    </div>
+                    <div id="Availability-{{ section.id }}" class="stylodyna-pdp-availability" role="status">
+                      {%- if product.selected_or_first_available_variant.available -%}
+                        <span class="stylodyna-pdp-availability__badge stylodyna-pdp-availability__badge--in-stock">
+                          <span class="stylodyna-pdp-availability__dot" aria-hidden="true">●</span> In Stock
+                        </span>
+                      {%- else -%}
+                        <span class="stylodyna-pdp-availability__badge stylodyna-pdp-availability__badge--sold-out">
+                          <span class="stylodyna-pdp-availability__dot" aria-hidden="true">●</span> Sold Out
+                        </span>
+                      {%- endif -%}
+                    </div>
                   </div>
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -192,11 +207,20 @@
                         {%- endif -%}
                       {%- endif -%}
                     {%- endif -%}
-                  </p>
-                {%- when 'description' -%}
+                  </                 {%- when 'description' -%}
                   {%- if product.description != blank -%}
-                    <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+                    <div class="product__description rte stylodyna-pdp-summary quick-add-hidden" {{ block.shopify_attributes }}>
                       {{ product.description }}
+                    </div>
+                  {%- endif -%}
+                  {%- assign feature_bullets = product.metafields.custom.feature_bullets.value -%}
+                  {%- if feature_bullets != blank and feature_bullets.size > 0 -%}
+                    <div class="stylodyna-pdp-highlights quick-add-hidden">
+                      <ul class="stylodyna-pdp-highlights__list">
+                        {%- for bullet in feature_bullets -%}
+                          <li>{{ bullet }}</li>
+                        {%- endfor -%}
+                      </ul>
                     </div>
                   {%- endif -%}
                 {%- when 'sku' -%}
@@ -209,6 +233,304 @@
                     <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span>
                     {{- product.selected_or_first_available_variant.sku -}}
                   </p>
+                                {%- when 'meta_info' -%}
+                  <div class="stylodyna-pdp-meta" {{ block.shopify_attributes }}>
+                    <span class="stylodyna-pdp-meta__item">
+                      <strong>SKU:</strong> {{ product.selected_or_first_available_variant.sku }}
+                    </span>
+                    {%- if product.metafields.custom.product_code != blank -%}
+                      <span class="stylodyna-pdp-meta__divider">•</span>
+                      <span class="stylodyna-pdp-meta__item">
+                        <strong>Product Code:</strong> {{ product.metafields.custom.product_code }}
+                      </span>
+                    {%- endif -%}
+                  </div>
+                {%- when 'variant_picker' -%}
+                  <div class="stylodyna-pdp-config-selectors" {{ block.shopify_attributes }}>
+                    {%- assign canonical_height = product.metafields.custom.overall_height.value -%}
+                    {%- if canonical_height != blank -%}
+                      {%- assign variation_display = canonical_height -%}
+                      {%- if canonical_height contains '175' -%}
+                        {%- unless canonical_height contains '5 ft' -%}
+                          {%- assign variation_display = canonical_height | append: ' (5 ft 9 in)' -%}
+                        {%- endunless -%}
+                      {%- endif -%}
+                    {%- else -%}
+                      {%- assign variation_display = product.metafields.custom.variation.value | default: product.options_by_name['Variation'].values.first | default: product.options_by_name['Size'].values.first -%}
+                    {%- endif -%}
+
+                    {%- if variation_display != blank -%}
+                      <div class="stylodyna-pdp-config-row">
+                        <div class="stylodyna-pdp-config-row__left">
+                          <span class="stylodyna-pdp-config-row__icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                              <path d="M3 9h18"/>
+                              <path d="M9 21V9"/>
+                            </svg>
+                          </span>
+                          <span class="stylodyna-pdp-config-row__label">Variation:</span>
+                          <span class="stylodyna-pdp-config-row__value">{{ variation_display }}</span>
+                        </div>
+                      </div>
+                    {%- endif -%}
+
+                    {%- assign planter_color = product.metafields.custom.planter_color.value -%}
+                    {%- assign foliage_color = product.metafields.custom.foliage_color.value -%}
+
+                    {%- if planter_color != blank and foliage_color != blank -%}
+                      {%- assign color_display = planter_color | append: ' / ' | append: foliage_color -%}
+                    {%- elsif planter_color != blank -%}
+                      {%- assign color_display = planter_color -%}
+                    {%- elsif foliage_color != blank -%}
+                      {%- assign color_display = foliage_color -%}
+                    {%- else -%}
+                      {%- assign color_display = product.metafields.custom.color.value | default: product.options_by_name['Color'].values.first -%}
+                    {%- endif -%}
+
+                    {%- if color_display != blank -%}
+                      <div class="stylodyna-pdp-config-row">
+                        <div class="stylodyna-pdp-config-row__left">
+                          <span class="stylodyna-pdp-config-row__icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                              <circle cx="12" cy="12" r="10"/>
+                              <path d="M12 2a10 10 0 0 0 0 20z"/>
+                            </svg>
+                          </span>
+                          <span class="stylodyna-pdp-config-row__label">Color:</span>
+                          <span class="stylodyna-pdp-swatch" style="background-color: #f4ede2; border: 1px solid #dcd3c5;" aria-hidden="true"></span>
+                          <span class="stylodyna-pdp-config-row__value">{{ color_display }}</span>
+                        </div>
+                      </div>
+                    {%- endif -%}
+
+                    {%- unless product.has_only_default_variant -%}
+                      {% render 'product-variant-picker',
+                        product: product,
+                        block: block,
+                        product_form_id: product_form_id
+                      %}
+                    {%- endunless -%}
+                  </div>
+                {%- when 'supporting_accordions' -%}
+                  {%- assign pdp_specs = product.metafields.custom.pdp_specifications.value -%}
+                  {%- assign care_data = product.metafields.custom.care_instructions.value -%}
+
+                  <div class="stylodyna-pdp-accordions" {{ block.shopify_attributes }}>
+                    {%- comment -%} Product Details Accordion {%- endcomment -%}
+                    {%- if product.description != blank -%}
+                      <details class="stylodyna-pdp-accordion" open>
+                        <summary class="stylodyna-pdp-accordion__summary">
+                          <div class="stylodyna-pdp-accordion__title-group">
+                            <span class="stylodyna-pdp-accordion__svg-icon">
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                            </span>
+                            <span class="stylodyna-pdp-accordion__title">Product Details</span>
+                          </div>
+                          <span class="stylodyna-pdp-accordion__icon">+</span>
+                        </summary>
+                        <div class="stylodyna-pdp-accordion__content rte">
+                          {{ product.description }}
+                        </div>
+                      </details>
+                    {%- endif -%}
+
+                    {%- comment -%} Universal pdp_specifications renderer {%- endcomment -%}
+                    {%- if pdp_specs != blank and pdp_specs.groups != blank and pdp_specs.groups.size > 0 -%}
+                      {%- for group in pdp_specs.groups -%}
+                        {%- if group.items != blank and group.items.size > 0 -%}
+                          <details class="stylodyna-pdp-accordion">
+                            <summary class="stylodyna-pdp-accordion__summary">
+                              <div class="stylodyna-pdp-accordion__title-group">
+                                <span class="stylodyna-pdp-accordion__svg-icon">
+                                  {%- if group.group_id contains 'material' or group.label contains 'Material' -%}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 17 22 12"/></svg>
+                                  {%- else -%}
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0z"/><line x1="14.5" y1="12.5" x2="17" y2="15"/><line x1="11.5" y1="9.5" x2="14" y2="12"/><line x1="8.5" y1="6.5" x2="11" y2="9"/></svg>
+                                  {%- endif -%}
+                                </span>
+                                <span class="stylodyna-pdp-accordion__title">{{ group.label }}</span>
+                              </div>
+                              <span class="stylodyna-pdp-accordion__icon">+</span>
+                            </summary>
+                            <div class="stylodyna-pdp-accordion__content rte">
+                              <table class="stylodyna-pdp-specs-table">
+                                <tbody>
+                                  {%- for item in group.items -%}
+                                    {%- if item.value != blank -%}
+                                      <tr>
+                                        <th>{{ item.label }}</th>
+                                        <td>
+                                          {{ item.value }}
+                                          {%- if item.unit != blank -%}
+                                            {%- assign val_str = item.value | string -%}
+                                            {%- unless val_str contains item.unit -%}
+                                              {{ item.unit }}
+                                            {%- endunless -%}
+                                          {%- endif -%}
+                                        </td>
+                                      </tr>
+                                    {%- endif -%}
+                                  {%- endfor -%}
+                                </tbody>
+                              </table>
+                            </div>
+                          </details>
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- else -%}
+                      {%- comment -%} Legacy component_specifications fallback {%- endcomment -%}
+                      {%- assign comp_specs = product.metafields.custom.component_specifications.value -%}
+                      {%- if comp_specs != blank and comp_specs.components != blank -%}
+                        <details class="stylodyna-pdp-accordion">
+                          <summary class="stylodyna-pdp-accordion__summary">
+                            <div class="stylodyna-pdp-accordion__title-group">
+                              <span class="stylodyna-pdp-accordion__svg-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0z"/><line x1="14.5" y1="12.5" x2="17" y2="15"/><line x1="11.5" y1="9.5" x2="14" y2="12"/><line x1="8.5" y1="6.5" x2="11" y2="9"/></svg>
+                              </span>
+                              <span class="stylodyna-pdp-accordion__title">Specifications & Dimensions</span>
+                            </div>
+                            <span class="stylodyna-pdp-accordion__icon">+</span>
+                          </summary>
+                          <div class="stylodyna-pdp-accordion__content rte">
+                            <table class="stylodyna-pdp-specs-table">
+                              <tbody>
+                                {%- if product.metafields.custom.overall_height.value != blank -%}
+                                  <tr>
+                                    <th>Overall Height</th>
+                                    <td>{{ product.metafields.custom.overall_height.value }}</td>
+                                  </tr>
+                                {%- endif -%}
+                                {%- for comp in comp_specs.components -%}
+                                  {%- if comp.dimensions != blank -%}
+                                    {%- if comp.dimensions.height != blank -%}
+                                      <tr>
+                                        <th>{{ comp.component_name | default: 'Component' }} Height</th>
+                                        <td>{{ comp.dimensions.height }} {{ comp.dimensions.dimension_unit }}</td>
+                                      </tr>
+                                    {%- endif -%}
+                                    {%- if comp.dimensions.diameter != blank -%}
+                                      <tr>
+                                        <th>{{ comp.component_name | default: 'Component' }} Max Width</th>
+                                        <td>{{ comp.dimensions.diameter }} {{ comp.dimensions.dimension_unit }}</td>
+                                      </tr>
+                                    {%- endif -%}
+                                  {%- endif -%}
+                                {%- endfor -%}
+                                {%- if product.metafields.custom.plant_type.value != blank -%}
+                                  <tr>
+                                    <th>Plant Type</th>
+                                    <td>{{ product.metafields.custom.plant_type.value }}</td>
+                                  </tr>
+                                {%- endif -%}
+                                {%- if product.metafields.custom.product_use_cases.value != blank -%}
+                                  <tr>
+                                    <th>Use Cases</th>
+                                    <td>{{ product.metafields.custom.product_use_cases.value | join: ', ' }}</td>
+                                  </tr>
+                                {%- endif -%}
+                              </tbody>
+                            </table>
+                          </div>
+                        </details>
+
+                        <details class="stylodyna-pdp-accordion">
+                          <summary class="stylodyna-pdp-accordion__summary">
+                            <div class="stylodyna-pdp-accordion__title-group">
+                              <span class="stylodyna-pdp-accordion__svg-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 17 22 12"/></svg>
+                              </span>
+                              <span class="stylodyna-pdp-accordion__title">Materials & Construction</span>
+                            </div>
+                            <span class="stylodyna-pdp-accordion__icon">+</span>
+                          </summary>
+                          <div class="stylodyna-pdp-accordion__content rte">
+                            <ul>
+                              {%- for comp in comp_specs.components -%}
+                                {%- if comp.materials != blank -%}
+                                  {%- if comp.materials.primary_material != blank -%}
+                                    <li>
+                                      <strong>{{ comp.component_name | default: 'Component' }}:</strong>
+                                      {{ comp.materials.primary_material }}
+                                      {%- if comp.materials.finish != blank -%}
+                                        ({{ comp.materials.finish }})
+                                      {%- endif -%}
+                                    </li>
+                                  {%- endif -%}
+                                  {%- if comp.materials.secondary_material != blank -%}
+                                    <li>
+                                      <strong>{{ comp.component_name | default: 'Component' }} Structure:</strong>
+                                      {{ comp.materials.secondary_material }}
+                                    </li>
+                                  {%- endif -%}
+                                {%- endif -%}
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                        </details>
+                      {%- endif -%}
+                    {%- endif -%}
+
+                    {%- comment -%} Care & Maintenance Accordion {%- endcomment -%}
+                    {%- if care_data != blank and care_data.instructions != blank and care_data.instructions.size > 0 -%}
+                      <details class="stylodyna-pdp-accordion">
+                        <summary class="stylodyna-pdp-accordion__summary">
+                          <div class="stylodyna-pdp-accordion__title-group">
+                            <span class="stylodyna-pdp-accordion__svg-icon">
+                              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.5-4.5 10-10 10S2 17.5 2 12C2 6.5 6.5 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+                            </span>
+                            <span class="stylodyna-pdp-accordion__title">Care & Maintenance</span>
+                          </div>
+                          <span class="stylodyna-pdp-accordion__icon">+</span>
+                        </summary>
+                        <div class="stylodyna-pdp-accordion__content rte">
+                          {%- for item in care_data.instructions -%}
+                            <p>
+                              {%- if item.target != blank -%}
+                                <strong>{{ item.target }}:</strong>
+                              {%- endif -%}
+                              {{ item.instruction }}
+                            </p>
+                          {%- endfor -%}
+                        </div>
+                      </details>
+                    {%- endif -%}
+
+                    {%- comment -%} Delivery & Shipping Accordion {%- endcomment -%}
+                    <details class="stylodyna-pdp-accordion">
+                      <summary class="stylodyna-pdp-accordion__summary">
+                        <div class="stylodyna-pdp-accordion__title-group">
+                          <span class="stylodyna-pdp-accordion__svg-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                          </span>
+                          <span class="stylodyna-pdp-accordion__title">Delivery & Shipping</span>
+                        </div>
+                        <span class="stylodyna-pdp-accordion__icon">+</span>
+                      </summary>
+                      <div class="stylodyna-pdp-accordion__content rte">
+                        <p>Fast & reliable delivery available across Pakistan. Standard dispatch within 2-4 business days.</p>
+                      </div>
+                    </details>
+
+                    {%- comment -%} Return Policy & Support Accordion {%- endcomment -%}
+                    <details class="stylodyna-pdp-accordion">
+                      <summary class="stylodyna-pdp-accordion__summary">
+                        <div class="stylodyna-pdp-accordion__title-group">
+                          <span class="stylodyna-pdp-accordion__svg-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                          </span>
+                          <span class="stylodyna-pdp-accordion__title">Return Policy & Support</span>
+                        </div>
+                        <span class="stylodyna-pdp-accordion__icon">+</span>
+                      </summary>
+                      <div class="stylodyna-pdp-accordion__content rte">
+                        <p>Easy returns if you're not satisfied according to Storefront return policies. Need help? 24/7 WhatsApp Concierge Support available at 0327 1777879.</p>
+                      </div>
+                    </details>
+
+                    {%- comment -%} Department Extension Hook {%- endcomment -%}
+                    {% render 'pdp-department-extension', product: product %}
+                  </div>
                 {%- when 'custom_liquid' -%}
                   {{ block.settings.custom_liquid }}
                 {%- when 'collapsible_tab' -%}
@@ -493,13 +815,75 @@
                     product_form_id: product_form_id
                   %}
                 {%- when 'buy_buttons' -%}
-                  {%- render 'buy-buttons',
-                    block: block,
-                    product: product,
-                    product_form_id: product_form_id,
-                    section_id: section.id,
-                    show_pickup_availability: true
-                  -%}
+                  {%- if template contains 'decor' -%}
+                    <div class="stylodyna-pdp-purchase-area" {{ block.shopify_attributes }}>
+                      <div class="stylodyna-pdp-purchase-row">
+                        <div class="stylodyna-pdp-purchase-qty">
+                          <div id="Quantity-Form-{{ section.id }}" class="product-form__input product-form__quantity">
+                            <label class="quantity__label form__label" for="Quantity-{{ section.id }}">
+                              <span aria-hidden="true">{{ 'products.product.quantity.label' | t }}</span>
+                            </label>
+                            <quantity-input class="quantity" data-url="{{ product.url }}" data-section="{{ section.id }}">
+                              <button class="quantity__button" name="minus" type="button">
+                                <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+                                <span class="svg-wrapper">{{ 'icon-minus.svg' | inline_asset_content }}</span>
+                              </button>
+                              <input class="quantity__input" type="number" name="quantity" id="Quantity-{{ section.id }}" value="1" min="1" form="{{ product_form_id }}">
+                              <button class="quantity__button" name="plus" type="button">
+                                <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+                                <span class="svg-wrapper">{{ 'icon-plus.svg' | inline_asset_content }}</span>
+                              </button>
+                            </quantity-input>
+                          </div>
+                        </div>
+                        <div class="stylodyna-pdp-purchase-atc">
+                          <product-form class="product-form" data-section-id="{{ section.id }}">
+                            <div class="product-form__error-message-wrapper" role="alert" hidden>
+                              <span class="svg-wrapper">{{ 'icon-error.svg' | inline_asset_content }}</span>
+                              <span class="product-form__error-message"></span>
+                            </div>
+                            {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" class="product-variant-id">
+                              <div class="product-form__buttons">
+                                <button
+                                  id="ProductSubmitButton-{{ section.id }}"
+                                  type="submit"
+                                  name="add"
+                                  class="product-form__submit button button--full-width button--secondary"
+                                  {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                                >
+                                  <span>
+                                    {%- if product.selected_or_first_available_variant.available == false -%}
+                                      {{ 'products.product.sold_out' | t }}
+                                    {%- else -%}
+                                      {{ 'products.product.add_to_cart' | t }}
+                                    {%- endif -%}
+                                  </span>
+                                  {%- render 'loading-spinner' -%}
+                                </button>
+                              </div>
+                            {%- endform -%}
+                          </product-form>
+                        </div>
+                      </div>
+                      {%- if block.settings.show_dynamic_checkout -%}
+                        <div class="stylodyna-pdp-purchase-buynow">
+                          {%- form 'product', product, id: 'decor-buy-now-form', class: 'form' -%}
+                            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                            {{ form | payment_button }}
+                          {%- endform -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  {%- else -%}
+                    {%- render 'buy-buttons',
+                      block: block,
+                      product: product,
+                      product_form_id: product_form_id,
+                      section_id: section.id,
+                      show_pickup_availability: true
+                    -%}
+                  {%- endif -%}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
                     <div class="rating-wrapper">
@@ -760,6 +1144,24 @@
   "tag": "section",
   "class": "section",
   "blocks": [
+    {
+      "type": "meta_info",
+      "name": "StyloDyna Meta Info",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "trust_bar",
+      "name": "StyloDyna Trust Bar",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "supporting_accordions",
+      "name": "StyloDyna Accordions",
+      "limit": 1,
+      "settings": []
+    },
     {
       "type": "@app"
     },
