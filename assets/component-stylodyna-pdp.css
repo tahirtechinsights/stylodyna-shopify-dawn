@@ -1,0 +1,638 @@
+/* StyloDyna Scoped PDP Styles - Scoped to .stylodyna-pdp-* */
+
+.stylodyna-pdp-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
+  letter-spacing: 0.05rem;
+  color: rgba(var(--color-foreground), 0.65);
+  margin-top: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.stylodyna-pdp-meta__item strong {
+  color: rgb(var(--color-foreground));
+  font-weight: 600;
+}
+
+.stylodyna-pdp-meta__divider {
+  opacity: 0.4;
+}
+
+.stylodyna-pdp-summary {
+  font-size: 1.45rem;
+  line-height: 1.55;
+  color: rgba(var(--color-foreground), 0.85);
+  margin-top: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.stylodyna-pdp-summary p {
+  margin: 0;
+}
+
+/* Trust & Service Bar */
+.stylodyna-pdp-trust-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: 2.8rem !important;
+}
+
+.stylodyna-pdp-trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+}
+
+.stylodyna-pdp-trust-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.stylodyna-pdp-trust-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+.stylodyna-pdp-trust-text strong {
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+  font-size: 1.35rem;
+}
+
+.stylodyna-pdp-trust-text span {
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* Supporting Accordions Container */
+.stylodyna-pdp-accordions {
+  margin-top: 2.4rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.stylodyna-pdp-accordion {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stylodyna-pdp-accordion__summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.6rem 0;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.02rem;
+  color: rgb(var(--color-foreground));
+}
+
+.stylodyna-pdp-accordion__summary::-webkit-details-marker {
+  display: none;
+}
+
+.stylodyna-pdp-accordion__icon {
+  font-size: 1.8rem;
+  font-weight: 300;
+  transition: transform 0.2s ease;
+}
+
+.stylodyna-pdp-accordion[open] .stylodyna-pdp-accordion__icon {
+  transform: rotate(45deg);
+}
+
+.stylodyna-pdp-accordion__content {
+  padding-bottom: 1.6rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+.stylodyna-pdp-specs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.8rem;
+}
+
+.stylodyna-pdp-specs-table th,
+.stylodyna-pdp-specs-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ececec;
+  font-size: 1.35rem;
+}
+
+.stylodyna-pdp-specs-table th {
+  font-weight: 600;
+  width: 40%;
+  color: rgb(var(--color-foreground));
+  background-color: #fcfcfc;
+}
+
+.stylodyna-pdp-specs-table td {
+  color: rgba(var(--color-foreground), 0.8);
+}
+
+
+/* PDP-UI-002A Final Breadcrumb Alignment Remediation */
+.breadcrumbs--pdp {
+  width: 100%;
+  background-color: #f0f0f0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  margin-bottom: 2.8rem !important;
+  padding: 0;
+  min-height: 40px;
+  max-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.breadcrumbs--pdp .breadcrumbs__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 40px;
+}
+
+.breadcrumbs--pdp .breadcrumbs__list {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.breadcrumbs--pdp .breadcrumbs__link {
+  color: rgba(var(--color-foreground), 0.65);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.breadcrumbs--pdp .breadcrumbs__link:hover {
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+}
+
+.breadcrumbs--pdp .breadcrumbs__separator {
+  margin: 0 0.6rem;
+  color: rgba(var(--color-foreground), 0.35);
+}
+
+.breadcrumbs--pdp .breadcrumbs__current {
+  color: rgb(var(--color-foreground));
+  font-weight: 500;
+}
+
+/* PDP-UI-002A Active Thumbnail Styling */
+.thumbnail-list__item .thumbnail[aria-current="true"] {
+  border: 2px solid rgb(var(--color-foreground));
+  border-radius: 4px;
+  opacity: 1;
+}
+
+.thumbnail-list__item .thumbnail {
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+  opacity: 0.75;
+}
+
+.thumbnail-list__item .thumbnail:hover {
+  opacity: 1;
+}
+
+
+/* PDP-UI-002B Remediation: Media Stage Navigation Overlay Positioning */
+media-gallery slider-component {
+  position: relative !important;
+  display: block;
+}
+
+.product--medium .product__media-item .product__modal-opener {
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.stylodyna-pdp-stage-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #121212;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.stylodyna-pdp-stage-arrow:hover {
+  background-color: #ffffff;
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.stylodyna-pdp-stage-arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.stylodyna-pdp-stage-arrow--prev {
+  left: 1.8rem;
+}
+
+.stylodyna-pdp-stage-arrow--next {
+  right: 1.8rem;
+}
+
+.stylodyna-pdp-stage-arrow svg {
+  width: 14px;
+  height: 22px;
+  stroke: currentColor;
+  display: block;
+}
+
+@media screen and (max-width: 749px) {
+  .breadcrumbs--pdp {
+    margin-bottom: 2rem !important;
+  }
+  .stylodyna-pdp-stage-arrow {
+    display: none !important;
+  }
+}
+
+/* PDP-UI-002C Product Information & Purchase UX Scoped Styles */
+.stylodyna-pdp-price-row {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.stylodyna-pdp-price-wrapper .price {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+}
+
+.stylodyna-pdp-availability__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1.1rem;
+  border-radius: 20px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+}
+
+.stylodyna-pdp-availability__badge--in-stock {
+  background-color: #e8f5e9;
+  color: #1b5e20;
+  border: 1px solid #c8e6c9;
+}
+
+.stylodyna-pdp-availability__badge--sold-out {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+.stylodyna-pdp-availability__dot {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Purchase Controls Styling */
+.product--medium .product-form__quantity {
+  margin-top: 1.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.product--medium .product-form__quantity .quantity__label {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.04rem;
+  color: rgb(var(--color-foreground));
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.product--medium .product-form__quantity quantity-input.quantity {
+  width: 140px;
+  height: 48px;
+  min-height: 48px;
+  border-radius: 6px;
+  border: 1px solid #d0d0d0;
+  background-color: #ffffff;
+}
+
+.product--medium .product-form__quantity .quantity__button {
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  min-width: 44px;
+  font-size: 1.6rem;
+  color: rgb(var(--color-foreground));
+}
+
+.product--medium .product-form__quantity .quantity__input {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+}
+
+.product--medium .product-form__buttons {
+  max-width: 100%;
+}
+
+.product--medium .product-form__buttons .product-form__submit {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+  border: 1px solid #121212 !important;
+  border-radius: 6px !important;
+  min-height: 50px !important;
+  font-size: 1.45rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08rem !important;
+  text-transform: uppercase !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease !important;
+}
+
+.product--medium .product-form__buttons .product-form__submit:hover:not([disabled]) {
+  background-color: #2a2a2a !important;
+  border-color: #2a2a2a !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product--medium .shopify-payment-button__button--unbranded {
+  border-radius: 6px !important;
+  min-height: 50px !important;
+  font-size: 1.45rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08rem !important;
+  text-transform: uppercase !important;
+}
+
+/* Configuration Selectors (Variation & Color) */
+.stylodyna-pdp-config-selectors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.stylodyna-pdp-config-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f9f9f9;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 1.1rem 1.4rem;
+  font-size: 1.35rem;
+  color: rgb(var(--color-foreground));
+  user-select: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.stylodyna-pdp-config-row__left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stylodyna-pdp-config-row__icon {
+  display: flex;
+  align-items: center;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.stylodyna-pdp-config-row__label {
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+}
+
+.stylodyna-pdp-config-row__value {
+  color: rgba(var(--color-foreground), 0.85);
+  font-weight: 500;
+}
+
+.stylodyna-pdp-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.stylodyna-pdp-config-row__chevron {
+  font-size: 1.6rem;
+  color: rgba(var(--color-foreground), 0.4);
+  line-height: 1;
+}
+
+/* Accordion SVG Title Group */
+.stylodyna-pdp-accordion__title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stylodyna-pdp-accordion__svg-icon {
+  display: flex;
+  align-items: center;
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+/* Isolated Purchase Area & Row Grid (PDP-UI-002C Final Baseline Polish) */
+.stylodyna-pdp-purchase-area {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  margin-top: 1.6rem;
+  margin-bottom: 2.4rem;
+}
+
+.stylodyna-pdp-purchase-row {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 1.2rem !important;
+  align-items: flex-end !important;
+  width: 100% !important;
+}
+
+.stylodyna-pdp-purchase-qty {
+  flex: 0 0 30% !important;
+  max-width: 30% !important;
+  width: 30% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.stylodyna-pdp-purchase-atc {
+  flex: 0 0 calc(70% - 1.2rem) !important;
+  max-width: calc(70% - 1.2rem) !important;
+  width: calc(70% - 1.2rem) !important;
+}
+
+.stylodyna-pdp-purchase-qty .product-form__quantity {
+  margin: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.stylodyna-pdp-purchase-qty .quantity__label {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04rem !important;
+  color: rgb(var(--color-foreground)) !important;
+  margin-bottom: 0.6rem !important;
+  display: block !important;
+  line-height: 1.2 !important;
+}
+
+.stylodyna-pdp-purchase-qty quantity-input.quantity {
+  width: 100% !important;
+  height: 50px !important;
+  min-height: 50px !important;
+  max-height: 50px !important;
+  border-radius: 6px !important;
+  border: 1px solid #d0d0d0 !important;
+  background-color: #ffffff !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+
+.stylodyna-pdp-purchase-qty .quantity__button {
+  width: 44px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  min-width: 44px !important;
+  font-size: 1.6rem !important;
+  color: rgb(var(--color-foreground)) !important;
+}
+
+.stylodyna-pdp-purchase-qty .quantity__input {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: rgb(var(--color-foreground)) !important;
+  height: 48px !important;
+}
+
+.stylodyna-pdp-purchase-atc .product-form {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.stylodyna-pdp-purchase-atc .product-form__buttons {
+  margin: 0 !important;
+  width: 100% !important;
+}
+
+.stylodyna-pdp-purchase-atc .product-form__submit {
+  width: 100% !important;
+  min-height: 50px !important;
+  height: 50px !important;
+  max-height: 50px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.stylodyna-pdp-purchase-buynow {
+  margin-top: 1.2rem !important;
+  width: 100% !important;
+}
+
+.stylodyna-pdp-purchase-buynow .shopify-payment-button {
+  width: 100% !important;
+  margin-top: 0 !important;
+}
+
+.stylodyna-pdp-purchase-buynow .shopify-payment-button__button--unbranded {
+  width: 100% !important;
+  min-height: 50px !important;
+  height: 50px !important;
+  margin: 0 !important;
+}
+
+/* Accordions Total Containment & Flow */
+.stylodyna-pdp-accordions {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  margin-top: 2.4rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.stylodyna-pdp-accordion {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stylodyna-pdp-accordion__summary {
+  display: flex !important;
+  width: 100% !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 1.6rem 0 !important;
+  cursor: pointer;
+  list-style: none;
+}
+
+.stylodyna-pdp-accordion__content {
+  display: block !important;
+  width: 100% !important;
+  clear: both !important;
+  padding-bottom: 1.6rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+@media screen and (max-width: 749px) {
+  .stylodyna-pdp-purchase-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1rem !important;
+  }
+
+  .stylodyna-pdp-purchase-qty,
+  .stylodyna-pdp-purchase-atc {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
