@@ -39,19 +39,15 @@
     endif
   -%}
 
-  {%- capture input_id -%}
-    {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
-  {%- endcapture -%}
-
-  {%- capture input_name -%}
-    {{ option.name }}-{{ option.position }}
-  {%- endcapture -%}
+  {%- assign input_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index0 -%}
+  {%- assign input_name = option.name | append: '-' | append: option.position -%}
 
   {%- capture input_dataset -%}
     data-product-url="{{ value.product_url }}"
     data-option-value-id="{{ value.id }}"
     data-option-name="{{ option.name | escape }}"
   {%- endcapture -%}
+  {%- assign input_dataset = input_dataset | strip -%}
 
   {%- capture label_unavailable -%}
     <span class="visually-hidden label-unavailable">
@@ -60,8 +56,56 @@
   {%- endcapture -%}
 
   {% assign escaped_value = value | escape %}
+  {%- if escaped_value == 'N/A' or escaped_value == 'n/a' -%}
+    <input
+      type="radio"
+      id="{{ input_id }}"
+      name="{{ input_name }}"
+      value="{{ escaped_value }}"
+      form="{{ product_form_id }}"
+      class="visually-hidden"
+      {% if value.selected %}
+        checked
+      {% endif %}
+      {{ input_dataset }}
+    >
+    {%- continue -%}
+  {%- endif -%}
 
-  {%- if picker_type == 'swatch' -%}
+  {%- if picker_type == 'color_swatch' -%}
+    <input
+      type="radio"
+      id="{{ input_id }}"
+      name="{{ input_name }}"
+      value="{{ escaped_value }}"
+      form="{{ product_form_id }}"
+      {% if value.selected %}
+        checked
+      {% endif %}
+      {% if option_disabled %}
+        class="disabled"
+      {% endif %}
+      {{ input_dataset }}
+    >
+    <label for="{{ input_id }}" class="stylodyna-pdp-circle-swatch-btn" title="{{ escaped_value }}" aria-label="{{ option.name }}: {{ escaped_value }}">
+      {%- assign bg_color = swatch_value -%}
+      {%- if bg_color == blank -%}
+        {%- assign val_lower = value | downcase -%}
+        {%- if val_lower contains 'ivory' or val_lower contains 'beige' or val_lower contains 'white' -%}
+          {%- assign bg_color = '#f4ede2' -%}
+        {%- elsif val_lower contains 'black' or val_lower contains 'charcoal' -%}
+          {%- assign bg_color = '#2b2b2a' -%}
+        {%- elsif val_lower contains 'green' -%}
+          {%- assign bg_color = '#2e5a36' -%}
+        {%- else -%}
+          {%- assign bg_color = '#cccccc' -%}
+        {%- endif -%}
+      {%- endif -%}
+      <span class="stylodyna-pdp-swatch-dot" style="background-color: {{ bg_color }};"></span>
+      <span class="visually-hidden">{{ escaped_value }}</span>
+      {{ label_unavailable }}
+    </label>
+  {%- elsif picker_type == 'swatch' -%}
     {%- capture help_text -%}
       <span class="visually-hidden">{{ escaped_value }}</span>
       {{ label_unavailable }}
@@ -84,7 +128,7 @@
     <input
       type="radio"
       id="{{ input_id }}"
-      name="{{ input_name | escape }}"
+      name="{{ input_name }}"
       value="{{ escaped_value }}"
       form="{{ product_form_id }}"
       {% if value.selected %}

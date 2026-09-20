@@ -94,3 +94,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
   gallery.querySelectorAll('.product__media-item').forEach(bindHoverZoom);
 });
+
+// 3. Variant UX & Semantic Option Reconciliation (STOREFRONT-PDP-VARIANTS-002)
+document.addEventListener('DOMContentLoaded', () => {
+  const syncVariantState = () => {
+    const variantSelects = document.querySelector('variant-selects');
+    if (!variantSelects) return;
+    const selectedConfig = variantSelects.querySelector('input[name*="Configuration"]:checked, input[name*="configuration"]:checked');
+    if (selectedConfig && selectedConfig.value.toLowerCase().includes('without planter')) {
+      const planterColorFieldset = variantSelects.querySelector('fieldset[data-option-name="Planter Color"], fieldset[data-option-name="Planter color"]');
+      if (planterColorFieldset) {
+        const naInput = planterColorFieldset.querySelector('input[value="N/A"], input[value="n/a"]');
+        if (naInput) naInput.checked = true;
+      }
+    }
+  };
+  syncVariantState();
+
+  if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+    subscribe(PUB_SUB_EVENTS.variantChange, ({ data: { variant } }) => {
+      if (variant && variant.sku) {
+        const skuItem = document.querySelector('.stylodyna-pdp-meta__item');
+        if (skuItem) {
+          skuItem.innerHTML = `<strong>SKU:</strong> ${variant.sku}`;
+        }
+      }
+    });
+  }
+});
+
+document.addEventListener('click', (e) => {
+  const target = e.target;
+  if (!target || target.tagName !== 'INPUT' || target.type !== 'radio') return;
+
+  const variantSelects = target.closest('variant-selects');
+  if (!variantSelects) return;
+
+  const optionName = target.getAttribute('data-option-name') || '';
+  const val = target.value;
+
+  if (optionName.toLowerCase() === 'configuration' || target.name.toLowerCase().includes('configuration') || val.toLowerCase().includes('planter')) {
+    const planterColorFieldset = variantSelects.querySelector('fieldset[data-option-name="Planter Color"], fieldset[data-option-name="Planter color"]');
+    if (!planterColorFieldset) return;
+
+    if (val.toLowerCase().includes('without planter')) {
+      const naInput = planterColorFieldset.querySelector('input[value="N/A"], input[value="n/a"]');
+      if (naInput) {
+        naInput.checked = true;
+      }
+    } else {
+      const checkedPlanterInput = planterColorFieldset.querySelector('input:checked');
+      if (!checkedPlanterInput || checkedPlanterInput.value.toUpperCase() === 'N/A') {
+        const firstValidInput = planterColorFieldset.querySelector('input:not([value="N/A"]):not([value="n/a"])');
+        if (firstValidInput) {
+          firstValidInput.checked = true;
+        }
+      }
+    }
+  }
+}, true);

@@ -21,78 +21,112 @@
     {% # theme-check-enable %}
     {{ block.shopify_attributes }}
   >
+    {%- comment -%} ROW 1: Configuration {%- endcomment -%}
     {%- for option in product.options_with_values -%}
-      {%- liquid
-        assign swatch_count = option.values | map: 'swatch' | compact | size
-        assign picker_type = block.settings.picker_type
-
-        if swatch_count > 0 and block.settings.swatch_shape != 'none'
-          if block.settings.picker_type == 'dropdown'
-            assign picker_type = 'swatch_dropdown'
-          else
-            assign picker_type = 'swatch'
-          endif
-        endif
-      -%}
-      {%- if picker_type == 'swatch' -%}
-        <fieldset class="js product-form__input product-form__input--swatch">
-          <legend class="form__label">
-            {{ option.name }}:
-            <span data-selected-value>
-              {{- option.selected_value -}}
-            </span>
-          </legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
-        </fieldset>
-      {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
+      {%- assign opt_name_lower = option.name | downcase -%}
+      {%- if opt_name_lower contains 'config' -%}
+        <fieldset class="js product-form__input product-form__input--compact" data-option-name="{{ option.name | escape }}">
           <legend class="form__label">{{ option.name }}</legend>
+          <div class="stylodyna-pdp-chip-group">
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: 'button'
+            %}
+          </div>
+        </fieldset>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} ROW 2: Overall Size (Native Option or Single-Cardinality PIM Fallback) {%- endcomment -%}
+    {%- assign native_size_option = product.options_by_name['Overall Size'] | default: product.options_by_name['Size'] -%}
+    {%- if native_size_option != blank -%}
+      <fieldset class="js product-form__input product-form__input--size-chips" data-option-name="{{ native_size_option.name | escape }}">
+        <legend class="form__label">{{ native_size_option.name }}</legend>
+        <div class="stylodyna-pdp-chip-group">
           {% render 'product-variant-options',
             product: product,
-            option: option,
+            option: native_size_option,
             block: block,
-            picker_type: picker_type
+            picker_type: 'size_chip'
           %}
-        </fieldset>
-      {%- else -%}
-        <div class="product-form__input product-form__input--dropdown">
-          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-            {{ option.name }}
-          </label>
-          <div class="select">
-            {%- if picker_type == 'swatch_dropdown' -%}
-              <span
-                data-selected-value
-                class="dropdown-swatch"
-              >
-                {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
-              </span>
-            {%- endif -%}
-            <select
-              id="Option-{{ section.id }}-{{ forloop.index0 }}"
-              class="select__select"
-              name="options[{{ option.name | escape }}]"
-              form="{{ product_form_id }}"
-            >
-              {% render 'product-variant-options',
-                product: product,
-                option: option,
-                block: block,
-                picker_type: picker_type
-              %}
-            </select>
-            <span class="svg-wrapper">
-              {{- 'icon-caret.svg' | inline_asset_content -}}
-            </span>
+        </div>
+      </fieldset>
+    {%- else -%}
+      {%- assign canonical_height = product.metafields.custom.overall_height.value -%}
+      {%- if canonical_height != blank -%}
+        <div class="product-form__input product-form__input--size-chip">
+          <span class="form__label">Overall Size</span>
+          <div class="stylodyna-pdp-size-chip-list">
+            <div class="stylodyna-pdp-size-chip">
+              <span class="stylodyna-pdp-size-primary">{{ canonical_height }}</span>
+              {%- assign secondary_size = '' -%}
+              {%- if canonical_height contains '175' -%}
+                {%- assign secondary_size = '5 ft 9 in' -%}
+              {%- elsif canonical_height contains '150' -%}
+                {%- assign secondary_size = '4 ft 11 in' -%}
+              {%- elsif canonical_height contains '120' -%}
+                {%- assign secondary_size = '3 ft 11 in' -%}
+              {%- elsif canonical_height contains '210' -%}
+                {%- assign secondary_size = '6 ft 11 in' -%}
+              {%- endif -%}
+              {%- if secondary_size != blank -%}
+                <span class="stylodyna-pdp-size-secondary">{{ secondary_size }}</span>
+              {%- endif -%}
+            </div>
           </div>
         </div>
       {%- endif -%}
+    {%- endif -%}
+
+    {%- comment -%} ROW 3: Colors (Plant Color + Planter Color) {%- endcomment -%}
+    {%- assign native_plant_color_option = product.options_by_name['Plant Color'] | default: product.options_by_name['Foliage Color'] -%}
+    {%- assign foliage_color = product.metafields.custom.foliage_color.value | default: product.metafields.custom.plant_color.value -%}
+    {%- assign has_color_options = false -%}
+    {%- for option in product.options_with_values -%}
+      {%- assign opt_name_lower = option.name | downcase -%}
+      {%- if opt_name_lower contains 'color' -%}
+        {%- assign has_color_options = true -%}
+      {%- endif -%}
     {%- endfor -%}
+
+    {%- if foliage_color != blank or has_color_options -%}
+      <div class="stylodyna-pdp-colors-row">
+        {%- comment -%} Left Col: Plant Color (Fallback to single-cardinality PIM projection when native option is absent) {%- endcomment -%}
+        {%- if native_plant_color_option == blank and foliage_color != blank -%}
+          <div class="stylodyna-pdp-color-col" data-option-col="Plant Color">
+            <span class="form__label">Plant Color</span>
+            <div class="stylodyna-pdp-swatch-group">
+              <div class="stylodyna-pdp-static-color-swatch" title="{{ foliage_color }}" aria-label="Plant Color: {{ foliage_color }}">
+                <span class="stylodyna-pdp-swatch-dot" style="background-color: #2e5a36;"></span>
+                <span class="visually-hidden">{{ foliage_color }}</span>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Color Options Loop (Planter Color, Plant Color when multi-variant) {%- endcomment -%}
+        {%- for option in product.options_with_values -%}
+          {%- assign opt_name_lower = option.name | downcase -%}
+          {%- if opt_name_lower contains 'color' -%}
+            <div class="stylodyna-pdp-color-col" data-option-col="{{ option.name | escape }}">
+              <fieldset class="js product-form__input product-form__input--color-swatches" data-option-name="{{ option.name | escape }}">
+                <legend class="form__label">{{ option.name }}</legend>
+                <div class="stylodyna-pdp-swatch-group">
+                  {% render 'product-variant-options',
+                    product: product,
+                    option: option,
+                    block: block,
+                    picker_type: 'color_swatch'
+                  %}
+                </div>
+              </fieldset>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
 
     <script type="application/json" data-selected-variant>
       {{ product.selected_or_first_available_variant | json }}

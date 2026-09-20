@@ -38,6 +38,189 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
+
+    /* STOREFRONT-PDP-VARIATION-UX-001: Compact UX Amendment */
+    .stylodyna-pdp-config-selectors {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    variant-selects {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .product-form__input--compact,
+    .product-form__input--size-chip,
+    .product-form__input--color-swatches {
+      margin: 0;
+      border: none;
+      padding: 0;
+    }
+
+    .product-form__input--compact .form__label,
+    .product-form__input--size-chip .form__label,
+    .stylodyna-pdp-color-col .form__label {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #374151;
+      display: block;
+    }
+
+    .stylodyna-pdp-chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    variant-selects .product-form__input--compact input[type="radio"],
+    variant-selects .product-form__input--color-swatches input[type="radio"] {
+      clip: rect(0, 0, 0, 0);
+      overflow: hidden;
+      position: absolute;
+      height: 1px;
+      width: 1px;
+    }
+
+    /* Compact Chip Button Style (34-36px height) */
+    variant-selects .product-form__input--compact label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 35px;
+      padding: 0 14px;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #374151;
+      background-color: #ffffff;
+      border: 1.5px solid #d1d5db;
+      border-radius: 18px;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      user-select: none;
+    }
+
+    variant-selects .product-form__input--compact label:hover {
+      border-color: #9ca3af;
+      background-color: #f9fafb;
+    }
+
+    variant-selects .product-form__input--compact input[type="radio"]:checked + label {
+      color: #ffffff;
+      background-color: #111827;
+      border-color: #111827;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Overall Size Two-Line Compact Control */
+    .stylodyna-pdp-size-chip {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 14px;
+      background-color: #f9fafb;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      width: fit-content;
+      user-select: none;
+    }
+
+    .stylodyna-pdp-size-primary {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.2;
+    }
+
+    .stylodyna-pdp-size-secondary {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #6b7280;
+      line-height: 1.2;
+      margin-top: 1px;
+    }
+
+    /* Two-Column Colors Row (No large border box, no COLORS header) */
+    .stylodyna-pdp-colors-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .stylodyna-pdp-color-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stylodyna-pdp-swatch-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Compact Swatch Button Target (34px diameter, 20px color dot, restrained dark ring selected state) */
+    variant-selects .product-form__input--color-swatches label.stylodyna-pdp-circle-swatch-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      background-color: #ffffff;
+      border: 1.5px solid #d1d5db;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      position: relative;
+    }
+
+    variant-selects .product-form__input--color-swatches label.stylodyna-pdp-circle-swatch-btn:hover {
+      border-color: #9ca3af;
+      transform: scale(1.05);
+    }
+
+    variant-selects .product-form__input--color-swatches input[type="radio"]:checked + label.stylodyna-pdp-circle-swatch-btn {
+      border-color: #111827;
+      box-shadow: 0 0 0 2px #111827;
+    }
+
+    .stylodyna-pdp-swatch-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      display: block;
+    }
+
+    .stylodyna-pdp-static-color-swatch {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      background-color: #ffffff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 50%;
+    }
+
+    /* Dynamic hiding of Planter Color when Without Planter is checked */
+    variant-selects:has(input[value="Without Planter"]:checked) .stylodyna-pdp-color-col[data-option-col="Planter Color"],
+    variant-selects:has(input[value="Without Planter"]:checked) fieldset[data-option-name="Planter Color"],
+    variant-selects:has(input[value="Without Planter"]:checked) fieldset[data-option-name="Planter color"] {
+      display: none !important;
+    }
+
+    body:has(variant-selects input[value="Without Planter"]:checked) [data-planter-spec="true"] {
+      display: none !important;
+    }
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -207,20 +390,15 @@
                         {%- endif -%}
                       {%- endif -%}
                     {%- endif -%}
-                  </                 {%- when 'description' -%}
-                  {%- if product.description != blank -%}
-                    <div class="product__description rte stylodyna-pdp-summary quick-add-hidden" {{ block.shopify_attributes }}>
-                      {{ product.description }}
-                    </div>
+                  </p>
+                {%- when 'description' -%}
+                  {%- assign overview_paragraph = product.metafields.custom.overview.value | default: product.metafields.custom.short_description.value -%}
+                  {%- if overview_paragraph == blank and product.description != blank -%}
+                    {%- assign overview_paragraph = product.description | split: '<ul>' | first | strip -%}
                   {%- endif -%}
-                  {%- assign feature_bullets = product.metafields.custom.feature_bullets.value -%}
-                  {%- if feature_bullets != blank and feature_bullets.size > 0 -%}
-                    <div class="stylodyna-pdp-highlights quick-add-hidden">
-                      <ul class="stylodyna-pdp-highlights__list">
-                        {%- for bullet in feature_bullets -%}
-                          <li>{{ bullet }}</li>
-                        {%- endfor -%}
-                      </ul>
+                  {%- if overview_paragraph != blank -%}
+                    <div class="product__description rte stylodyna-pdp-summary quick-add-hidden" {{ block.shopify_attributes }}>
+                      {{ overview_paragraph }}
                     </div>
                   {%- endif -%}
                 {%- when 'sku' -%}
@@ -247,63 +425,6 @@
                   </div>
                 {%- when 'variant_picker' -%}
                   <div class="stylodyna-pdp-config-selectors" {{ block.shopify_attributes }}>
-                    {%- assign canonical_height = product.metafields.custom.overall_height.value -%}
-                    {%- if canonical_height != blank -%}
-                      {%- assign variation_display = canonical_height -%}
-                      {%- if canonical_height contains '175' -%}
-                        {%- unless canonical_height contains '5 ft' -%}
-                          {%- assign variation_display = canonical_height | append: ' (5 ft 9 in)' -%}
-                        {%- endunless -%}
-                      {%- endif -%}
-                    {%- else -%}
-                      {%- assign variation_display = product.metafields.custom.variation.value | default: product.options_by_name['Variation'].values.first | default: product.options_by_name['Size'].values.first -%}
-                    {%- endif -%}
-
-                    {%- if variation_display != blank -%}
-                      <div class="stylodyna-pdp-config-row">
-                        <div class="stylodyna-pdp-config-row__left">
-                          <span class="stylodyna-pdp-config-row__icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                              <path d="M3 9h18"/>
-                              <path d="M9 21V9"/>
-                            </svg>
-                          </span>
-                          <span class="stylodyna-pdp-config-row__label">Variation:</span>
-                          <span class="stylodyna-pdp-config-row__value">{{ variation_display }}</span>
-                        </div>
-                      </div>
-                    {%- endif -%}
-
-                    {%- assign planter_color = product.metafields.custom.planter_color.value -%}
-                    {%- assign foliage_color = product.metafields.custom.foliage_color.value -%}
-
-                    {%- if planter_color != blank and foliage_color != blank -%}
-                      {%- assign color_display = planter_color | append: ' / ' | append: foliage_color -%}
-                    {%- elsif planter_color != blank -%}
-                      {%- assign color_display = planter_color -%}
-                    {%- elsif foliage_color != blank -%}
-                      {%- assign color_display = foliage_color -%}
-                    {%- else -%}
-                      {%- assign color_display = product.metafields.custom.color.value | default: product.options_by_name['Color'].values.first -%}
-                    {%- endif -%}
-
-                    {%- if color_display != blank -%}
-                      <div class="stylodyna-pdp-config-row">
-                        <div class="stylodyna-pdp-config-row__left">
-                          <span class="stylodyna-pdp-config-row__icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                              <circle cx="12" cy="12" r="10"/>
-                              <path d="M12 2a10 10 0 0 0 0 20z"/>
-                            </svg>
-                          </span>
-                          <span class="stylodyna-pdp-config-row__label">Color:</span>
-                          <span class="stylodyna-pdp-swatch" style="background-color: #f4ede2; border: 1px solid #dcd3c5;" aria-hidden="true"></span>
-                          <span class="stylodyna-pdp-config-row__value">{{ color_display }}</span>
-                        </div>
-                      </div>
-                    {%- endif -%}
-
                     {%- unless product.has_only_default_variant -%}
                       {% render 'product-variant-picker',
                         product: product,
@@ -358,7 +479,13 @@
                                 <tbody>
                                   {%- for item in group.items -%}
                                     {%- if item.value != blank -%}
-                                      <tr>
+                                      {%- assign item_key_lower = item.key | downcase -%}
+                                      {%- assign item_label_lower = item.label | downcase -%}
+                                      {%- assign is_planter_spec = false -%}
+                                      {%- if item_key_lower contains 'planter' or item_label_lower contains 'planter' or item_key_lower contains 'top_fill' or item_label_lower contains 'top fill' -%}
+                                        {%- assign is_planter_spec = true -%}
+                                      {%- endif -%}
+                                      <tr {% if is_planter_spec %}data-planter-spec="true"{% endif %}>
                                         <th>{{ item.label }}</th>
                                         <td>
                                           {{ item.value }}
@@ -808,12 +935,6 @@
                     block: block,
                     surface: 'product_page'
                   -%}
-                {%- when 'variant_picker' -%}
-                  {% render 'product-variant-picker',
-                    product: product,
-                    block: block,
-                    product_form_id: product_form_id
-                  %}
                 {%- when 'buy_buttons' -%}
                   {%- if template contains 'decor' -%}
                     <div class="stylodyna-pdp-purchase-area" {{ block.shopify_attributes }}>
