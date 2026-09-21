@@ -217,10 +217,6 @@
     variant-selects:has(input[value="Without Planter"]:checked) fieldset[data-option-name="Planter color"] {
       display: none !important;
     }
-
-    body:has(variant-selects input[value="Without Planter"]:checked) [data-planter-spec="true"] {
-      display: none !important;
-    }
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -392,7 +388,7 @@
                     {%- endif -%}
                   </p>
                 {%- when 'description' -%}
-                  {%- assign overview_paragraph = product.metafields.custom.overview.value | default: product.metafields.custom.short_description.value -%}
+                  {%- assign overview_paragraph = product.metafields.custom.short_description.value | default: product.metafields.custom.short_description | default: product.metafields.custom.overview.value -%}
                   {%- if overview_paragraph == blank and product.description != blank -%}
                     {%- assign overview_paragraph = product.description | split: '<ul>' | first | strip -%}
                   {%- endif -%}
@@ -479,13 +475,35 @@
                                 <tbody>
                                   {%- for item in group.items -%}
                                     {%- if item.value != blank -%}
-                                      {%- assign item_key_lower = item.key | downcase -%}
-                                      {%- assign item_label_lower = item.label | downcase -%}
-                                      {%- assign is_planter_spec = false -%}
-                                      {%- if item_key_lower contains 'planter' or item_label_lower contains 'planter' or item_key_lower contains 'top_fill' or item_label_lower contains 'top fill' -%}
-                                        {%- assign is_planter_spec = true -%}
+                                      {%- assign is_applicable = true -%}
+                                      {%- if item.applicability != blank and item.applicability.all != blank -%}
+                                        {%- for cond in item.applicability.all -%}
+                                          {%- assign cond_dim_lower = cond.dimension | downcase -%}
+                                          {%- assign cond_val_lower = cond.value | downcase -%}
+                                          {%- assign matched_val = '' -%}
+                                          {%- for option in product.options_with_values -%}
+                                            {%- assign opt_name_lower = option.name | downcase -%}
+                                            {%- if opt_name_lower == cond_dim_lower -%}
+                                              {%- assign matched_val = option.selected_value | downcase -%}
+                                            {%- endif -%}
+                                          {%- endfor -%}
+                                          {%- if cond.operator == 'equals' -%}
+                                            {%- if matched_val != cond_val_lower -%}
+                                              {%- assign is_applicable = false -%}
+                                            {%- endif -%}
+                                          {%- else -%}
+                                            {%- assign is_applicable = false -%}
+                                          {%- endif -%}
+                                        {%- endfor -%}
                                       {%- endif -%}
-                                      <tr {% if is_planter_spec %}data-planter-spec="true"{% endif %}>
+                                      <tr
+                                        {% if item.applicability != blank %}
+                                          data-applicability="{{ item.applicability | json | escape }}"
+                                        {% endif %}
+                                        {% unless is_applicable %}
+                                          style="display: none;"
+                                        {% endunless %}
+                                      >
                                         <th>{{ item.label }}</th>
                                         <td>
                                           {{ item.value }}

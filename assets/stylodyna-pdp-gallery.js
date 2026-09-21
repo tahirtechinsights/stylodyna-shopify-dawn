@@ -95,7 +95,63 @@ document.addEventListener('DOMContentLoaded', () => {
   gallery.querySelectorAll('.product__media-item').forEach(bindHoverZoom);
 });
 
-// 3. Variant UX & Semantic Option Reconciliation (STOREFRONT-PDP-VARIANTS-002)
+// 3. Variant UX & Semantic Option Reconciliation (STOREFRONT-PDP-VARIANTS-002 & PDP-UI-003)
+const updateSpecificationApplicability = () => {
+  const variantSelects = document.querySelector('variant-selects');
+  if (!variantSelects) return;
+
+  const selectedOptions = {};
+  variantSelects.querySelectorAll('fieldset[data-option-name]').forEach((fieldset) => {
+    const optName = (fieldset.getAttribute('data-option-name') || '').toLowerCase().trim();
+    const checkedInput = fieldset.querySelector('input[type="radio"]:checked');
+    if (optName && checkedInput) {
+      selectedOptions[optName] = checkedInput.value.toLowerCase().trim();
+    }
+  });
+
+  document.querySelectorAll('tr[data-applicability]').forEach((tr) => {
+    const rawApplicability = tr.getAttribute('data-applicability');
+    if (!rawApplicability) {
+      tr.style.display = '';
+      return;
+    }
+
+    try {
+      const applicability = JSON.parse(rawApplicability);
+      let isApplicable = true;
+
+      if (applicability && Array.isArray(applicability.all)) {
+        for (const cond of applicability.all) {
+          const dim = (cond.dimension || '').toLowerCase().trim();
+          const op = (cond.operator || '').toLowerCase().trim();
+          const targetVal = (cond.value || '').toLowerCase().trim();
+
+          const currentVal = selectedOptions[dim];
+          if (currentVal === undefined) {
+            isApplicable = false;
+            break;
+          }
+
+          if (op === 'equals') {
+            if (currentVal !== targetVal) {
+              isApplicable = false;
+              break;
+            }
+          } else {
+            isApplicable = false;
+            break;
+          }
+        }
+      }
+
+      tr.style.display = isApplicable ? '' : 'none';
+    } catch (err) {
+      console.error('Error evaluating specification applicability:', err);
+      tr.style.display = '';
+    }
+  });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   const syncVariantState = () => {
     const variantSelects = document.querySelector('variant-selects');
@@ -110,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
   syncVariantState();
+  updateSpecificationApplicability();
 
   if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
     subscribe(PUB_SUB_EVENTS.variantChange, ({ data: { variant } }) => {
@@ -119,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
           skuItem.innerHTML = `<strong>SKU:</strong> ${variant.sku}`;
         }
       }
+      updateSpecificationApplicability();
     });
   }
 });
@@ -152,4 +210,5 @@ document.addEventListener('click', (e) => {
       }
     }
   }
+  setTimeout(updateSpecificationApplicability, 10);
 }, true);
